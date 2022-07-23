@@ -7,6 +7,6 @@ export enum WidthOptions {
 };
 
 export enum ButtonColors {
-    primary = 'primary',
-    success = 'success'
+    primaryGradient = 'primaryGradient',
+    secondaryGradient = 'secondaryGradient'
 }

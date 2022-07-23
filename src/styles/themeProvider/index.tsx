@@ -14,7 +14,7 @@ interface Props {
   children: ReactNode
 }
 
-export const  ThemeProvider: React.FC<Props> = ({children}) => {
+const  ThemeProvider: React.FC<Props> = ({children}) => {
 
   const [dark, setDark] = usePersistedState('is_dark', true);
 
