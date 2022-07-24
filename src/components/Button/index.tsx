@@ -1,6 +1,6 @@
 import React, { ButtonHTMLAttributes } from 'react';
 import { Button } from './styles';
-import { ButtonColors } from '../../Typescript/enums';
+import { ButtonColors } from './ButtonColors';
 
 interface IButtonComponentProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string,

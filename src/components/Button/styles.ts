@@ -23,7 +23,7 @@ export const Button = styled.button<ButtonProps>`
 
     outline: none;
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     height: 50px;
     width: 100%;
     color: #fff;
