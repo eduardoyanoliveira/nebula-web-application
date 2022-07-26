@@ -26,7 +26,7 @@ export const Label = styled.label<LabelProps>`
     margin-left: 15px;
     ${({theme}) => css`
         color: ${theme.colors.typography500};
-        ${theme.typographies.titleTwo};
+        ${theme.typographies.subtitleOne};
     `}
 
 `;
@@ -43,7 +43,7 @@ export const Input = styled.input`
 
     ${({theme}) => css`
         background-color: ${theme.colors.background};
-        ${theme.typographies.subtitleOne};
+        ${theme.typographies.titleTwo};
     `}
 
 `;

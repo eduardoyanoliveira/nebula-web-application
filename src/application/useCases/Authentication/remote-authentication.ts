@@ -13,7 +13,6 @@ export class RemoteAuthentication implements IAuthentication{
         private url: string,
         private HTTPPostClient: IHTTPPostClient<RemoteAuthenticationBodyProps, IUserCredentialsProps>
     ){};
-;
 
     async authenticate(email: string, password: string): Promise<Result<IUserCredentialsProps>> {
         

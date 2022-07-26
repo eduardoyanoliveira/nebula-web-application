@@ -33,7 +33,7 @@ export const typographies : Typographies = {
     },
     button: {
         fontSize: '23px',
-        letterSpacing: '2px',
+        letterSpacing: '1px',
         lineHeight: '20px',
         fontWeight: 500,
     },
