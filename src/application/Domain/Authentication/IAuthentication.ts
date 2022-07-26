@@ -1,4 +1,4 @@
-import { Result } from "../../core/Result";
+import { Result } from "../../Core/Result";
 
 export interface IUserCredentialsProps {
     id: string,

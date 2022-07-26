@@ -34,4 +34,5 @@ export const Button = styled.button<ButtonProps>`
         max-width: ${maxWidth};
         ${theme.typographies.button};
     `};
+
 `;

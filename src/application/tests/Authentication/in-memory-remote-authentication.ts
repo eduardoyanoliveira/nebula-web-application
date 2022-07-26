@@ -1,6 +1,6 @@
-import { Result } from "../../core/Result";
+import { Result } from "../../Core/Result";
 import { IUserCredentialsProps } from "../../Domain/Authentication/IAuthentication";
-import { IHTTPPostClient } from "../../Infra/interfaces/IHTTPPostClient";
+import { IHTTPPostClient } from "../../Domain/HTTPRequestsClient/IHTTPPostClient";
 
 interface User {
     username: string,

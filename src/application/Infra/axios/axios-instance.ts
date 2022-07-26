@@ -1,10 +1,10 @@
 import axios, { AxiosError } from 'axios';
-import { signOut } from '../../../contexts/AuthContext';
-import { AuthTokenError } from './Errors/AuthTokenError';
+import { signOut } from '../../features/Authentication/contexts/AuthContext/sign-out';
+import { AuthTokenError } from '../../Errors/AuthTokenError';
 
 export function setUpAxiosInstance(){
 
-    const api = axios.create({
+    const instance = axios.create({
         baseURL: 'http://localhost:3333',
         timeout: 2000,
         headers:{
@@ -12,7 +12,7 @@ export function setUpAxiosInstance(){
         }
     });
 
-    api.interceptors.response.use( response => {
+    instance.interceptors.response.use( response => {
         return response;
     }, (error : AxiosError) => {
         if(error.response?.status === 401){
@@ -26,7 +26,7 @@ export function setUpAxiosInstance(){
         return Promise.reject(error);
     });
 
-    return api;
+    return instance;
 };
 
 export const axiosInstance = setUpAxiosInstance();

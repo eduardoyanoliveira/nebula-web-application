@@ -1,4 +1,4 @@
-import { Result } from "../../core/Result";
+import { Result } from "../../Core/Result";
 import { IUserCredentialsProps } from "../../Domain/Authentication/IAuthentication";
 import { InMemoryRemoteAuthentication } from "../../tests/Authentication/in-memory-remote-authentication";
 import { RemoteAuthentication } from "./remote-authentication";

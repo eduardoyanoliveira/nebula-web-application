@@ -1,4 +1,4 @@
-import { AuthProvider } from "./application/contexts/AuthContext";
+import { AuthProvider } from "./application/features/Authentication/contexts/AuthContext";
 import { RoutesSite } from "./routes";
 import Global from "./styles/global";
 import ThemeProvider from './styles/themeProvider'

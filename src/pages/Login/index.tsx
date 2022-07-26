@@ -2,7 +2,7 @@ import InputComponent from "../../components/Input";
 import { ButtonColors } from '../../Typescript/enums';
 import  ButtonComponent  from '../../components/Button';
 import { Screen, FormContainer, Title } from "./styles";
-import LoginComponent from "../../application/components/Login/login-component";
+import LoginComponent from "../../application/features/Authentication/components/login-component";
 
 
 function LoginPage() {
