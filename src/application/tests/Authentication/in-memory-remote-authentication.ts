@@ -13,7 +13,7 @@ interface RemoteAuthenticationBodyProps {
     password: string
 };
 
-export class InMemoryRemoteAuthentication implements IHTTPPostClient<RemoteAuthenticationBodyProps, IUserCredentialsProps>{
+export class InMemoryRemoteAuthentication implements IHTTPPostClient<IUserCredentialsProps>{
 
     public users : User[] = [];
 

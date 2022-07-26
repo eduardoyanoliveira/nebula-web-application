@@ -1,12 +1,10 @@
 import { useState, FormEvent } from "react";
-import { IHTTPPostClient } from "../../Infra/interfaces/IHTTPPostClient";
+import { axiosInstance } from "../../Infra/HTTPClients/Axios/axios-instance";
+import { HTTPAxiosPostClient } from "../../Infra/HTTPClients/Axios/http-axios-post-client";
 
-export interface ILoginRequestProps{
-    email: string,
-    password: string
-};
+const httpAxiosPostClient = new HTTPAxiosPostClient(axiosInstance)
 
-export default async function useLogin(HTTPPostClient: IHTTPPostClient<ILoginRequestProps, Response>){
+export default function useLogin(){
 
     const [formData, setFormData] = useState({
         email: '',
@@ -20,10 +18,10 @@ export default async function useLogin(HTTPPostClient: IHTTPPostClient<ILoginReq
         });
     };
 
-    async function handleSubmit (e : FormEvent){
+    async function onSubmit (e : FormEvent){
         e.preventDefault();
 
-        const result = await HTTPPostClient.post('sessions', formData);
+        const result = await httpAxiosPostClient.post('sessions', formData);
 
         if(result.isFailure){
             console.log(result.error);
@@ -33,5 +31,5 @@ export default async function useLogin(HTTPPostClient: IHTTPPostClient<ILoginReq
         };
     };
 
-    return { handleChange, handleSubmit };
+    return { handleChange, onSubmit };
 };
