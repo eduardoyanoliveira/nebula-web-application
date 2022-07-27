@@ -5,21 +5,19 @@ import { RemoteAuthentication } from '../../../../useCases/Authentication/remote
 import { DeleteItemFromLocalStorage } from '../../../../useCases/Cache/delete-from-local-storage';
 import { GetItemfromLocalStorage } from '../../../../useCases/Cache/get-item-from-local-storage';
 import { SaveItemOnLocalStorage } from '../../../../useCases/Cache/save-item-on-local-storage';
-import { ISignIn } from '../../../../Domain/Authentication/ISignIn';
-import { ISignOut } from '../../../../Domain/Authentication/ISignOut';
-import { SignIn } from '../../../../useCases/Authentication/sign-in';
-import { SignOut } from '../../../../useCases/Authentication/sign-out';
+import { ISignIn } from '../../../../Domain/UserCredentials/ISignIn';
+import { ISignOut } from '../../../../Domain/UserCredentials/ISignOut';
+import { SignIn } from '../../../../useCases/UserCredentials/sign-in';
+import { SignOut } from '../../../../useCases/UserCredentials/sign-out';
+import { GetUserCredentials } from '../../../../useCases/UserCredentials/get-user-credentials';
+import { IUserCredentialsProps } from '../../../../Domain/UserCredentials/IGetUserCredentials';
+
+interface IUserProps extends Omit<IUserCredentialsProps, 'token'> {}
 
 type AuthContextData = {
-    user: IUserProps | undefined;
+    user: IUserCredentialsProps | undefined;
     signIn: ISignIn;
     signOut: ISignOut;
-};
-
-type IUserProps = {
-    id: string;
-    name: string;
-    email: string;
 };
 
 type AuthProviderProps ={
@@ -27,26 +25,25 @@ type AuthProviderProps ={
 };
 
 
-export const AuthContext = createContext({} as AuthContextData);
-
-
 const deleteItemFromLocalStorage = new DeleteItemFromLocalStorage();
-const saveItemOnLocalStorage = new SaveItemOnLocalStorage();
-const getItemFromLocalStorage = new GetItemfromLocalStorage<IUserProps>(); 
-
 const signOut = new SignOut(deleteItemFromLocalStorage);
 
-
 const httpAxiosPostClient = new HTTPAxiosPostClient(axiosInstance);
-
 const authenticate = new  RemoteAuthentication('sessions', httpAxiosPostClient);
-
+const saveItemOnLocalStorage = new SaveItemOnLocalStorage();
 const signIn = new SignIn( authenticate, saveItemOnLocalStorage);
+
+const getItemFromLocalStorage = new GetItemfromLocalStorage< IUserCredentialsProps | undefined>(); 
+const getUserCredentials = new GetUserCredentials(getItemFromLocalStorage);
+
+
+export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children } : AuthProviderProps){
 
-    const [user, setUser] = useState<IUserProps | undefined >(() => {
-        const response = getItemFromLocalStorage.execute('@user');
+    const [user,] = useState<IUserCredentialsProps | undefined >(() => {
+
+        const response = getUserCredentials.execute();
 
         if(response.isFailure){
             return;

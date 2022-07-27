@@ -16,7 +16,12 @@ export class InMemorySaveItemOnLocalStorage<T> implements ISaveItemOnCache<T>{
 
 
 export class InMemoryDeleteItemFromLocalStorage implements IDeleteItemFromCache{
+    
     execute(key: string): Result<void> {
+
+        if(!(inMemoryLocalStorage as any)[key]){
+            return Result.fail<void>('Could not find the value on the cache by the given key');
+        };
 
         delete (inMemoryLocalStorage as any)[key];
 
@@ -27,6 +32,10 @@ export class InMemoryDeleteItemFromLocalStorage implements IDeleteItemFromCache{
 
 export class InMemoryGetItemFromLocalStorage<T> implements IGetItemFromCache<T>{
     execute(key: string) {
+
+        if(!(inMemoryLocalStorage as any)[key]){
+            return Result.fail<T>('Could not find the value on the cache by the given key');
+        };
 
         try{
             return Result.ok<T>(JSON.parse((inMemoryLocalStorage as any)[key]));

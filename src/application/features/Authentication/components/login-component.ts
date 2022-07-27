@@ -1,5 +1,5 @@
 import { useState, FormEvent } from "react";
-import { ISignIn } from "../../../Domain/Authentication/ISignIn";
+import { ISignIn } from "../../../Domain/UserCredentials/ISignIn";
 
 interface ILoginReturnProps {
     handleChange(e: React.ChangeEvent<HTMLInputElement>): void,
@@ -23,7 +23,6 @@ export default function  LoginComponent(signIn : ISignIn) : ILoginReturnProps{
 
     async function onSubmit (e : FormEvent){
         e.preventDefault();
-
         await signIn.execute(formData);
     };
 

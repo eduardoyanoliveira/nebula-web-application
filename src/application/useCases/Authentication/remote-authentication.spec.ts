@@ -1,15 +1,13 @@
-import { InMemoryRemoteAuthentication } from "../../tests/Authentication/in-memory-remote-authentication";
+import { InMemoryPostAuthentication } from "../../tests/HttpRequestClients/in-memory-post-authentication";
 import { RemoteAuthentication } from "./remote-authentication";
 
 describe('Remote Authentication tests', () => {
 
-    const HTTPPostClient = new InMemoryRemoteAuthentication();
+    const httpPostClient = new InMemoryPostAuthentication();
 
-    const remoteAuthentication = new RemoteAuthentication('/sessions', HTTPPostClient);
+    const remoteAuthentication = new RemoteAuthentication('sessions', httpPostClient);
 
-    HTTPPostClient.url = '/sessions'
-
-    HTTPPostClient.users.push({
+    httpPostClient.users.push({
         username: 'test',
         email: 'test@test.com',
         password: '123@abc'
@@ -40,7 +38,7 @@ describe('Remote Authentication tests', () => {
             '123@abc'
         );
 
+
         expect(response.isSuccess).toBeTruthy();
-        expect(response.getValue().token).toBeTruthy();
     });
 }); 

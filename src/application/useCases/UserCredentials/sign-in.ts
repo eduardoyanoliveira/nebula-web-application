@@ -1,7 +1,7 @@
 import { Result } from "../../Core/Result";
-import { ISignIn, SignInProps } from "../../Domain/Authentication/ISignIn";
+import { ISignIn, SignInProps } from "../../Domain/UserCredentials/ISignIn";
 import { ISaveItemOnCache } from "../../Domain/Cache/ISaveItemOnCache";
-import { RemoteAuthentication } from './remote-authentication'
+import { RemoteAuthentication } from '../Authentication/remote-authentication'
 
 interface UserProps  {
     user_id: string,
