@@ -1,5 +1,3 @@
-import { Result } from "../../Core/Result";
-import { IUserCredentialsProps } from "../../Domain/Authentication/IAuthentication";
 import { InMemoryRemoteAuthentication } from "../../tests/Authentication/in-memory-remote-authentication";
 import { RemoteAuthentication } from "./remote-authentication";
 
@@ -18,7 +16,7 @@ describe('Remote Authentication tests', () => {
     });
 
     it('should fail with the email is wrong', async () => {
-        const response : Result<IUserCredentialsProps> = await remoteAuthentication.authenticate(
+        const response  = await remoteAuthentication.authenticate(
             'super@super.com',
             '123@abc'
         );
@@ -28,7 +26,7 @@ describe('Remote Authentication tests', () => {
 
     
     it('should fail with the password is wrong', async () => {
-        const response : Result<IUserCredentialsProps> = await remoteAuthentication.authenticate(
+        const response  = await remoteAuthentication.authenticate(
             'test@test.com',
             '123@ABC'
         );
@@ -37,7 +35,7 @@ describe('Remote Authentication tests', () => {
     });
 
     it('should be able to authenticate the user', async () => {
-        const response : Result<IUserCredentialsProps> = await remoteAuthentication.authenticate(
+        const response  = await remoteAuthentication.authenticate(
             'test@test.com',
             '123@abc'
         );

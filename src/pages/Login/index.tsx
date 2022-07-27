@@ -3,11 +3,14 @@ import { ButtonColors } from '../../Typescript/enums';
 import  ButtonComponent  from '../../components/Button';
 import { Screen, FormContainer, Title } from "./styles";
 import LoginComponent from "../../application/features/Authentication/components/login-component";
-
+import { useContext } from "react";
+import { AuthContext } from "../../application/features/Authentication/contexts/AuthContext";
 
 function LoginPage() {
+  
+  const { signIn } = useContext(AuthContext);
 
-  const { handleChange, onSubmit } = LoginComponent();
+  const { handleChange, onSubmit } = LoginComponent(signIn);
 
   return (
     <Screen size="xs">

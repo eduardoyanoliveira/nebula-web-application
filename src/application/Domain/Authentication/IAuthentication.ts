@@ -1,5 +1,5 @@
 import { Result } from "../../Core/Result";
-
+import { IHTTPResponse } from "../HTTPRequestsClient/IHTTPPostClient";
 export interface IUserCredentialsProps {
     id: string,
     username: string,
@@ -7,6 +7,6 @@ export interface IUserCredentialsProps {
     token: string,
 };
 
-export interface IAuthentication {
-    authenticate(email: string, password: string): Promise<Result<IUserCredentialsProps>>
+export interface IAuthentication{
+    authenticate(email: string, password: string): Promise<Result<IHTTPResponse>>
 };

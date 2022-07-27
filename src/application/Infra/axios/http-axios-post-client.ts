@@ -2,7 +2,7 @@ import { AxiosInstance, AxiosResponse } from "axios";
 import { Result } from "../../Core/Result";
 import { IHTTPPostClient } from "../../Domain/HTTPRequestsClient/IHTTPPostClient";
 
-export class HTTPAxiosPostClient implements IHTTPPostClient<AxiosResponse>{
+export class HTTPAxiosPostClient implements IHTTPPostClient{
 
     constructor(
         private AxiosInstance: AxiosInstance

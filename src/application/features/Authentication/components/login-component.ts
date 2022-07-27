@@ -1,15 +1,13 @@
-import { useState, FormEvent, useContext } from "react";
-import { AuthContext } from "../contexts/AuthContext";
+import { useState, FormEvent } from "react";
+import { ISignIn } from "../../../Domain/Authentication/ISignIn";
 
-interface IUseLoginReturnProps {
+interface ILoginReturnProps {
     handleChange(e: React.ChangeEvent<HTMLInputElement>): void,
     onSubmit(e : FormEvent): Promise<void>
 };
 
 
-export default function  LoginComponent() : IUseLoginReturnProps{
-
-    const { signIn } = useContext(AuthContext);
+export default function  LoginComponent(signIn : ISignIn) : ILoginReturnProps{
 
     const [formData, setFormData] = useState({
         email: '',
@@ -26,7 +24,7 @@ export default function  LoginComponent() : IUseLoginReturnProps{
     async function onSubmit (e : FormEvent){
         e.preventDefault();
 
-        await signIn(formData);
+        await signIn.execute(formData);
     };
 
     return { handleChange, onSubmit };

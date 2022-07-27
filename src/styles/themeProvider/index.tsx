@@ -16,7 +16,7 @@ interface Props {
 
 const  ThemeProvider: React.FC<Props> = ({children}) => {
 
-  const [dark, setDark] = usePersistedState('is_dark', true);
+  const [dark, setDark] = usePersistedState('is_dark', false);
 
   const toggleTheme = () => {
     setDark(!dark);
