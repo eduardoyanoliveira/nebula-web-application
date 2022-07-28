@@ -6,7 +6,8 @@ export class SaveItemOnLocalStorage<T> implements ISaveItemOnCache<T>{
     execute(key: string, item: T | string): Result<void> {
 
         try{
-            localStorage.setItem(key, JSON.stringify(item));
+            item = typeof item === 'string' ? item  : JSON.stringify(item)
+            localStorage.setItem(key, item);
 
             return Result.ok();
         }catch{

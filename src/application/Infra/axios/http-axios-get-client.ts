@@ -1,22 +1,26 @@
 import { AxiosInstance, AxiosResponse } from "axios";
 import { Result } from "../../Core/Result";
-import { IHTTPPostClient } from "../../Domain/HTTPRequestsClient/IHTTPPostClient";
+import { IHTTPGetClient } from "../../Domain/HTTPRequestsClient/IHTTPGetClient";
 
-export class HTTPAxiosPostClient implements IHTTPPostClient{
+export class HTTPAxiosGetClient implements IHTTPGetClient{
 
     constructor(
         private AxiosInstance: AxiosInstance
     ){};
 
-    async post(url: string,  body: object): Promise<Result<AxiosResponse>>{
+    async get(url: string, finallyFn?: Function): Promise<Result<AxiosResponse>>{
         
-        return await this.AxiosInstance.post(url, body)
+        return await this.AxiosInstance.get(url)
         .then((response) => {
             return Result.ok<AxiosResponse>(response);
         })
         .catch((error) => {
             console.log(error);
             return Result.fail<AxiosResponse>(JSON.parse(error.request.responseText).error);
+        })
+        .finally(() => {
+            // With a finnaly function is passed in the parameters, it gonna be executed. 
+            finallyFn && finallyFn();
         });
     };
 

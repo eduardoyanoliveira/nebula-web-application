@@ -1,6 +1,7 @@
 import { Result } from "../../Core/Result";
 import { IAuthentication } from "../../Domain/Authentication/IAuthentication";
-import { IHTTPPostClient, IHTTPResponse } from "../../Domain/HTTPRequestsClient/IHTTPPostClient";
+import { IHTTPPostClient } from "../../Domain/HTTPRequestsClient/IHTTPPostClient";
+import { IHTTPResponse } from "../../Domain/HTTPRequestsClient/interfaces";
 
 export class RemoteAuthentication implements IAuthentication{
 
