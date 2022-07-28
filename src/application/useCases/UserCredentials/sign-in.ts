@@ -9,7 +9,6 @@ interface UserProps  {
     email: string,
 };
 
-
 export class SignIn implements ISignIn {
     constructor(
         private RemoteAuthentication: RemoteAuthentication,
@@ -32,7 +31,6 @@ export class SignIn implements ISignIn {
         this.SaveItemOnCache.execute('@token', token);
         this.SaveItemOnCache.execute('@user', rest);
         
-
         return Result.ok();
    
     };
