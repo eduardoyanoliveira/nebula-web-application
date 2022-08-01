@@ -8,7 +8,7 @@ interface IRequestCache {
     at: Date
 };
 
-const CACHE : IRequestCache[] = [];
+export const CACHE : IRequestCache[] = [];
 
 function updateCacheRequest({ url, data, at }: IRequestCache): void{
     const index = CACHE.findIndex(request => request.url === url);

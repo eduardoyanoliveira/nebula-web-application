@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useFetch } from '../../application/hooks/useFetch';
 import { useStaleWhileRevalidate } from '../../application/hooks/useStaleWhileRevalidate';
 import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
