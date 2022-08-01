@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { IHTTPGetClient } from "../Domain/HTTPRequestsClient/IHTTPGetClient";
 import { secondsElapsed } from "../utils/date/secondsElapsed";
 
@@ -33,6 +33,9 @@ export function useStaleWhileRevalidate<T = any >(url: string, httpGetClient : I
     const [ isFetching, setIsFetching ] = useState(true);
     const [error, setError] = useState<null | undefined | string>(null);
 
+    // Controls if the hook have been mounted to prevent over requesting
+    const isMounted = useRef(true);
+
     const fetch = useCallback(async () => {
 
         const request = CACHE.find(request => request.url === url);
@@ -45,8 +48,6 @@ export function useStaleWhileRevalidate<T = any >(url: string, httpGetClient : I
 
         // Cancel data fetching if it is not staled
         if(elapsedTime < staleTime && elapsedTime !== 0) return;
-
-        console.log(CACHE)
 
         const response = await httpGetClient.get(url, () => setIsFetching(false));
 
@@ -62,35 +63,42 @@ export function useStaleWhileRevalidate<T = any >(url: string, httpGetClient : I
         });
 
         setData(response.getValue().data);
+
     },[url, httpGetClient, staleTime]);
 
     useEffect(() => {
 
         const request = CACHE.find(request => request.url === url);
 
-        // look in cache and set response if present
-        if (request !== undefined) {
-            setData(request.data);
-            setIsFetching(false);
-        } else {
-            // else make sure loading set to true
-            setIsFetching(true);
-        };
+        // Only runs the code if the component is mounted
+        if(isMounted.current){
+            // look in cache and set response if present
+            if (request !== undefined) {
+                setData(request.data);
+                setIsFetching(false);
+            } else {
+                // else make sure loading set to true
+                setIsFetching(true);
+            };
 
-        // Only refetaches if the request is not in cache or the staleTime has been passed
-        fetch();
+            // Only refetaches if the request is not in cache or the staleTime has been passed
 
-    }, [fetch, url]);  
-
-
-    useEffect(() => {
-        window.addEventListener('focus', () => {
-            // refetch
             fetch();
-        });
 
-        return window.removeEventListener('focus', fetch)
-    },[fetch])
+            window.addEventListener('focus', () => {
+                // refetch
+                fetch();
+            });
+        };
+       
+        return () => {
+            // Removes the event from the window Api to prevent memory leaks
+            window.removeEventListener('focus', fetch);
+
+            // Unmount the component
+            isMounted.current = false;
+        };
+    }, [fetch, url]);  
 
     return { data, isFetching, error };
 };
