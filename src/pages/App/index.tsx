@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useFetch } from '../../application/hooks/useFetch';
+import { useStaleWhileRevalidate } from '../../application/hooks/useStaleWhileRevalidate';
 import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
 import AutoComplete from '../../components/AutoComplete';
@@ -20,7 +21,7 @@ const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
 
 function App() {
 
-  const { data: usersData, isFetching, error } = useFetch<User[]>('users', httpAxiosGetClient);
+  const { data: usersData, isFetching, error } = useStaleWhileRevalidate<User[]>('users', httpAxiosGetClient, 10);
   const [users, setUsers] = useState<IAutoCompleteData[]>([]);
 
   useEffect(() => {
