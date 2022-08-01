@@ -1,5 +1,5 @@
 import React, { createContext, ReactNode } from 'react';
-import usePersistedState from '../../utils/customHooks/usePersistedState';
+import usePersistedState from '../../application/hooks/usePersistedState';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 import darkTheme from '../themes/dark';

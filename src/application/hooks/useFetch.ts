@@ -35,31 +35,3 @@ export function useFetch<T = any >(url: string, httpGetClient : IHTTPGetClient) 
 
     return { data, isFetching, error };
 };
-
-// export function useFetch<T = any >(url: string, options?: AxiosRequestConfig) {
-
-//     const [data, setData] =  useState<T | null>(null);
-//     const [ isFetching, setIsFetching ] = useState(true);
-
-//     useEffect(() => {
-
-//         axios.get(url, options)
-//         .then(response => {
-//             setData(response.data);
-//         })
-//         .finally(() => {
-//             setIsFetching(false);
-//         });
-
-//     }, [url, options]);  
-
-//     useEffect(() => {
-//         window.addEventListener('focus', () => {
-//             // refetch
-//         });
-
-//         // return window.removeEventListener('focus')
-//     },[])
-
-//     return { data, isFetching };
-// };

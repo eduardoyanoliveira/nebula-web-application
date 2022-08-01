@@ -12,24 +12,35 @@ export class SetUpAxiosInstance{
     ){};
 
     create(){
+
+        let token;
+
+        const tokenResponse = this.GetItemFromCache.execute('@token');
+
+        if(tokenResponse.isFailure){
+            token = '';
+        }else{
+            token = tokenResponse.getValue();
+        };
+
         const instance = axios.create({
             baseURL: this.baseURL,
             timeout: 2000,
             headers:{
-                Authorization: `Bearer ${localStorage.getItem('@token')}`
+                Authorization: `Bearer ${token}`
             }
         });
     
         instance.interceptors.response.use( response => {
             return response;
         }, (error : AxiosError) => {
-            // if(error.response?.status === 401){
-            //     if(typeof window !== undefined){
-            //         this.DeleteItemFromCache.execute('@token');
-            //     }else{
-            //         return Promise.reject( new AuthTokenError())
-            //     }
-            // };
+            if(error.response?.status === 401){
+                if(typeof window !== undefined){
+                    this.DeleteItemFromCache.execute('@token');
+                }else{
+                    return Promise.reject( new AuthTokenError())
+                }
+            };
     
             return Promise.reject(error);
         });

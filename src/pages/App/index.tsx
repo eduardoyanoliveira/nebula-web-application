@@ -1,6 +1,10 @@
+import { useEffect, useState } from 'react';
 import { useFetch } from '../../application/hooks/useFetch';
 import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
+import AutoComplete from '../../components/AutoComplete';
+import { IAutoCompleteData } from '../../components/AutoComplete/component';
+
 
 type User = {
   id: string,
@@ -16,25 +20,30 @@ const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
 
 function App() {
 
-  const { data, isFetching, error } = useFetch<User[]>('users', httpAxiosGetClient);
+  const { data: usersData, isFetching, error } = useFetch<User[]>('users', httpAxiosGetClient);
+  const [users, setUsers] = useState<IAutoCompleteData[]>([]);
+
+  useEffect(() => {
+    setUsers([]);
+    usersData?.forEach((user : User) => {
+      setUsers((prev) => [
+        ...prev,
+        {
+          id: user.id,
+          name: user.username
+        }
+      ]);
+    });
+  }, [usersData]);
 
   return (
-    <div>
-      {isFetching ? <h1>Carregando</h1> : (
-        <div>
-          {
-            data?.map((user) => {
-              return (
-                <>
-                  <h1>{user.username}</h1>
-                  <h2>{user.email}</h2>
-                </>
-              )
-            })
-          }
-        </div>
-      )}
-    
+    <div style={{backgroundColor: '#ccc', height: '100vh'}}>
+      {isFetching && <h1>Carregando</h1>}
+      <AutoComplete name='users' getItem={(item) => console.log(item)} data={users} />
+      <>
+       
+      </>
+
     </div>
   )
 }

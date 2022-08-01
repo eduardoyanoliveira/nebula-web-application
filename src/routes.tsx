@@ -8,14 +8,12 @@ import LoginPage from "./pages/Login";
 export function RoutesSite(){
 
     return(
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<LoginPage/>}></Route>
+        <Routes>
+            <Route path="/" element={<LoginPage/>}></Route>
 
-                <Route path="/test" element={<App/>}></Route>
-                <Route path="*" element={<ErrorPage/>}></Route>
-            </Routes>
-        </BrowserRouter>
+            <Route path="/test" element={<App/>}></Route>
+            <Route path="*" element={<ErrorPage/>}></Route>
+        </Routes>
     );
 };
 
@@ -23,11 +21,9 @@ export function RoutesSite(){
 export function RoutesApp(){
 
     return(
-        <BrowserRouter>
-            <Routes>
+        <Routes>
 
-                <Route path="*" element={<ErrorPage/>}></Route>
-            </Routes>
-        </BrowserRouter>
+            <Route path="*" element={<ErrorPage/>}></Route>
+        </Routes>
     );
 };
