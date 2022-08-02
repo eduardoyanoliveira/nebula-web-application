@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
-import { listObjectContains } from "../../utils/dataFunctions/listObjectContains";
+import { listObjectContains } from "../dataFunctions/listObjectContains";
+import { IAutoCompleteData } from "../interfaces/autocomplete-data-interfaces";
 
-export interface IAutoCompleteData{
-    id: string,
-    name: string,
-    [index: string]: string | boolean | number,
-};
 
 interface IAutoCompleteComponentProps{
     data: IAutoCompleteData[],
@@ -70,7 +66,7 @@ function AutoCompleteComponent({ data, getItem } : IAutoCompleteComponentProps){
         setOpen(false);
     };
     
-    return { handleChange, handleKeyDown, open, handleClick, inputValue, currentData };
+    return { handleChange, handleKeyDown, open, handleClick, inputValue, currentData, closeInput };
 };
 
 export { AutoCompleteComponent };

@@ -1,4 +1,4 @@
-import { IBaseObject } from "../../Typescript/interfaces";
+import { IAutoCompleteData } from "../interfaces/autocomplete-data-interfaces";
 import { objectContains } from "./objectContains";
 
 /**
@@ -8,7 +8,7 @@ import { objectContains } from "./objectContains";
  * @returns the objects that the specific atribute contains the value 
  */
 
-export const listObjectContains = (attr: string, value : string, data: IBaseObject[]) : IBaseObject[] => {
+export const listObjectContains = (attr: string, value : string, data: IAutoCompleteData[]) : IAutoCompleteData[] => {
     if(value === '%') return data;
   
     attr = attr.toLowerCase();

@@ -1,29 +1,68 @@
 import styled, { css } from "styled-components";
-import { Input } from "../Input/styles";
+import { Input } from "../../Input/styles";
 
 interface ContainerProps {
     maxWidth?: string,
+    margin?: string
 };
 
-interface IAutoCompleteInputProps{
+interface IAutoCompleteContainerProps{
     borderRadius?: string, 
 }; 
-
 
 export const Container = styled.div<ContainerProps>`
     position: relative;
     width: 100%;
 
-    ${({ maxWidth }) => css`
+    ${({ maxWidth, margin }) => css`
         max-width: ${maxWidth};
+        margin: ${margin};
     `};
 
 `;
 
-export const AutoCompleteInput = styled(Input)<IAutoCompleteInputProps>`
+export const AutoCompleteContainer = styled.div`
+    display: flex;
+`;
+
+export const AutoCompleteInput = styled(Input)<IAutoCompleteContainerProps>`
+    width: 80%;
+
     ${({ borderRadius }) => css`
         border-radius: ${borderRadius};
     `};
+`;
+
+export const IconContainer = styled.div<IAutoCompleteContainerProps>`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+
+    ${({ borderRadius }) => css`
+        border-radius: ${borderRadius};
+    `};
+
+    ${({theme}) => css`
+        background-color: ${theme.colors.background};
+    `}
+    
+    cursor: pointer;
+`;
+
+export const Icon = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+
+    color: #fff;
+
+    ${({theme}) => css`
+        background-color: ${theme.colors.primary};
+    `}
 `;
 
 export const List = styled.ul`

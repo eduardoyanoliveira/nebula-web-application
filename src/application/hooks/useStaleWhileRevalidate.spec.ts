@@ -1,5 +1,4 @@
 import { renderHook, waitFor } from "@testing-library/react";
-import { act } from "react-dom/test-utils";
 import { InMemoryHTTPGetClient } from "../tests/HttpRequestClients/in-memory-http-get-client";
 import { CACHE, useStaleWhileRevalidate } from "./useStaleWhileRevalidate";
 

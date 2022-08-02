@@ -3,7 +3,8 @@ import { useStaleWhileRevalidate } from '../../application/hooks/useStaleWhileRe
 import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
 import AutoComplete from '../../components/AutoComplete';
-import { IAutoCompleteData } from '../../components/AutoComplete/component';
+import { IAutoCompleteData } from '../../components/AutoComplete/interfaces/autocomplete-data-interfaces';
+
 
 
 type User = {
@@ -37,9 +38,9 @@ function App() {
   }, [usersData]);
 
   return (
-    <div style={{backgroundColor: '#ccc', height: '100vh'}}>
+    <div style={{backgroundColor: '#ccc', height: '100vh', display: 'flex', justifyContent: 'center'}}>
       {isFetching && <h1>Carregando</h1>}
-      <AutoComplete name='users' getItem={(item) => console.log(item)} data={users} />
+      <AutoComplete name='users' getItem={(item) => console.log(item)} data={users} maxWidth={'350px'} margin='20px 0'/>
       <>
        
       </>

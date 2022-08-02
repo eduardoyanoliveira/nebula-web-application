@@ -1,6 +1,7 @@
 import { cleanup, render, renderHook, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event";
-import { AutoCompleteComponent, IAutoCompleteData } from "./component"
+import { AutoCompleteComponent } from "."
+import { IAutoCompleteData } from "../interfaces/autocomplete-data-interfaces";
 
 const mockData : IAutoCompleteData[] = [
     {

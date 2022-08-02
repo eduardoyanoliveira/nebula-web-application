@@ -1,16 +1,18 @@
-import { AutoCompleteComponent, IAutoCompleteData } from './component';
-import { Container, AutoCompleteInput ,List, Item } from "./styles";
-
+import { AutoCompleteComponent } from './components';
+import { Container, AutoCompleteInput ,List, Item, AutoCompleteContainer, IconContainer, Icon } from "./styles";
+import { FaSearch } from 'react-icons/fa';
+import { IAutoCompleteData } from './interfaces/autocomplete-data-interfaces';
 
 interface IAutoCompleteProps{
     name: string,
     maxWidth?: string,
+    margin?: string,
     data: IAutoCompleteData[],
     getItem(item: IAutoCompleteData): void,
 };
 
 
-function AutoComplete({ name, maxWidth, data, getItem }: IAutoCompleteProps) {
+function AutoComplete({ name, maxWidth, margin, data, getItem }: IAutoCompleteProps) {
 
     const { 
         handleChange,
@@ -18,19 +20,31 @@ function AutoComplete({ name, maxWidth, data, getItem }: IAutoCompleteProps) {
         open, 
         handleKeyDown,
         inputValue,
-        currentData 
+        currentData,
+        closeInput
     } = AutoCompleteComponent({data, getItem});
 
     
     return (
-        <Container maxWidth={maxWidth} >
-            <AutoCompleteInput 
-                name={name} 
-                borderRadius={(open && inputValue) ? '5px 5px 0 0' : '5px'}
-                value={inputValue}
-                onChange={handleChange}
-                onKeyDown={handleKeyDown}
-            />
+        <Container maxWidth={maxWidth} margin={margin} >
+            <AutoCompleteContainer >
+                <AutoCompleteInput 
+                    name={name} 
+                    value={inputValue}
+                    onChange={handleChange}
+                    onKeyDown={handleKeyDown}
+                    borderRadius={(open && inputValue) ? '5px 0 0 0' : '5px 0 0 5px'}
+                    
+                />
+                <IconContainer 
+                    onClick={closeInput}
+                    borderRadius={(open && inputValue) ? '0 5px 0 0' : '0 5px 5px 0'}
+                >
+                    <Icon>
+                        <FaSearch/>
+                    </Icon>
+                </IconContainer>
+            </AutoCompleteContainer>
             {
                 (open && inputValue) && (
                     <List>
