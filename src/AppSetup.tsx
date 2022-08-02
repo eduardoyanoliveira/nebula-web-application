@@ -1,8 +1,10 @@
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./application/features/Authentication/contexts/AuthContext";
-import { RoutesSite } from "./routes";
+import { getTokenFromCache } from "./application/useCases/Token";
+import { RoutesApp, RoutesSite } from "./routes";
 import Global from "./styles/global";
 import ThemeProvider from './styles/themeProvider'
+
 
 function AppSetup() {
   return (
@@ -11,7 +13,14 @@ function AppSetup() {
           <ThemeProvider>
             <AuthProvider>
               <Global/>
-              <RoutesSite/>
+                {!getTokenFromCache.execute() 
+                  ? 
+                  (
+                    <RoutesSite/>
+            
+                  ) 
+                  : <RoutesApp/>
+                }
             </AuthProvider>
           </ThemeProvider>
         </BrowserRouter>

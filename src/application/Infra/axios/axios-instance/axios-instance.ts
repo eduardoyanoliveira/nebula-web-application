@@ -1,21 +1,21 @@
 import axios, { AxiosError } from 'axios';
-import { IDeleteItemFromCache } from '../../../Domain/Cache/IDeleteItemFromCache';
-import { IGetItemFromCache } from '../../../Domain/Cache/IGetItemFromCache';
+import { IGetToken } from '../../../Domain/Token/IGetToken';
+import { IRemoveToken } from '../../../Domain/Token/IRemoveToken';
 import { AuthTokenError } from '../../../Errors/AuthTokenError';
 
 export class SetUpAxiosInstance{
 
     constructor(
         private baseURL: string,
-        private DeleteItemFromCache: IDeleteItemFromCache,
-        private GetItemFromCache: IGetItemFromCache<string>
+        private RemoveToken: IRemoveToken,
+        private GetToken: IGetToken
     ){};
 
     create(){
 
         let token;
 
-        const tokenResponse = this.GetItemFromCache.execute('@token');
+        const tokenResponse = this.GetToken.execute();
 
         if(tokenResponse.isFailure){
             token = '';
@@ -36,7 +36,7 @@ export class SetUpAxiosInstance{
         }, (error : AxiosError) => {
             if(error.response?.status === 401){
                 if(typeof window !== undefined){
-                    this.DeleteItemFromCache.execute('@token');
+                    this.RemoveToken.execute();
                 }else{
                     return Promise.reject( new AuthTokenError())
                 }
