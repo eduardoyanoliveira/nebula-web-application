@@ -19,7 +19,7 @@ type User = {
 
 const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
 
-function App() {
+function TestPage() {
 
   const { data: usersData, isFetching, error } = useStaleWhileRevalidate<User[]>('users', httpAxiosGetClient, 10);
   const [users, setUsers] = useState<IAutoCompleteData[]>([]);
@@ -49,4 +49,4 @@ function App() {
   )
 }
 
-export default App;
+export default TestPage;

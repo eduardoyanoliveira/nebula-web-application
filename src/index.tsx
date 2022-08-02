@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import AppSetup from './AppSetup';
+import AppSetup from './pages/AppSetup';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

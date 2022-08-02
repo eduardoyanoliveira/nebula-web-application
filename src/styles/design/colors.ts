@@ -13,7 +13,8 @@ export const lightColors : ThemeColors = {
     background: '#fff',
     backgroundAlt : '#F4F4F4',
     typography500: '#5A596B',
-    typography200: 'rgba(57, 58, 72, 0.55)'
+    typography200: 'rgba(57, 58, 72, 0.55)',
+    appShadow: '4px 0px 4px #DBDBDB,-4px -4px 4px #DBDBDB,0px 4px 4px #DBDBDB',
 };
 
 
@@ -22,5 +23,6 @@ export const darkColors : ThemeColors = {
     background: '#17191D',
     backgroundAlt : '#1D1E22',
     typography500: '#7C7C7D',
-    typography200: 'rgba(209, 209, 219, 0.5)'
+    typography200: 'rgba(209, 209, 219, 0.5)',
+    appShadow: '4px 0px 4px #000,-4px -4px 4px #000,0px 4px 4px #000',
 };

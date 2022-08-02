@@ -8,7 +8,8 @@ export interface ThemeColors {
     background: string,
     backgroundAlt: string,
     typography200: string,
-    typography500: string
+    typography500: string,
+    appShadow: string,
 }
 
 type Font = {
