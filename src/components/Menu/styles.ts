@@ -1,22 +1,29 @@
 import styled, { css } from "styled-components";
 import { Link } from 'react-router-dom'; 
 
-export const Container = styled.nav`
+export const Container = styled.div`
+
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
     width: 290px;
     border-radius: 15px 0 0 15px;
-
+    padding: 0;
+ 
     ${({theme}) => css`
         background-color: ${theme.colors.background};
-    `}
+    `};
+    
 `;
 
-export const Logo  = styled.h2`
+export const Header  = styled.h2`
 
-    height: 150px;
     display: flex;
+    height: 150px;
     align-items: center;
-    padding: 0 0 0 60px;
+    padding: 0 0 0 40px;
 
     font-size: 36px;
     font-family: 'Paduak', sans-serif;
@@ -29,13 +36,19 @@ export const Logo  = styled.h2`
 
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+
+    @media(min-width:1250px){
+        padding: 0 0 0 60px;
+    };
+
 `;
 
-export const Menu = styled.ul`
+export const MenuContainer = styled.ul`
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 0 0 0 40px;
+
 `;
 
 export const MenuItem = styled.li`

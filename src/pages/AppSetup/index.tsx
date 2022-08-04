@@ -1,7 +1,7 @@
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../../application/features/Authentication/contexts/AuthContext";
 import { getTokenFromCache } from "../../application/useCases/Token";
-import SideNavBar from "../../components/SideNavBar";
+import MenuNav from "../../components/MenuNav";
 import { RoutesApp, RoutesSite } from "../../routes";
 import Global from "../../styles/global";
 import ThemeProvider from '../../styles/themeProvider'
@@ -24,7 +24,7 @@ function AppSetup() {
                   (
                     <BackgroundContainer>
                       <AppPage>
-                        <SideNavBar />
+                        <MenuNav />
                         <RoutesApp/>
                       </AppPage>
                     </BackgroundContainer>

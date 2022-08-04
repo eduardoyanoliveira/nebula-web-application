@@ -1,19 +1,31 @@
-import { Container, Logo, Menu, MenuHomeButton, MenuItem, MenuItemIcon, MenuItemText, MenuLink } from "./styles";
-import useMenuData from "./data";
+import { Container, Header, MenuContainer, MenuHomeButton, MenuItem, MenuItemIcon, MenuItemText, MenuLink } from "./styles";
+
 import { AiOutlineHome } from "react-icons/ai";
+import { menuData } from "./data";
+import { MenuBarsContainer } from "../MenuNav/styles";
+import { FaBars } from "react-icons/fa";
 
+interface MenuProps {
+    fn(): void,
+}
 
-function SideNavBar() {
-
-    
-    const { baseData: data } = useMenuData();
+/**
+ * 
+ * @param fn - Function that will handle the bars icon click 
+ * @returns A menu component
+ */
+function Menu({ fn } : MenuProps) {
 
     return (
+
         <Container>
-            <Logo>
+            <Header>
+                <MenuBarsContainer style={{marginRight: '25px'}} onClick={() => fn()}>
+                    <FaBars/>
+                </MenuBarsContainer>
                 Nebulla
-            </Logo>
-            <Menu>
+            </Header>
+            <MenuContainer>
                 <MenuItem style={{marginBottom: '25px'}}>
                     <MenuHomeButton to={'/'}>
                         <MenuItemIcon>
@@ -25,7 +37,7 @@ function SideNavBar() {
                     </MenuHomeButton>
                 </MenuItem>
                 {
-                    data?.map(( item ) => {
+                    menuData.map(( item ) => {
                         return (
                             <MenuItem key={item.path}>
                                 <MenuLink to={item.path}>
@@ -41,9 +53,9 @@ function SideNavBar() {
                         );
                     })
                 }
-            </Menu>
+            </MenuContainer>
         </Container>
-    )
+    );
 };
 
-export default SideNavBar;
+export default Menu;

@@ -1,7 +1,7 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ThemeProvider from '../../styles/themeProvider';
-import { ButtonColors } from '../../Typescript/enums';
+import { ButtonColors } from './ButtonColors';
 import ButtonComponent from './index';
 
 describe('<ButtonComponent />', () => {

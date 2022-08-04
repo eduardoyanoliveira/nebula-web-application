@@ -1,5 +1,5 @@
 import InputComponent from "../../components/Input";
-import { ButtonColors } from '../../Typescript/enums';
+import { ButtonColors } from '../../components/Button/ButtonColors';
 import  ButtonComponent  from '../../components/Button';
 import { Screen, FormContainer, Title } from "./styles";
 import LoginComponent from "../../application/features/Authentication/components/login-component";
