@@ -1,4 +1,4 @@
-import InputComponent from "../../components/Input";
+import InputComponent from "../../components/Inputs/Input";
 import { ButtonColors } from '../../components/Button/ButtonColors';
 import  ButtonComponent  from '../../components/Button';
 import { Screen, FormContainer, Title } from "./styles";

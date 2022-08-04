@@ -46,4 +46,10 @@ export const Input = styled.input`
         ${theme.typographies.titleTwo};
     `}
 
+    &::placeholder { 
+        ${({theme}) => css`
+            color: ${theme.colors.typography200};
+        `}
+    }
+
 `;

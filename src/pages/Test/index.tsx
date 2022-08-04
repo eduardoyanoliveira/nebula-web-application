@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useStaleWhileRevalidate } from '../../application/hooks/useStaleWhileRevalidate';
 import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
 import AutoComplete from '../../components/AutoComplete';
 import { IAutoCompleteData } from '../../components/AutoComplete/interfaces/autocomplete-data-interfaces';
+import { ThemeContext } from '../../styles/themeProvider';
 
 
 
@@ -24,6 +25,8 @@ function TestPage() {
   const { data: usersData, isFetching, error } = useStaleWhileRevalidate<User[]>('users', httpAxiosGetClient, 10);
   const [users, setUsers] = useState<IAutoCompleteData[]>([]);
 
+  const { toggleTheme } = useContext(ThemeContext);
+
   useEffect(() => {
     setUsers([]);
     usersData?.forEach((user : User) => {
@@ -38,13 +41,10 @@ function TestPage() {
   }, [usersData]);
 
   return (
-    <div style={{backgroundColor: '#ccc', height: '100vh', display: 'flex', justifyContent: 'center'}}>
+    <div style={{backgroundColor: '#ccc', height: '100vh', display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
       {isFetching && <h1>Carregando</h1>}
       <AutoComplete name='users' getItem={(item) => console.log(item)} data={users} maxWidth={'350px'} margin='20px 0'/>
-      <>
-       
-      </>
-
+     <button onClick={toggleTheme}>Troca Tema</button>
     </div>
   )
 }

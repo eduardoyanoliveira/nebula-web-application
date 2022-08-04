@@ -14,17 +14,17 @@ interface InputComponentProps extends InputHTMLAttributes<HTMLInputElement>{
  * @param margin If informed creates a margin on Input Container
  * @param allProps inherit all InputProps from react input element
  */
-const InputComponent = ({margin, maxWidth , label, ...prev} : InputComponentProps) => {
+const InputComponent = ({margin, maxWidth , label, ...rest} : InputComponentProps) => {
 
     return (
         <InputContainer data-testid={'input-container-test-id'} margin={margin} maxWidth={maxWidth}>
             {
-                (label && prev.name) && (
-                    <Label data-testid='label-test-id' htmlFor={prev.name}>{label}</Label>
+                (label && rest.name) && (
+                    <Label data-testid='label-test-id' htmlFor={rest.name}>{label}</Label>
                 )
             }
             <Input 
-                {...prev}
+                {...rest}
             />
         </InputContainer>
     );

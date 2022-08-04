@@ -25,7 +25,7 @@ function AppSetup() {
                     <BackgroundContainer>
                       <AppPage>
                         <MenuNav />
-                        <RoutesApp/>
+                          <RoutesApp/>
                       </AppPage>
                     </BackgroundContainer>
                   )

@@ -1,7 +1,7 @@
 import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import InputComponent from ".";
-import ThemeProvider from "../../styles/themeProvider";
+import ThemeProvider from "../../../styles/themeProvider";
 
 describe('<InputComponent />', () => {
     

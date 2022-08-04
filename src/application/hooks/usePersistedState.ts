@@ -1,24 +1,32 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { IGetItemFromCache } from "../Domain/Cache/IGetItemFromCache";
+import { ISaveItemOnCache } from "../Domain/Cache/ISaveItemOnCache";
 
 type Response<T> = [
     T,
     Dispatch<SetStateAction<T>>
 ];
 
-function usePersistedState<T>(key: string, initialState: T) : Response<T> {
-    const [state, setState] = useState(() => {
-        const storageValue = localStorage.getItem(key);
+function usePersistedState<T>(
+    key: string, 
+    initialState: T, 
+    getItemFromCache: IGetItemFromCache<T>,
+    saveItemOnCache: ISaveItemOnCache<T>
+) : Response<T> {
+    const [state, setState] = useState<T>(() => {
 
-        if(storageValue){
-            return JSON.parse(storageValue);
+        const response = getItemFromCache.execute(key);
+
+        if(response.isFailure){
+            return initialState;
         };
 
-        return initialState;
+        return JSON.parse(response.getValue() as string);
     });
 
     useEffect(() => {
-        localStorage.setItem(key, JSON.stringify(state));
-    },[state, key]);
+        saveItemOnCache.execute(key, state);
+    },[state, key, saveItemOnCache]);
 
     return [state, setState];
 };

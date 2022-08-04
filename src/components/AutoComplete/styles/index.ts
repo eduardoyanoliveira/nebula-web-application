@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { Input } from "../../Input/styles";
+import { Input } from "../../Inputs/Input/styles";
 
 interface ContainerProps {
     maxWidth?: string,
