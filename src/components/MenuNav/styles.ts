@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { ScreenSizes } from "../../application/utils/screen/sizes";
 
 
 export const Container = styled.nav`
@@ -11,11 +12,11 @@ export const Container = styled.nav`
     border-radius: 0;
     padding: 0 30px;
 
-    @media(min-width: 700px){
+    @media(min-width: ${ScreenSizes.tablet}){
         border-radius: 15px 15px 0 0;
     };
 
-    @media(min-width:1250px){
+    @media(min-width: ${ScreenSizes.desktop}){
         display: block;
         height: 100%;
         width: 290px;
@@ -43,7 +44,7 @@ export const MenuBarsContainer = styled.div`
         `}; 
     }
 
-    @media(min-width:1250px){
+    @media(min-width: ${ScreenSizes.desktop}){
         display: none;
     };
 `;

@@ -2,12 +2,12 @@ import { Container, Header, MenuContainer, MenuHomeButton, MenuItem, MenuItemIco
 
 import { AiOutlineHome } from "react-icons/ai";
 import { menuData } from "./data";
-import { MenuBarsContainer } from "../MenuNav/styles";
+import { MenuBarsContainer } from "../styles";
 import { FaBars } from "react-icons/fa";
 
 interface MenuProps {
     fn(): void,
-}
+};
 
 /**
  * 
@@ -18,7 +18,7 @@ function Menu({ fn } : MenuProps) {
 
     return (
 
-        <Container>
+        <Container >
             <Header>
                 <MenuBarsContainer style={{marginRight: '25px'}} onClick={() => fn()}>
                     <FaBars/>
@@ -26,7 +26,7 @@ function Menu({ fn } : MenuProps) {
                 Nebulla
             </Header>
             <MenuContainer>
-                <MenuItem style={{marginBottom: '25px'}}>
+                <MenuItem style={{marginBottom: '25px'}} onClick={() => fn()} >
                     <MenuHomeButton to={'/'}>
                         <MenuItemIcon>
                             <AiOutlineHome/>
@@ -39,7 +39,7 @@ function Menu({ fn } : MenuProps) {
                 {
                     menuData.map(( item ) => {
                         return (
-                            <MenuItem key={item.path}>
+                            <MenuItem key={item.path} onClick={() => fn()}>
                                 <MenuLink to={item.path}>
                                     <MenuItemIcon>
                                         {item.icon} 

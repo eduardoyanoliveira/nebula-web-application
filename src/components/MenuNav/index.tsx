@@ -1,8 +1,9 @@
 import { Container, MenuBarsContainer } from "./styles";
-
 import { FaBars } from "react-icons/fa";
-import Menu from "../Menu";
+import Menu from "./Menu";
 import { useState } from "react";
+import { useMediaQuery } from "../../application/hooks/useMediaQuery";
+import { ScreenSizes } from "../../application/utils/screen/sizes";
 
 
 function MenuNav() {
@@ -13,6 +14,9 @@ function MenuNav() {
         setOpen((prev) => prev = !prev)
     };
 
+    // Should controlls with the current size is cosidere desktop size 
+    const isDesktop = useMediaQuery(`(min-width: ${ScreenSizes.desktop})`);
+
     return (
         <>
             <Container>
@@ -21,9 +25,8 @@ function MenuNav() {
                 </MenuBarsContainer>
             </Container>
             {
-                open  && (
-                    <Menu fn={toggleMenu} />
-                )
+                (open || isDesktop) && <Menu fn={toggleMenu}/>
+ 
             }
         </>
        

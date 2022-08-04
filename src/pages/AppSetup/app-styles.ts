@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { ScreenSizes } from "../../application/utils/screen/sizes";
 
 
 export const BackgroundContainer = styled.div`
@@ -24,7 +25,7 @@ export const AppPage = styled.div`
         background-color: ${theme.colors.backgroundAlt};
     `};
 
-    @media(min-width: 700px) {
+    @media(min-width: ${ScreenSizes.tablet}) {
         height: 98vh;
         width: 98vw;
         border-radius: 15px;
@@ -34,7 +35,7 @@ export const AppPage = styled.div`
         `};
     };
 
-    @media(max-width:1250px){
+    @media(max-width:${ScreenSizes.desktop}){
         flex-direction: column ;
     } 
 
