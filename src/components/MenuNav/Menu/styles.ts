@@ -13,8 +13,6 @@ export const Container = styled.div`
     border-radius: 15px 0 0 15px;
     padding: 0;
 
-    transition: left ease-in-out .25s;
- 
     ${({theme}) => css`
         background-color: ${theme.colors.background};
     `};
