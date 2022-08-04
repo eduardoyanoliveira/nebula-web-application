@@ -3,6 +3,7 @@ import { ThemeColors } from "../styled";
 const baseColors = {
     primary: '#E3516E',
     primaryGradient: 'linear-gradient(276.33deg,rgba(234, 111, 111, 0.96) -4.51%,rgba(187, 53, 141, 0.81) 98.2%)',
+    primaryLightShadow: '4px 4px 5px rgba(227, 81, 110, 0.5)',
     secondary: '#5E73BE',
     secondaryGradient: 'linear-gradient(93.66deg, #6667AB 7.16%, #5E73BE 43.43%, #5B80F0 93.14%)',
 };

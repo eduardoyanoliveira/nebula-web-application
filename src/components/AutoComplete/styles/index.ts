@@ -62,6 +62,7 @@ export const Icon = styled.div`
 
     ${({theme}) => css`
         background-color: ${theme.colors.primary};
+        box-shadow: ${theme.colors.primaryLightShadow};
     `}
 `;
 

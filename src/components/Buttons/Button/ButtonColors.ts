@@ -1,4 +1,6 @@
 export enum ButtonColors {
     primaryGradient = 'primaryGradient',
-    secondaryGradient = 'secondaryGradient'
+    secondaryGradient = 'secondaryGradient',
+    primary = 'primary',
+    secondary = 'secondary'
 };

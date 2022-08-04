@@ -14,6 +14,7 @@ export const Container = styled.div`
     background-color: aquamarine;
 
     @media(min-width:${ScreenSizes.tablet}){
+        padding: 0 150px;
         border-radius: 0 0 10px 10px;
         height: calc(98vh - 80px);
     }; 

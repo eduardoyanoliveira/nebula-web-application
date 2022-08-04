@@ -13,6 +13,10 @@ const handleBackgroundColor = (theme : DefaultTheme, backgroundColor : string) :
             return theme.colors.primaryGradient
         case 'secondaryGradient':
             return theme.colors.secondaryGradient
+        case 'primary':
+            return theme.colors.primary
+        case 'secondary':
+            return theme.colors.secondary
         default:
             return theme.colors.primaryGradient
     };
@@ -30,6 +34,8 @@ export const Button = styled.button<ButtonProps>`
     
     ${({theme, maxWidth, margin, backgroundColor}) => css`
         background-image: ${handleBackgroundColor(theme, backgroundColor)};
+        background-color: ${handleBackgroundColor(theme, backgroundColor)};
+        box-shadow: ${theme.colors.primaryLightShadow};
         margin: ${margin};
         max-width: ${maxWidth};
         ${theme.typographies.button};

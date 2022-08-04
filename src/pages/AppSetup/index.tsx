@@ -20,7 +20,7 @@ function AppSetup() {
           <ThemeProvider>
             <AuthProvider>
               <Global/>
-                {!getTokenFromCache.execute() 
+                { getTokenFromCache.execute().isFailure 
                   ? 
                   (
                     <RoutesSite/>

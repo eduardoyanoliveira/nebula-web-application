@@ -24,6 +24,7 @@ export default function  LoginComponent(signIn : ISignIn) : ILoginReturnProps{
     async function onSubmit (e : FormEvent){
         e.preventDefault();
         await signIn.execute(formData);
+        window.location.reload();
     };
 
     return { handleChange, onSubmit };
