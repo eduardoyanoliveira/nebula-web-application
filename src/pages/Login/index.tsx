@@ -1,6 +1,6 @@
 import InputComponent from "../../components/Inputs/Input";
-import { ButtonColors } from '../../components/Button/ButtonColors';
-import  ButtonComponent  from '../../components/Button';
+import { ButtonColors } from '../../components/Buttons/Button/ButtonColors';
+import  ButtonComponent  from '../../components/Buttons/Button';
 import { Screen, FormContainer, Title } from "./styles";
 import LoginComponent from "../../application/features/Authentication/components/login-component";
 import { useContext } from "react";

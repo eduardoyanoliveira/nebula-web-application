@@ -23,7 +23,6 @@ function Menu({ fn } : MenuProps) {
                 <MenuBarsContainer style={{marginRight: '25px'}} onClick={() => fn()}>
                     <FaBars/>
                 </MenuBarsContainer>
-                Nebulla
             </Header>
             <MenuContainer>
                 <MenuItem style={{marginBottom: '25px'}} onClick={() => fn()} >

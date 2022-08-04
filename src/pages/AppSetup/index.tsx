@@ -1,14 +1,19 @@
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "../../application/features/Authentication/contexts/AuthContext";
+import { useMediaQuery } from "../../application/hooks/useMediaQuery";
 import { getTokenFromCache } from "../../application/useCases/Token";
+import { ScreenSizes } from "../../application/utils/screen/sizes";
 import MenuNav from "../../components/MenuNav";
 import { RoutesApp, RoutesSite } from "../../routes";
 import Global from "../../styles/global";
 import ThemeProvider from '../../styles/themeProvider'
-import { AppPage, BackgroundContainer } from "./app-styles";
+import { AppHeader, App, AppCenterContainer, BackgroundContainer } from "./app-styles";
 
 
 function AppSetup() {
+
+  const isDesktop = useMediaQuery(`(min-width: ${ScreenSizes.desktop})`);
+
   return (
     <div>
         <BrowserRouter>
@@ -23,10 +28,15 @@ function AppSetup() {
                   : 
                   (
                     <BackgroundContainer>
-                      <AppPage>
+                      <App>
                         <MenuNav />
+                        <AppCenterContainer>
+                          {
+                            isDesktop &&  <AppHeader/>
+                          }
                           <RoutesApp/>
-                      </AppPage>
+                        </AppCenterContainer>
+                      </App>
                     </BackgroundContainer>
                   )
                 }

@@ -1,6 +1,6 @@
 import { cleanup, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import ThemeProvider from '../../styles/themeProvider';
+import ThemeProvider from '../../../styles/themeProvider';
 import { ButtonColors } from './ButtonColors';
 import ButtonComponent from './index';
 

@@ -23,11 +23,10 @@ function MenuNav() {
                 <MenuBarsContainer onClick={toggleMenu}>
                     <FaBars/>
                 </MenuBarsContainer>
+                {
+                    (open || isDesktop) && <Menu fn={toggleMenu}/>
+                }
             </Container>
-            {
-                (open || isDesktop) && <Menu fn={toggleMenu}/>
- 
-            }
         </>
        
     );

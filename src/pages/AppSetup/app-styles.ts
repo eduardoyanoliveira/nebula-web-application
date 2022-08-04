@@ -15,11 +15,10 @@ export const BackgroundContainer = styled.div`
 
 `;
 
-export const AppPage = styled.div`
+export const App = styled.div`
     display: flex;
     height: 100vh;
     width: 100vw;
-    position: relative;
 
     ${({theme}) => css`
         background-color: ${theme.colors.backgroundAlt};
@@ -37,6 +36,17 @@ export const AppPage = styled.div`
 
     @media(max-width:${ScreenSizes.desktop}){
         flex-direction: column ;
-    } 
+    };
 
+`;
+
+export const AppCenterContainer = styled.div`
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+`;
+
+export const AppHeader = styled.div`
+    width: 100%;
+    height: 80px;
+    background-color: red;;
 `;

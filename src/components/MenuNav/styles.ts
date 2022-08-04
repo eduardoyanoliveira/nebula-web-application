@@ -6,7 +6,8 @@ export const Container = styled.nav`
 
     display: flex;
     align-items: center;
-    height: 70px;
+    position: relative;
+    height: 80px;
     width: 100%;
     background-color: red;
     border-radius: 0;
@@ -22,6 +23,7 @@ export const Container = styled.nav`
         width: 290px;
         border-radius: 15px 0 0 15px;
         padding: 0;
+        position: unset;
     };
 
     ${({theme}) => css`

@@ -8,28 +8,33 @@ export const Container = styled.div`
     display: block;
     position: absolute;
     top: 0;
-    height: 100%;
+    left: 0;
+    height: 100vh;
     width: 290px;
-    border-radius: 15px 0 0 15px;
     padding: 0;
 
     ${({theme}) => css`
         background-color: ${theme.colors.background};
     `};
 
+    @media(min-width: ${ScreenSizes.tablet} ){
+        height: 98vh;
+        border-radius: 10px 0 0 10px;
+    };
+
+    @media(min-width: ${ScreenSizes.desktop} ){
+        position: unset;
+        border-radius: 10px 0 0 10px;
+    };
+
 `;
 
-export const Header  = styled.h2`
+export const Header  = styled.div`
 
     display: flex;
     height: 150px;
     align-items: center;
     padding: 0 0 0 40px;
-
-    font-size: 36px;
-    font-family: 'Paduak', sans-serif;
-    font-weight: bold;
-    line-height: 20px;
 
     ${({theme}) => css`
         background-image: ${theme.colors.primaryGradient};
