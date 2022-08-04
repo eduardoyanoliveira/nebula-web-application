@@ -16,9 +16,9 @@ export const BackgroundContainer = styled.div`
 `;
 
 export const App = styled.div`
-    display: flex;
     height: 100vh;
     width: 100vw;
+    display: flex;
 
     ${({theme}) => css`
         background-color: ${theme.colors.backgroundAlt};
@@ -43,10 +43,11 @@ export const App = styled.div`
 export const AppCenterContainer = styled.div`
     width: 100%;
     border-radius: 10px 10px 0 0;
+
 `;
 
 export const AppHeader = styled.div`
     width: 100%;
     height: 80px;
-    background-color: red;;
+    background-color: red;
 `;
