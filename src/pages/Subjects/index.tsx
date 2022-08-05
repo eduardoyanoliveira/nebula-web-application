@@ -7,7 +7,8 @@ import { ButtonColors } from '../../components/Buttons/Button/ButtonColors';
 import IconButton from '../../components/Buttons/IconButton';
 import FormContainer from '../../components/Form/Contianer';
 import SearchInputComponent from '../../components/Inputs/SearchInput';
-import { Header, SubjectsListContainer, SubjectRow, SubjectTitle, RegisterLabel, RegisterDate } from './styles';
+import SubjectsList from './components/SubjectsList';
+import { Header } from './styles';
 
 const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
 
@@ -26,7 +27,7 @@ function SubjectsPage() {
         <FormContainer title='Tópicos'>
             <Header>
                 <SearchInputComponent  
-                    value={search ? search : ''}
+                    value={search || ''}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
                     margin='0 25px 0 0'
                 /> 
@@ -37,23 +38,7 @@ function SubjectsPage() {
                     onClick={handlePlusClick}
                 />
             </Header>
-            <SubjectsListContainer>
-                {
-                    filteredSubjects?.map((item) => {
-                        return (
-                            <SubjectRow key={item.id}>
-                                <SubjectTitle> {item.name} </SubjectTitle>
-                                <RegisterLabel>
-                                    Cadastro:
-                                    <RegisterDate>
-                                        {(item.created_at as Date).toLocaleString('pt-BR')}
-                                    </RegisterDate>
-                                </RegisterLabel>
-                            </SubjectRow>
-                        );
-                    })
-                }
-            </SubjectsListContainer>
+            <SubjectsList subjects={filteredSubjects || []}/>
         </FormContainer>
     );
 };

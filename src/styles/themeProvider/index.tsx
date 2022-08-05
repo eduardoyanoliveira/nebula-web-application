@@ -1,7 +1,6 @@
 import React, { createContext, ReactNode } from 'react';
 import usePersistedState from '../../application/hooks/usePersistedState';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
-
 import darkTheme from '../themes/dark';
 import lightTheme from '../themes/light';
 import { GetItemfromLocalStorage } from '../../application/useCases/Cache/get-item-from-local-storage';
@@ -30,8 +29,8 @@ const  ThemeProvider: React.FC<Props> = ({children}) => {
   return (
     <ThemeContext.Provider
         value={{
-        isDarkTheme: dark,
-        toggleTheme,
+          isDarkTheme: dark,
+          toggleTheme,
         }}
     >
     <StyledThemeProvider theme={dark ? darkTheme : lightTheme}>

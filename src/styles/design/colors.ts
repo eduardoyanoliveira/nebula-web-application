@@ -14,7 +14,7 @@ export const lightColors : ThemeColors = {
     background: '#fff',
     backgroundAlt : '#F4F4F4',
     typography500: '#5A596B',
-    typography200: 'rgba(57, 58, 72, 0.55)',
+    typography200: '#B9B9C1',
     appShadow: '4px 0px 4px #DBDBDB,-4px -4px 4px #DBDBDB,0px 4px 4px #DBDBDB',
 };
 
