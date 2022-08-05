@@ -6,7 +6,7 @@ interface IFormContainerProps {
     children: ReactNode
 };
 
-function FormContainer({ title, children } : IFormContainerProps) {
+const  FormContainer : React.FC<IFormContainerProps> = ({ title, children }) => {
     return (
         <Container>
             <Title>

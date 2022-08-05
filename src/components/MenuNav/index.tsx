@@ -6,7 +6,7 @@ import { useMediaQuery } from "../../application/hooks/useMediaQuery";
 import { ScreenSizes } from "../../application/utils/screen/sizes";
 
 
-function MenuNav() {
+const MenuNav: React.FC = () => {
 
     const [open, setOpen] = useState(false);
 

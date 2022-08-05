@@ -14,7 +14,7 @@ interface InputComponentProps extends InputHTMLAttributes<HTMLInputElement>{
  * @param margin If informed creates a margin on Input Container
  * @param allProps inherit all InputProps from react input element
  */
-const InputComponent = ({margin, maxWidth , label, ...rest} : InputComponentProps) => {
+const InputComponent: React.FC<InputComponentProps> = ({margin, maxWidth , label, ...rest}) => {
 
     return (
         <InputContainer data-testid={'input-container-test-id'} margin={margin} maxWidth={maxWidth}>

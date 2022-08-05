@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { InputHTMLAttributes } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import { Container, Icon, IconContainer, SearchInput } from './styles'
 
 
-interface ISearchInputProps{
+interface ISearchInputProps extends InputHTMLAttributes<HTMLInputElement>{
     maxWidth?: string,
     margin?: string,
 };
 
 
-function SearchInputComponent({ maxWidth, margin, ...rest } : ISearchInputProps ) {
+const  SearchInputComponent : React.FC<ISearchInputProps> = ({ maxWidth, margin, ...rest }) => {
 
     return (
         <Container data-testid='search-input-container' maxWidth={maxWidth} margin={margin}>

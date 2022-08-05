@@ -17,7 +17,7 @@ interface IButtonComponentProps extends ButtonHTMLAttributes<HTMLButtonElement> 
  * @param backgroundColor Button Background color
  * @param allProps inherit all ButtonProps from react button element
  */
-function IconButton({ icon, ...prev } : IButtonComponentProps) {
+const IconButton: React.FC<IButtonComponentProps> = ({ icon, ...prev }) => {
   return (
     <Button {...prev}>
         {icon}

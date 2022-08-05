@@ -1,14 +1,13 @@
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import { ISubject } from '../../application/Domain/Entities/ISubject';
-import { useStaleWhileRevalidate } from '../../application/hooks/useStaleWhileRevalidate';
+import SubjectsListAndFilter from '../../application/features/Subjects/components/subjects-list-and-filter';
 import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
 import { ButtonColors } from '../../components/Buttons/Button/ButtonColors';
 import IconButton from '../../components/Buttons/IconButton';
 import FormContainer from '../../components/Form/Contianer';
 import SearchInputComponent from '../../components/Inputs/SearchInput';
-import { Header } from './styles';
+import { Header, SubjectsListContainer, SubjectRow, SubjectTitle, RegisterLabel, RegisterDate } from './styles';
 
 const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
 
@@ -17,8 +16,8 @@ function SubjectsPage() {
 
     const navigate = useNavigate();
 
-    const { data: subjectData, isFetching, error } = useStaleWhileRevalidate<ISubject[]>('subjects', httpAxiosGetClient, 30);
-
+    const { search, setSearch, isFetching, error, filteredSubjects } = SubjectsListAndFilter(httpAxiosGetClient);
+    
     function handlePlusClick(){
         navigate('/subjects/register');
     };
@@ -26,7 +25,11 @@ function SubjectsPage() {
     return (
         <FormContainer title='Tópicos'>
             <Header>
-                <SearchInputComponent  margin='0 25px 0 0'/> 
+                <SearchInputComponent  
+                    value={search ? search : ''}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
+                    margin='0 25px 0 0'
+                /> 
                 <IconButton 
                     icon={<FaPlus/>} 
                     maxWidth={'50px'} 
@@ -34,11 +37,23 @@ function SubjectsPage() {
                     onClick={handlePlusClick}
                 />
             </Header>
-            {
-                subjectData?.map((item) => {
-                    return <h3 key={item.id}>{item.name}</h3>
-                })
-            }
+            <SubjectsListContainer>
+                {
+                    filteredSubjects?.map((item) => {
+                        return (
+                            <SubjectRow key={item.id}>
+                                <SubjectTitle> {item.name} </SubjectTitle>
+                                <RegisterLabel>
+                                    Cadastro:
+                                    <RegisterDate>
+                                        {(item.created_at as Date).toLocaleString('pt-BR')}
+                                    </RegisterDate>
+                                </RegisterLabel>
+                            </SubjectRow>
+                        );
+                    })
+                }
+            </SubjectsListContainer>
         </FormContainer>
     );
 };

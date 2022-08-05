@@ -18,7 +18,7 @@ interface IButtonComponentProps extends ButtonHTMLAttributes<HTMLButtonElement> 
  * @param allProps inherit all ButtonProps from react button element
  */
 
-const  ButtonComponent = ({text, ...prev} : IButtonComponentProps) => {
+const  ButtonComponent : React.FC<IButtonComponentProps> = ({text, ...prev}) => {
   return (
     <Button
       {...prev}

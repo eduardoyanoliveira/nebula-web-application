@@ -14,7 +14,7 @@ interface MenuProps {
  * @param fn - Function that will handle the bars icon click 
  * @returns A menu component
  */
-function Menu({ fn } : MenuProps) {
+const  Menu: React.FC<MenuProps> = ({ fn }) => {
 
     return (
 
