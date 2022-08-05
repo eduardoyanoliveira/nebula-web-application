@@ -48,7 +48,6 @@ function Menu({ fn } : MenuProps) {
                                     </MenuItemText>
                                 </MenuLink>
                             </MenuItem>
-
                         );
                     })
                 }

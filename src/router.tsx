@@ -1,7 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import ErrorPage from "./pages/Error";
 import LoginPage from "./pages/Login";
+import SubjectsRegisterPage from "./pages/SubjectRegister";
 import SubjectsPage from "./pages/Subjects";
+import TestPage from "./pages/Test";
 
 interface IRouterProps {
     isLogged: boolean
@@ -9,16 +11,16 @@ interface IRouterProps {
 
 export function Router({ isLogged } : IRouterProps){
 
-    console.log(isLogged)
-
     return(
 
         <>
             {
                 isLogged ? (
                     <Routes>
+                        <Route path="/test" element={<TestPage/>}></Route>
                         <Route path="/" element={<ErrorPage/>}></Route>
                         <Route path="/subjects" element={<SubjectsPage/>}></Route>
+                        <Route path="/subjects/register" element={<SubjectsRegisterPage/>}></Route>
                         <Route path="*" element={<ErrorPage/>}></Route>
                     </Routes> 
                    

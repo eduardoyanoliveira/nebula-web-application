@@ -1,17 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useMediaQuery } from "../../application/hooks/useMediaQuery";
 import { getTokenFromCache } from "../../application/useCases/Token";
-
-import { ScreenSizes } from "../../application/utils/screen/sizes";
 import MenuNav from "../../components/MenuNav";
 import { Router } from "../../router";
 import { AppHeader, App, AppCenterContainer, BackgroundContainer } from "./styles";
 
 
 function AppTemplate() {
-
-    const isDesktop = useMediaQuery(`(min-width: ${ScreenSizes.desktop})`);
 
     const navigate = useNavigate();
 
@@ -32,9 +27,8 @@ function AppTemplate() {
                         <App>
                             <MenuNav/>
                             <AppCenterContainer >
-                                {
-                                    isDesktop &&  <AppHeader/>
-                                }
+                                <AppHeader/>
+                                
                                 { route }
                             </AppCenterContainer>
                         </App>
