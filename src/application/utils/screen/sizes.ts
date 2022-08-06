@@ -1,4 +1,6 @@
 export enum ScreenSizes {
-    tablet = '800px',
-    desktop = '1250px'
+    sm = '430px',
+    md = '750px',
+    lg = '1000px',
+    xl = '1300px'
 };

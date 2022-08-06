@@ -24,7 +24,7 @@ export const App = styled.div`
         background-color: ${theme.colors.backgroundAlt};
     `};
 
-    @media(min-width: ${ScreenSizes.tablet}) {
+    @media(min-width: ${ScreenSizes.md}) {
         height: 98vh;
         width: 98vw;
         border-radius: 15px;
@@ -34,7 +34,7 @@ export const App = styled.div`
         `};
     };
 
-    @media(max-width:${ScreenSizes.desktop}){
+    @media(max-width:${ScreenSizes.xl}){
         flex-direction: column ;
     };
 
@@ -54,7 +54,7 @@ export const AppHeader = styled.div`
     border-radius: 0 10px 0 0;
 
     
-    @media(min-width:${ScreenSizes.desktop}){
+    @media(min-width:${ScreenSizes.xl}){
         display: block;
     }; 
 `;

@@ -50,7 +50,7 @@ function TestPage() {
       {/* {isFetching && <h1>Carregando</h1>}
       <AutoComplete name='users' getItem={(item) => console.log(item)} data={users} maxWidth={'350px'} margin='20px 0'/>
      <button onClick={toggleTheme}>Troca Tema</button> */}
-     <ToggleInput id="toggle" getValue={getValue}/>
+     <ToggleInput initialValue={true} getValue={getValue}/>
 
     </PageContainer>
   )

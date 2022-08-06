@@ -11,15 +11,24 @@ export const Container = styled.div`
     padding: 0 30px;
 
 
-    @media(min-width:${ScreenSizes.tablet}){
-        padding: 0 150px;
+    @media(min-width:${ScreenSizes.sm}){
+        padding: 0 50px;
+    };
+
+
+    @media(min-width:${ScreenSizes.md}){
+        padding: 0 80px;
         border-radius: 0 0 10px 10px;
         height: calc(98vh - 80px);
     }; 
 
-    @media(min-width:${ScreenSizes.desktop}){
-        padding: 0 205px;
-        border-radius: 0 0 10px 0;
+    
+    @media(min-width:${ScreenSizes.lg}){
+        padding: 0 220px;
+    };
+
+    @media(min-width:${ScreenSizes.xl}){
+        padding: 0 200px;
     }; 
 `;
 
@@ -31,7 +40,7 @@ export const Title = styled.h1`
         ${theme.typographies.titleOne}
     `}
 
-    @media(min-width:${ScreenSizes.desktop}){
+    @media(min-width:${ScreenSizes.xl}){
         padding: 0 205px;
         width: calc(100% - 290px);
     }; 

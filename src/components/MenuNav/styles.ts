@@ -13,11 +13,11 @@ export const Container = styled.nav`
     border-radius: 0;
     padding: 0 30px;
 
-    @media(min-width: ${ScreenSizes.tablet}){
+    @media(min-width: ${ScreenSizes.md}){
         border-radius: 15px 15px 0 0;
     };
 
-    @media(min-width: ${ScreenSizes.desktop}){
+    @media(min-width: ${ScreenSizes.xl}){
         display: block;
         height: 100%;
         width: 290px;
@@ -46,7 +46,7 @@ export const MenuBarsContainer = styled.div`
         `}; 
     }
 
-    @media(min-width: ${ScreenSizes.desktop}){
+    @media(min-width: ${ScreenSizes.xl}){
         display: none;
     };
 `;

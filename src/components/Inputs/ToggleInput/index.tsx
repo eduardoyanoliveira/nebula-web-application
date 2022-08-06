@@ -1,26 +1,27 @@
 import { CheckBoxInput, ToggleContainer, ToggleLabel } from "./styles";
 
 interface IToggleInputProps {
-    id: string,
+    id?: string,
+    small?: boolean,
     initialValue?: boolean,
-    getValue(value: boolean): void
+    getValue?(value: boolean): void
 };
 
-const ToggleInput: React.FC<IToggleInputProps> = ({ id, initialValue, getValue }) => {
+const ToggleInput: React.FC<IToggleInputProps> = ({ id, small, initialValue, getValue }) => {
 
     const handleToggle = (e :  React.ChangeEvent<HTMLInputElement> ) => {
-        getValue(e.target.checked)
+       getValue && getValue(e.target.checked)
     };
 
     return (
-        <ToggleContainer data-testid='toggle-container'>
+        <ToggleContainer small={small} data-testid='toggle-container'>
             <CheckBoxInput  
                 data-testid="toggle-input"
                 type="checkbox" 
-                checked={initialValue} 
+                checked={initialValue}
                 id={id} onChange={(e) => handleToggle(e)}
             />
-            <ToggleLabel data-testid="toggle-label" htmlFor={id}></ToggleLabel>
+            <ToggleLabel small={small} data-testid="toggle-label" htmlFor={id}></ToggleLabel>
         </ToggleContainer>
     );
 };

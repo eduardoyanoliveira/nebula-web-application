@@ -19,12 +19,12 @@ export const Container = styled.div`
         background-color: ${theme.colors.background};
     `};
 
-    @media(min-width: ${ScreenSizes.tablet} ){
+    @media(min-width: ${ScreenSizes.md} ){
         height: 98vh;
         border-radius: 10px 0 0 10px;
     };
 
-    @media(min-width: ${ScreenSizes.desktop} ){
+    @media(min-width: ${ScreenSizes.xl} ){
         position: unset;
         border-radius: 10px 0 0 10px;
     };
@@ -45,7 +45,7 @@ export const Header  = styled.div`
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 
-    @media(min-width: ${ScreenSizes.desktop} ){
+    @media(min-width: ${ScreenSizes.xl} ){
         padding: 0 0 0 60px;
     };
 

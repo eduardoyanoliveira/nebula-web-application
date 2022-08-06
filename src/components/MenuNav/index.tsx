@@ -15,7 +15,7 @@ const MenuNav: React.FC = () => {
     };
 
     // Should controlls with the current size is cosidere desktop size 
-    const isDesktop = useMediaQuery(`(min-width: ${ScreenSizes.desktop})`);
+    const isDesktop = useMediaQuery(`(min-width: ${ScreenSizes.xl})`);
 
     return (
         <>

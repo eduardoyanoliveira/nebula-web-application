@@ -23,13 +23,13 @@ export const typographies : Typographies = {
         fontSize: '16px',
         letterSpacing: '0',
         lineHeight: '20px',
-        fontWeight: 500,
+        fontWeight: 600,
     },
     subtitleTwo: {
         fontSize: '14px',
         letterSpacing: '0',
         lineHeight: '20px',
-        fontWeight: 500,
+        fontWeight: 600,
     },
     button: {
         fontSize: '23px',

@@ -17,6 +17,8 @@ export const SubjectRow = styled.li`
     margin-bottom: 25px;
     padding: 0 30px;
 
+    position: relative;
+
     ${({theme}) => css`
         background-color: ${theme.colors.background};
     `};
@@ -32,15 +34,22 @@ export const SubjectRow = styled.li`
 
 export const SubjectTitle = styled.h3`
 
-    margin-right: 20px;
+    width: 80px;
 
     ${({theme}) => css`
         color: ${theme.colors.primary} ;
-        
         ${theme.typographies.titleTwo};
     `};
 
-    @media(min-width:${ScreenSizes.tablet}){
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    @media(min-width:${ScreenSizes.md}){
+        width: 80px;
+        margin-right: 20px;
+    }; 
+    @media(min-width:${ScreenSizes.xl}){
         margin-right: 50px;
     }; 
 `;
@@ -51,11 +60,11 @@ export const RegisterLabel = styled.label`
 
     ${({theme}) => css`
         color: ${theme.colors.typography500};
-        ${theme.typographies.subtitleOne};
+        ${theme.typographies.subtitleTwo};
     `};
 
     
-    @media(min-width:${ScreenSizes.tablet}){
+    @media(min-width:${ScreenSizes.md}){
         display: block;
     }; 
 `;
@@ -66,4 +75,75 @@ export const RegisterDate = styled.span`
         color: ${theme.colors.typography200};
         ${theme.typographies.subtitleTwo};
     `};
+`;
+
+export const IsActiveContainer = styled.div`
+
+    display: none;
+    align-items: center;
+    margin-left: 20px;
+
+    @media(min-width:${ScreenSizes.sm}){
+        display: flex;
+    }; 
+
+    @media(min-width:${ScreenSizes.md}){
+        margin-left: 30px;
+    }; 
+
+    @media(min-width:${ScreenSizes.xl}){
+        margin-left: 50px;
+    }; 
+
+`;
+
+export const IsActiveLabel = styled.label`
+
+    margin-right: 20px;
+
+    ${({theme}) => css`
+        color: ${theme.colors.typography500};
+        ${theme.typographies.subtitleOne};
+    `};
+
+`;
+
+
+export const ExitIconContainer = styled.label`
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    font-size: 25px;
+    right: 90px;;
+
+    ${({theme}) => css`
+        color: ${theme.colors.typography500};
+    `};
+
+    &:hover{
+        ${({theme}) => css`
+            color: ${theme.colors.primary} ;
+        `};
+    };
+
+    @media(min-width:${ScreenSizes.md}){
+        right: 60px;
+    }; 
+
+    @media(min-width:${ScreenSizes.xl}){
+        right: 70px;
+    }; 
+`;
+
+export const EditIconContainer = styled(ExitIconContainer)`
+    right: 30px;
+
+    @media(min-width:${ScreenSizes.md}){
+        right: 20px;
+    }; 
+
+    @media(min-width:${ScreenSizes.xl}){
+        right: 20px;
+    }; 
 `;
