@@ -27,7 +27,7 @@ describe('AutoComplete component test', () => {
     const setUp = () => {
 
         const getItem = jest.fn();
-        const { result } = renderHook(() => AutoCompleteComponent({ data: mockData, getItem }));
+        const { result } = renderHook(() => AutoCompleteComponent({ data: mockData, fieldToDisplay: 'name', getItem }));
 
         render(
             <input 

@@ -24,7 +24,7 @@ export const darkColors : ThemeColors = {
     ...baseColors,
     background: '#17191D',
     backgroundAlt : '#1D1E22',
-    backgroundAltTwo: '#28272DB3',
+    backgroundAltTwo: '#28272D',
     typography500: '#7C7C7D',
     typography200: 'rgba(209, 209, 219, 0.5)',
     appShadow: '4px 0px 4px #000,-4px -4px 4px #000,0px 4px 4px #000',

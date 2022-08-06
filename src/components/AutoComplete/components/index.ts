@@ -1,19 +1,18 @@
 import { useEffect, useState } from "react";
 import { listObjectContains } from "../dataFunctions/listObjectContains";
-import { IAutoCompleteData } from "../interfaces/autocomplete-data-interfaces";
 
-
-interface IAutoCompleteComponentProps{
-    data: IAutoCompleteData[],
-    getItem(item: IAutoCompleteData): void,
+interface IAutoCompleteComponentProps<T>{
+    data: T[],
+    fieldToDisplay: string,
+    getItem(item: T): void,
 };
 
-function AutoCompleteComponent({ data, getItem } : IAutoCompleteComponentProps){
+function AutoCompleteComponent<T = any>({ data, fieldToDisplay, getItem } : IAutoCompleteComponentProps<T>){
 
     const [inputValue, setInputValue] = useState('');
 
     // Stores the data filtered according with the current input value.
-    const [currentData, setCurrentData] = useState<IAutoCompleteData[]>([]);
+    const [currentData, setCurrentData] = useState<T[]>([]);
 
     // If true displays the list of current options on screen.
     const [open, setOpen] = useState(false);
@@ -29,21 +28,21 @@ function AutoCompleteComponent({ data, getItem } : IAutoCompleteComponentProps){
 
         setOpen(true);
 
-        setCurrentData(listObjectContains('name', e.target.value, data));
+        setCurrentData(listObjectContains(fieldToDisplay, e.target.value, data));
 
         // If any data matches the input value , it takes list off the screen.
-        listObjectContains('name', e.target.value, currentData).length === 0  && setOpen(false);
+        listObjectContains(fieldToDisplay, e.target.value, currentData).length === 0  && setOpen(false);
     };
 
     // When the user makes the last interection on the input , it checks if there is a object matching the current input value
     const closeInput = (): void => {
-        const current : IAutoCompleteData[] = listObjectContains('name', inputValue, data);
+        const current : T[] = listObjectContains(fieldToDisplay, inputValue, data);
 
         if(current.length > 0){
-            const item : IAutoCompleteData = current[0];
+            const item : T = current[0];
 
             getItem(item);
-            setInputValue(String(item.name));
+            setInputValue(String((item as any)[fieldToDisplay]));
             setOpen(false);
         };
     };
@@ -54,13 +53,13 @@ function AutoCompleteComponent({ data, getItem } : IAutoCompleteComponentProps){
         };
     };
 
-    const handleClick = (item: IAutoCompleteData): void => {
+    const handleClick = (item: T): void => {
 
         // Takes the selected object to the componet's father.
         getItem(item);
 
         // Sets the inputValue with the objected selected.
-        setInputValue(String(item.name));
+        setInputValue(String((item as any)[fieldToDisplay]));
 
         // take list off the screen.
         setOpen(false);

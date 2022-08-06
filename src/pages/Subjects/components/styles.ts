@@ -1,12 +1,16 @@
 import styled, { css } from "styled-components";
 import { ScreenSizes } from "../../../application/utils/screen/sizes";
 
+interface IElementProps {
+    isActive: boolean
+};
+
 export const SubjectsListContainer = styled.ul`
     margin-top: 45px;
     width: 100%;
 `;
 
-export const SubjectRow = styled.li`
+export const SubjectRow = styled.li<IElementProps>`
     display: flex;
     align-items: center;
     list-style: none;
@@ -24,20 +28,20 @@ export const SubjectRow = styled.li`
     `};
 
     &:hover{
-        ${({theme}) => css`
-            box-shadow: ${theme.colors.appShadow} ;
+        ${({theme, isActive}) => css`
+            box-shadow: ${isActive ? theme.colors.appShadow : ''};
         `};
     };
 
-    cursor: pointer;
+    cursor: ${({isActive}) => (isActive ? `pointer`: '')};
 `;
 
-export const SubjectTitle = styled.h3`
+export const SubjectTitle = styled.h3<IElementProps>`
 
-    width: 120px;
+    width: 170px;
 
-    ${({theme}) => css`
-        color: ${theme.colors.primary} ;
+    ${({theme, isActive}) => css`
+        color: ${isActive ? theme.colors.primary : theme.colors.typography200};
         ${theme.typographies.titleTwo};
     `};
 
@@ -46,13 +50,7 @@ export const SubjectTitle = styled.h3`
     overflow: hidden;
 
     @media(min-width:${ScreenSizes.sm}){
-        width: 80px;
-        margin-right: 1.25rem;
-    }; 
-
-
-    @media(min-width:${ScreenSizes.md}){
-        width: 110px;
+        width: 250px;
         margin-right: 1.25rem;
     }; 
 
@@ -83,35 +81,6 @@ export const RegisterDate = styled.span`
         ${theme.typographies.subtitleTwo};
     `};
 `;
-
-export const IsActiveContainer = styled.div`
-
-    display: none;
-    align-items: center;
-    margin-left: 1.25rem;
-
-    @media(min-width:${ScreenSizes.sm}){
-        display: flex;
-    }; 
-
-
-    @media(min-width:${ScreenSizes.xl}){
-        margin-left: 1.5rem;
-    };  
-
-`;
-
-export const IsActiveLabel = styled.label`
-
-    margin-right: 1.25rem;
-
-    ${({theme}) => css`
-        color: ${theme.colors.typography500};
-        ${theme.typographies.subtitleOne};
-    `};
-
-`;
-
 
 export const EditIconContainer = styled.label`
     display: flex;

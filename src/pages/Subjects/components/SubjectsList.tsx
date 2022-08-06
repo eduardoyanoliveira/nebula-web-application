@@ -4,13 +4,10 @@ import {
     SubjectTitle,
     RegisterLabel, 
     RegisterDate, 
-    IsActiveContainer, 
-    IsActiveLabel, 
     EditIconContainer 
 } from './styles';
 
 import { ISubject } from '../../../application/Domain/Entities/ISubject';
-import ToggleInput from '../../../components/Inputs/ToggleInput';
 import { MdOutlineEdit } from 'react-icons/md';
 
 interface ISubjectsListprops {
@@ -24,8 +21,8 @@ const SubjectsList: React.FC<ISubjectsListprops> = ({ subjects }) => {
                 subjects?.map((item) => {
                     const created_at = new Date((item.created_at as Date)).toLocaleString('pt-BR');
                     return (
-                        <SubjectRow key={item.id}>
-                            <SubjectTitle> 
+                        <SubjectRow key={item.id} isActive={item.is_active}>
+                            <SubjectTitle isActive={item.is_active}> 
                                 {item.name} 
                             </SubjectTitle>
                             <RegisterLabel>
@@ -34,12 +31,6 @@ const SubjectsList: React.FC<ISubjectsListprops> = ({ subjects }) => {
                                     {created_at}
                                 </RegisterDate>
                             </RegisterLabel>
-                            <IsActiveContainer>
-                                <IsActiveLabel>
-                                    Ativo? 
-                                </IsActiveLabel>
-                                <ToggleInput initialValue={item.is_active} small={true}/>
-                            </IsActiveContainer>
                             <EditIconContainer>
                                 <MdOutlineEdit/>
                             </EditIconContainer>

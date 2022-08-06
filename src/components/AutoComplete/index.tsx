@@ -1,18 +1,18 @@
 import { AutoCompleteComponent } from './components';
 import { Container, AutoCompleteInput ,List, Item, AutoCompleteContainer, IconContainer, Icon } from "./styles";
 import { FaSearch } from 'react-icons/fa';
-import { IAutoCompleteData } from './interfaces/autocomplete-data-interfaces';
 
-interface IAutoCompleteProps{
+interface IAutoCompleteProps<T>{
     name: string,
     maxWidth?: string,
     margin?: string,
-    data: IAutoCompleteData[],
-    getItem(item: IAutoCompleteData): void,
+    data: T[],
+    fieldToDisplay: string,
+    getItem(item: T): void,
 };
 
 
-function AutoComplete({ name, maxWidth, margin, data, getItem }: IAutoCompleteProps) {
+function AutoComplete<T>({ name, maxWidth, margin, data, fieldToDisplay, getItem }: IAutoCompleteProps<T>) {
 
     const { 
         handleChange,
@@ -22,7 +22,7 @@ function AutoComplete({ name, maxWidth, margin, data, getItem }: IAutoCompletePr
         inputValue,
         currentData,
         closeInput
-    } = AutoCompleteComponent({data, getItem});
+    } = AutoCompleteComponent({data, fieldToDisplay, getItem});
 
     
     return (
@@ -54,11 +54,11 @@ function AutoComplete({ name, maxWidth, margin, data, getItem }: IAutoCompletePr
                             currentData.map((item) =>{
                                 return (
                                     <Item 
-                                        id={String(item.id)} 
-                                        key={item.id} 
+                                        id={String((item as any).id)} 
+                                        key={(item as any).id} 
                                         onClick={() => handleClick(item)}
                                     >
-                                        {item.name}
+                                        {(item as any).name}
                                     </Item>
                                 )
                             })

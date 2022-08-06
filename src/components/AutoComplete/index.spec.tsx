@@ -28,7 +28,8 @@ describe('Auto-complete ui component', () => {
             <ThemeProvider>
                 <AutoComplete 
                     name="test-ac" 
-                    data={mockData} 
+                    data={mockData}
+                    fieldToDisplay='name' 
                     getItem={fn}
                     maxWidth={'300px'}
                     margin={'20px'}    
