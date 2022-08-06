@@ -13,8 +13,8 @@ export const ToggleContainer = styled.div<IToggleProps>`
     position: relative;
 
     height: ${({small}) => small ? '9px' : '12px'};
+    width: ${({small}) => small ? '30px' : '40px'};
 
-    width: 40px;
     border-radius: 30px;
 
     ${({theme}) => css`
@@ -29,10 +29,11 @@ display: inline-block;
 
     width: ${({small}) => small ? '20px' : '25px'};
     height: ${({small}) => small ? '20px' : '25px'};
-    border-radius: 50%;
     position: relative;
-    top: -6px;
-    left: -24px;
+    top: ${({small}) => small ? '-26px' : '-6px'};
+    left: ${({small}) => small ? '-9px' : '-24px'};
+    border-radius: 50%;
+    
     transition: transform ease-in-out .3s;
     cursor: pointer;
 
@@ -42,8 +43,8 @@ display: inline-block;
     
     ${CheckBoxInput}:checked + & {
        
-        ${({theme}) => css`
-            transform: translateX(37px);
+        ${({theme, small}) => css`
+            transform: ${ small ? 'translateX(28px)' : 'translateX(37px)'};
             background-color: ${theme.colors.primary};
         `} 
     }

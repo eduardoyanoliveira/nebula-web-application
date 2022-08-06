@@ -15,7 +15,7 @@ export const SubjectRow = styled.li`
     border-radius: 5px;
 
     margin-bottom: 25px;
-    padding: 0 30px;
+    padding: 0 1.5rem;
 
     position: relative;
 
@@ -34,7 +34,7 @@ export const SubjectRow = styled.li`
 
 export const SubjectTitle = styled.h3`
 
-    width: 80px;
+    width: 120px;
 
     ${({theme}) => css`
         color: ${theme.colors.primary} ;
@@ -45,12 +45,19 @@ export const SubjectTitle = styled.h3`
     white-space: nowrap;
     overflow: hidden;
 
-    @media(min-width:${ScreenSizes.md}){
+    @media(min-width:${ScreenSizes.sm}){
         width: 80px;
-        margin-right: 20px;
+        margin-right: 1.25rem;
     }; 
+
+
+    @media(min-width:${ScreenSizes.md}){
+        width: 110px;
+        margin-right: 1.25rem;
+    }; 
+
     @media(min-width:${ScreenSizes.xl}){
-        margin-right: 50px;
+        margin-right: 1.5rem;
     }; 
 `;
 
@@ -81,25 +88,22 @@ export const IsActiveContainer = styled.div`
 
     display: none;
     align-items: center;
-    margin-left: 20px;
+    margin-left: 1.25rem;
 
     @media(min-width:${ScreenSizes.sm}){
         display: flex;
     }; 
 
-    @media(min-width:${ScreenSizes.md}){
-        margin-left: 30px;
-    }; 
 
     @media(min-width:${ScreenSizes.xl}){
-        margin-left: 50px;
-    }; 
+        margin-left: 1.5rem;
+    };  
 
 `;
 
 export const IsActiveLabel = styled.label`
 
-    margin-right: 20px;
+    margin-right: 1.25rem;
 
     ${({theme}) => css`
         color: ${theme.colors.typography500};
@@ -109,16 +113,15 @@ export const IsActiveLabel = styled.label`
 `;
 
 
-export const ExitIconContainer = styled.label`
+export const EditIconContainer = styled.label`
     display: flex;
     align-items: center;
-    cursor: pointer;
     position: absolute;
-    font-size: 25px;
-    right: 90px;;
+    font-size: 1.75rem;
+    right: 40px;;
 
     ${({theme}) => css`
-        color: ${theme.colors.typography500};
+        color: ${theme.colors.typography200};
     `};
 
     &:hover{
@@ -128,22 +131,8 @@ export const ExitIconContainer = styled.label`
     };
 
     @media(min-width:${ScreenSizes.md}){
-        right: 60px;
+        right: 30px;
     }; 
 
-    @media(min-width:${ScreenSizes.xl}){
-        right: 70px;
-    }; 
-`;
-
-export const EditIconContainer = styled(ExitIconContainer)`
-    right: 30px;
-
-    @media(min-width:${ScreenSizes.md}){
-        right: 20px;
-    }; 
-
-    @media(min-width:${ScreenSizes.xl}){
-        right: 20px;
-    }; 
+    cursor: pointer;
 `;

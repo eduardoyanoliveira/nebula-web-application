@@ -1,7 +1,16 @@
-import { SubjectsListContainer, SubjectRow, SubjectTitle, RegisterLabel, RegisterDate, IsActiveContainer, IsActiveLabel, ExitIconContainer, EditIconContainer } from './styles';
+import { 
+    SubjectsListContainer,
+    SubjectRow,
+    SubjectTitle,
+    RegisterLabel, 
+    RegisterDate, 
+    IsActiveContainer, 
+    IsActiveLabel, 
+    EditIconContainer 
+} from './styles';
+
 import { ISubject } from '../../../application/Domain/Entities/ISubject';
 import ToggleInput from '../../../components/Inputs/ToggleInput';
-import { IoMdExit } from 'react-icons/io';
 import { MdOutlineEdit } from 'react-icons/md';
 
 interface ISubjectsListprops {
@@ -31,9 +40,6 @@ const SubjectsList: React.FC<ISubjectsListprops> = ({ subjects }) => {
                                 </IsActiveLabel>
                                 <ToggleInput initialValue={item.is_active} small={true}/>
                             </IsActiveContainer>
-                                <ExitIconContainer>
-                                    <IoMdExit/>
-                                </ExitIconContainer>
                                 <EditIconContainer>
                                     <MdOutlineEdit/>
                                 </EditIconContainer>

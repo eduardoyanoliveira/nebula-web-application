@@ -7,7 +7,9 @@ export default createGlobalStyle`
         box-sizing: border-box;
         font-family: 'Roboto', sans-serif;
     }
-
+    html{
+        font-size: 100%;
+    }
     button{
         outline: none;
         border: none;
