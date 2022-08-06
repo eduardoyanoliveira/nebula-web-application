@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { CheckBoxInput, ToggleContainer, ToggleLabel } from "./styles";
 
 interface IToggleInputProps {
@@ -9,8 +10,11 @@ interface IToggleInputProps {
 
 const ToggleInput: React.FC<IToggleInputProps> = ({ id, small, initialValue, getValue }) => {
 
+    const [toggle, setToggle] = useState<boolean>(initialValue || false);
+
     const handleToggle = (e :  React.ChangeEvent<HTMLInputElement> ) => {
-       getValue && getValue(e.target.checked)
+        setToggle((prev) => prev = !prev);
+        getValue && getValue(e.target.checked);
     };
 
     return (
@@ -18,7 +22,7 @@ const ToggleInput: React.FC<IToggleInputProps> = ({ id, small, initialValue, get
             <CheckBoxInput  
                 data-testid="toggle-input"
                 type="checkbox" 
-                checked={initialValue}
+                checked={toggle}
                 id={id} onChange={(e) => handleToggle(e)}
             />
             <ToggleLabel small={small} data-testid="toggle-label" htmlFor={id}></ToggleLabel>

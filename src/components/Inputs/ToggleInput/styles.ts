@@ -38,7 +38,7 @@ display: inline-block;
     cursor: pointer;
 
     ${({theme}) => css`
-        background-color: ${theme.colors.background};
+        background-color: ${theme.colors.typography500};
     `}
     
     ${CheckBoxInput}:checked + & {

@@ -22,7 +22,7 @@ const SubjectsList: React.FC<ISubjectsListprops> = ({ subjects }) => {
         <SubjectsListContainer>
             {
                 subjects?.map((item) => {
-                    const created_at = new Date((item.created_at as Date)).toLocaleString('pt-BR')
+                    const created_at = new Date((item.created_at as Date)).toLocaleString('pt-BR');
                     return (
                         <SubjectRow key={item.id}>
                             <SubjectTitle> 
@@ -40,9 +40,9 @@ const SubjectsList: React.FC<ISubjectsListprops> = ({ subjects }) => {
                                 </IsActiveLabel>
                                 <ToggleInput initialValue={item.is_active} small={true}/>
                             </IsActiveContainer>
-                                <EditIconContainer>
-                                    <MdOutlineEdit/>
-                                </EditIconContainer>
+                            <EditIconContainer>
+                                <MdOutlineEdit/>
+                            </EditIconContainer>
                         </SubjectRow>
                     );
                 })

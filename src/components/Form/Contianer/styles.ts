@@ -42,6 +42,6 @@ export const Title = styled.h1`
 
     @media(min-width:${ScreenSizes.xl}){
         padding: 0 205px;
-        width: calc(100% - 290px);
+        width: 100%;
     }; 
 `;

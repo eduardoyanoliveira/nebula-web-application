@@ -23,23 +23,23 @@ const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
 
 function TestPage() {
 
-  // const { data: usersData, isFetching, error } = useStaleWhileRevalidate<User[]>('users', httpAxiosGetClient, 10);
-  // const [users, setUsers] = useState<IAutoCompleteData[]>([]);
+  const { data: usersData, isFetching, error } = useStaleWhileRevalidate<User[]>('users', httpAxiosGetClient, 10);
+  const [users, setUsers] = useState<IAutoCompleteData[]>([]);
 
-  // const { toggleTheme } = useContext(ThemeContext);
+  const { toggleTheme } = useContext(ThemeContext);
 
-  // useEffect(() => {
-  //   setUsers([]);
-  //   usersData?.forEach((user : User) => {
-  //     setUsers((prev) => [
-  //       ...prev,
-  //       {
-  //         id: user.id,
-  //         name: user.username
-  //       }
-  //     ]);
-  //   });
-  // }, [usersData]);
+  useEffect(() => {
+    setUsers([]);
+    usersData?.forEach((user : User) => {
+      setUsers((prev) => [
+        ...prev,
+        {
+          id: user.id,
+          name: user.username
+        }
+      ]);
+    });
+  }, [usersData]);
 
   const getValue = (value: boolean) => {
     console.log(value)
@@ -47,10 +47,10 @@ function TestPage() {
 
   return (
     <PageContainer>
-      {/* {isFetching && <h1>Carregando</h1>}
+      {isFetching && <h1>Carregando</h1>}
       <AutoComplete name='users' getItem={(item) => console.log(item)} data={users} maxWidth={'350px'} margin='20px 0'/>
-     <button onClick={toggleTheme}>Troca Tema</button> */}
-     <ToggleInput initialValue={true} getValue={getValue}/>
+     <button onClick={toggleTheme}>Troca Tema</button>
+     <ToggleInput id="toggle" initialValue={true} getValue={getValue}/>
 
     </PageContainer>
   )

@@ -8,6 +8,7 @@ export interface ThemeColors {
     secondaryGradient: string,
     background: string,
     backgroundAlt: string,
+    backgroundAltTwo: string,
     typography200: string,
     typography500: string,
     appShadow: string,

@@ -26,6 +26,7 @@ export const IconContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    
     padding: 0 15px 0 0;
     width: 20%;
     border-radius: 0 5px 5px 0;

@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { ScreenSizes } from "../../../application/utils/screen/sizes";
 import { Input } from "../../Inputs/Input/styles";
 
 interface ContainerProps {
@@ -37,7 +38,7 @@ export const IconContainer = styled.div<IAutoCompleteContainerProps>`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 20%;
+    width: 25%;
 
     ${({ borderRadius }) => css`
         border-radius: ${borderRadius};
@@ -45,7 +46,13 @@ export const IconContainer = styled.div<IAutoCompleteContainerProps>`
 
     ${({theme}) => css`
         background-color: ${theme.colors.background};
-    `}
+    `};
+
+    @media(min-width: ${ScreenSizes.sm}){
+        justify-content: flex-end;
+        padding-right: 25px;
+        width: 20%;
+    };
     
     cursor: pointer;
 `;
@@ -69,6 +76,35 @@ export const Icon = styled.div`
 export const List = styled.ul`
     position: absolute;
     width: 100%;
+    height: 120px;
+    overflow-y: auto;
+
+
+
+    ${({theme}) => css`
+        scrollbar-color: ${theme.colors.typography200} ${theme.colors.backgroundAltTwo};
+        scrollbar-width: thin;
+    `}
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+
+        ${({theme}) => css`
+            background: ${theme.colors.typography200};
+        `}
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+    }
+    
+    /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+        background: 0;
+    }
+
 `;
 
 export const Item = styled.li`
@@ -80,8 +116,9 @@ export const Item = styled.li`
     width: 100%;
 
     ${({theme}) => css`
-    background-color: ${theme.colors.backgroundAlt};
+        background-color: ${theme.colors.backgroundAltTwo};
         color: ${theme.colors.typography200};
+        ${theme.typographies.subtitleOne};
     `};
 
     cursor: pointer;
