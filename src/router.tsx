@@ -21,6 +21,7 @@ export function Router({ isLogged } : IRouterProps){
                         <Route path="/" element={<ErrorPage/>}></Route>
                         <Route path="/subjects" element={<SubjectsPage/>}></Route>
                         <Route path="/subjects/register" element={<SubjectsRegisterPage/>}></Route>
+                        <Route path="/subjects/register/:id" element={<SubjectsRegisterPage/>}></Route>
                         <Route path="*" element={<ErrorPage/>}></Route>
                     </Routes> 
                    

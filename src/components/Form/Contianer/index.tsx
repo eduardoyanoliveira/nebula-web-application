@@ -8,8 +8,8 @@ interface IFormContainerProps {
 
 const  FormContainer : React.FC<IFormContainerProps> = ({ title, children }) => {
     return (
-        <Container>
-            <Title>
+        <Container data-testid="form-container">
+            <Title data-testid="form-container-title">
                 {title}:
             </Title>
             {children}

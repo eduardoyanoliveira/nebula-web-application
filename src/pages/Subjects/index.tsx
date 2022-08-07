@@ -23,6 +23,8 @@ function SubjectsPage() {
         navigate('/subjects/register');
     };
 
+    console.log(filteredSubjects)
+
     return (
         <FormContainer title='Tópicos'>
             <Header>

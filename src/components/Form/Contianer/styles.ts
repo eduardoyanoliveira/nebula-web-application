@@ -33,7 +33,8 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-
+    display: flex;
+    justify-content: center;
     margin: 30px 0 ;
     ${({theme}) => css`
         color: ${theme.colors.typography500};

@@ -8,7 +8,7 @@ const SubjectsListAndFilter = (httpGetClient: IHTTPGetClient) => {
   
   const [search, setSearch] = useState<string>('');
     
-  const { data, isFetching, error } = useStaleWhileRevalidate<ISubject[]>('subjects', httpGetClient, 30);
+  const { data, isFetching, error } = useStaleWhileRevalidate<ISubject[]>('subjects', httpGetClient, 60);
 
   const filteredSubjects = search.length > 0
     ? data?.filter(subject => subject.name.includes(search))

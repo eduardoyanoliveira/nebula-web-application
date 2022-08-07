@@ -9,12 +9,16 @@ import {
 
 import { ISubject } from '../../../application/Domain/Entities/ISubject';
 import { MdOutlineEdit } from 'react-icons/md';
+import { useNavigate } from 'react-router-dom';
 
 interface ISubjectsListprops {
     subjects: ISubject[]
 };
 
 const SubjectsList: React.FC<ISubjectsListprops> = ({ subjects }) => {
+
+    const navigate = useNavigate();
+
     return (
         <SubjectsListContainer>
             {
@@ -31,7 +35,9 @@ const SubjectsList: React.FC<ISubjectsListprops> = ({ subjects }) => {
                                     {created_at}
                                 </RegisterDate>
                             </RegisterLabel>
-                            <EditIconContainer>
+                            <EditIconContainer 
+                                onClick={() => { navigate(`/subjects/register/${item.id}`) }}
+                            >
                                 <MdOutlineEdit/>
                             </EditIconContainer>
                         </SubjectRow>
