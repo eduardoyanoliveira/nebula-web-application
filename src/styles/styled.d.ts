@@ -6,6 +6,7 @@ export interface ThemeColors {
     primaryLightShadow: string,
     secondary: string,
     secondaryGradient: string,
+    secondaryLightShadow: string,
     background: string,
     backgroundAlt: string,
     backgroundAltTwo: string,

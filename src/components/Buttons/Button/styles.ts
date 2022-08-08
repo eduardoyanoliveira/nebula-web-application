@@ -23,6 +23,22 @@ const handleBackgroundColor = (theme : DefaultTheme, backgroundColor : string) :
 };
 
 
+const handleBoxShadow = (theme : DefaultTheme, backgroundColor : string) : string =>{
+    
+    switch (backgroundColor) {
+        case 'primaryGradient':
+            return theme.colors.primaryLightShadow
+        case 'secondaryGradient':
+            return theme.colors.secondaryLightShadow
+        case 'primary':
+            return theme.colors.primaryLightShadow
+        case 'secondary':
+            return theme.colors.secondaryLightShadow
+        default:
+            return theme.colors.primaryLightShadow
+    };
+};
+
 export const Button = styled.button<ButtonProps>`
 
     outline: none;
@@ -35,7 +51,7 @@ export const Button = styled.button<ButtonProps>`
     ${({theme, maxWidth, margin, backgroundColor}) => css`
         background-image: ${handleBackgroundColor(theme, backgroundColor)};
         background-color: ${handleBackgroundColor(theme, backgroundColor)};
-        box-shadow: ${theme.colors.primaryLightShadow};
+        box-shadow: ${handleBoxShadow(theme, backgroundColor)};
         margin: ${margin};
         max-width: ${maxWidth};
         ${theme.typographies.button};

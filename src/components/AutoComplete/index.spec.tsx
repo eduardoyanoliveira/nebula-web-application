@@ -72,17 +72,6 @@ describe('Auto-complete ui component', () => {
         cleanup();
     });
 
-    it('should call getItem function with the icon-container is clicked', async () => {
-        setUp();
-
-        const iconContainer = screen.getByTestId('auto-complete-icon-container');
-
-        await userEvent.click(iconContainer);
-
-        expect(fn).toHaveBeenCalled();
-
-        cleanup();
-    });
 
     // STYLES TESTS
 

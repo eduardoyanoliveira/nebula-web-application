@@ -28,7 +28,7 @@ export const Container = styled.div`
     };
 
     @media(min-width:${ScreenSizes.xl}){
-        padding: 0 200px;
+        padding: 0 220px;
     }; 
 `;
 
@@ -42,7 +42,6 @@ export const Title = styled.h1`
     `}
 
     @media(min-width:${ScreenSizes.xl}){
-        padding: 0 205px;
         width: 100%;
     }; 
 `;

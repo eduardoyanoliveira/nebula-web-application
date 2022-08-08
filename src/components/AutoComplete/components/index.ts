@@ -65,7 +65,7 @@ function AutoCompleteComponent<T = any>({ data, fieldToDisplay, getItem } : IAut
         setOpen(false);
     };
     
-    return { handleChange, handleKeyDown, open, handleClick, inputValue, currentData, closeInput };
+    return { handleChange, handleKeyDown, open, handleClick, inputValue, currentData };
 };
 
 export { AutoCompleteComponent };

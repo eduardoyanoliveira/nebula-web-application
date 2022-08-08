@@ -21,7 +21,6 @@ function AutoComplete<T>({ name, maxWidth, margin, data, fieldToDisplay, getItem
         handleKeyDown,
         inputValue,
         currentData,
-        closeInput
     } = AutoCompleteComponent({data, fieldToDisplay, getItem});
 
     
@@ -35,11 +34,11 @@ function AutoComplete<T>({ name, maxWidth, margin, data, fieldToDisplay, getItem
                     onKeyDown={handleKeyDown}
                     borderRadius={(open && inputValue) ? '5px 0 0 0' : '5px 0 0 5px'}
                     data-testid='auto-complete-input'
+                    placeholder='Pesquise'
                     
                 />
                 <IconContainer 
                     data-testid='auto-complete-icon-container'
-                    onClick={closeInput}
                     borderRadius={(open && inputValue) ? '0 5px 0 0' : '0 5px 5px 0'}
                 >
                     <Icon  data-testid='auto-complete-icon'>

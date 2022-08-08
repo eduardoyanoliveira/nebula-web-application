@@ -54,7 +54,6 @@ export const IconContainer = styled.div<IAutoCompleteContainerProps>`
         width: 20%;
     };
     
-    cursor: pointer;
 `;
 
 export const Icon = styled.div`
@@ -69,7 +68,6 @@ export const Icon = styled.div`
 
     ${({theme}) => css`
         background-color: ${theme.colors.primary};
-        box-shadow: ${theme.colors.primaryLightShadow};
     `}
 `;
 
@@ -78,7 +76,7 @@ export const List = styled.ul`
     width: 100%;
     height: 120px;
     overflow-y: auto;
-
+    z-index: 999;
 
 
     ${({theme}) => css`
@@ -117,7 +115,7 @@ export const Item = styled.li`
 
     ${({theme}) => css`
         background-color: ${theme.colors.backgroundAltTwo};
-        color: ${theme.colors.typography200};
+        color: ${theme.colors.typography500};
         ${theme.typographies.subtitleOne};
     `};
 

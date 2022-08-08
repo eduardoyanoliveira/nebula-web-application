@@ -20,7 +20,7 @@ const InputComponent: React.FC<InputComponentProps> = ({margin, maxWidth , label
         <InputContainer data-testid={'input-container-test-id'} margin={margin} maxWidth={maxWidth}>
             {
                 (label && rest.name) && (
-                    <Label data-testid='label-test-id' htmlFor={rest.name}>{label}</Label>
+                    <Label data-testid='label-test-id' htmlFor={rest.name}>{label}:</Label>
                 )
             }
             <Input 

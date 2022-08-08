@@ -24,10 +24,11 @@ function updateCacheRequest({ url, data, at }: IRequestCache): void{
  * Uses StaleTimeRevalidate Principle to make and cache http get requests
  * @param url to make request
  * @param httpGetClient A client capable of making get requests (axios, fetch)
- * @param staleTime necessary time elapsed since last time the specif request was made to be considered stale 
+ * @param staleTime necessary time elapsed since last time the specif request was made to be considered stale
+ * @param refatch If true whenever the user focus on the window the data should be refecthed  
  * @returns data from request, isFatching, error
  */
-export function useStaleWhileRevalidate<T = any >(url: string, httpGetClient : IHTTPGetClient, staleTime: number) {
+export function useStaleWhileRevalidate<T = any >(url: string, httpGetClient : IHTTPGetClient, staleTime: number, refecth : boolean = true) {
 
     const [data, setData] =  useState<T | null>(null);
     const [ isFetching, setIsFetching ] = useState(true);
@@ -85,20 +86,25 @@ export function useStaleWhileRevalidate<T = any >(url: string, httpGetClient : I
 
             fetch();
 
-            window.addEventListener('focus', () => {
-                // refetch
-                fetch();
-            });
+            if(refecth){
+                window.addEventListener('focus', () => {
+                    // refetch
+                    fetch();
+                });
+            }
+
         };
        
         return () => {
-            // Removes the event from the window Api to prevent memory leaks
-            window.removeEventListener('focus', fetch);
-
+            
+            if(refecth){
+                // Removes the event from the window Api to prevent memory leaks
+                window.removeEventListener('focus', fetch);
+            }
             // Unmount the component
             isMounted.current = false;
         };
-    }, [fetch, url]);  
+    }, [fetch, url, refecth]);  
 
     return { data, isFetching, error };
 };

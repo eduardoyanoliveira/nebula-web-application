@@ -50,7 +50,6 @@ export const AppHeader = styled.div`
     display: none;
     width: 100%;
     height: 80px;
-    background-color: red;
     border-radius: 0 10px 0 0;
 
     

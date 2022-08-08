@@ -48,7 +48,7 @@ export const Input = styled.input`
 
     &::placeholder { 
         ${({theme}) => css`
-            color: ${theme.colors.typography200};
+            color: ${theme.colors.typography500};
         `}
     }
 
