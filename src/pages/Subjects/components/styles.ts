@@ -2,12 +2,40 @@ import styled, { css } from "styled-components";
 import { ScreenSizes } from "../../../application/utils/screen/sizes";
 
 interface IElementProps {
-    isActive: boolean
+    isActive: boolean,
+    screenOverflow?: boolean
 };
 
 export const SubjectsListContainer = styled.ul`
     margin-top: 45px;
     width: 100%;
+    overflow-y: auto;
+    height: 480px;
+
+    
+    ${({theme}) => css`
+        scrollbar-color: ${theme.colors.typography200} ${theme.colors.backgroundAltTwo};
+        scrollbar-width: thin;
+    `};
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    };
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+
+        ${({theme}) => css`
+            background: ${theme.colors.typography200};
+        `}
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+    };
+    
+    /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+        background: 0;
+    };
 `;
 
 export const SubjectRow = styled.li<IElementProps>`
@@ -15,7 +43,7 @@ export const SubjectRow = styled.li<IElementProps>`
     align-items: center;
     list-style: none;
     height: 50px;
-    width: 100%;
+    width: ${({screenOverflow}) => screenOverflow ? '98%' : '100%'};
     border-radius: 5px;
 
     margin-bottom: 25px;

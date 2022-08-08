@@ -25,7 +25,7 @@ const SubjectsList: React.FC<ISubjectsListprops> = ({ subjects }) => {
                 subjects?.map((item) => {
                     const created_at = new Date((item.created_at as Date)).toLocaleString('pt-BR');
                     return (
-                        <SubjectRow key={item.id} isActive={item.is_active}>
+                        <SubjectRow key={item.id} isActive={item.is_active} screenOverflow={subjects.length > 6}>
                             <SubjectTitle isActive={item.is_active}> 
                                 {item.name} 
                             </SubjectTitle>

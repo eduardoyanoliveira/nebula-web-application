@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { ScreenSizes } from "../../../application/utils/screen/sizes";
 
-export const Container = styled.div`
+export const Container = styled.form`
 
     display: flex;
     align-items: center;
