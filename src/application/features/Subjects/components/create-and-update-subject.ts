@@ -1,15 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { FormEvent, useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { ISubject } from '../../../Domain/Entities/ISubject';
-import { axiosInstance } from '../../../Infra/axios/axios-instance';
-import { HTTPAxiosGetClient } from '../../../Infra/axios/http-axios-get-client';
-import { HTTPAxiosPatchClient } from '../../../Infra/axios/http-axios-patch-client';
-import { HTTPAxiosPostClient } from '../../../Infra/axios/http-axios-post-client';
+import { IHTTPGetClient } from '../../../Domain/HTTPRequestsClient/IHTTPGetClient';
+import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchClient';
+import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostClient';
+import ListSubjects from './list-subjects';
 
-const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
-const httpAxiosPostClient = new HTTPAxiosPostClient(axiosInstance);
-const httpAxiosPatchClient = new HTTPAxiosPatchClient(axiosInstance);
 
 const baseSubject : ISubject = {
   id: '',
@@ -18,19 +14,12 @@ const baseSubject : ISubject = {
 };
 
 
-function CreateAndUpdateSubject() {
+function CreateAndUpdateSubject(httpGetClient: IHTTPGetClient, httpPostClient: IHTTPPostClient, httpPatchClient: IHTTPPatchClient) {
 
   const navigate = useNavigate();
 
-  const { data, isFetching, error } = useQuery<ISubject[]>(['subjects'], async () => {
-    const response = await httpAxiosGetClient.get('subjects');
+  const { subjects, isFetching } = ListSubjects(httpGetClient);
 
-    if(response.isFailure){
-      console.log('error');
-    };
-
-    return response.getValue().data;
-  })
 
   const [current, setCurrent] = useState<ISubject>(baseSubject);
 
@@ -41,9 +30,9 @@ function CreateAndUpdateSubject() {
 
   useEffect(() => {
     if(isMounted.current){
-      setCurrent((prev) => prev = data?.find(item => item.id === params.id) as ISubject || prev);
+      setCurrent((prev) => prev = subjects?.find(item => item.id === params.id) as ISubject || prev);
     };
-  },[params.id, data]);
+  },[params.id, subjects]);
 
   const getItem = (value: ISubject) => {
     setCurrent((prev) => prev = value);
@@ -65,26 +54,35 @@ function CreateAndUpdateSubject() {
     e.preventDefault();
 
     if(!current.id){
-      const response = await httpAxiosPostClient.post('subjects', current);
+      const response = await httpPostClient.post('subjects', current);
 
       if(response.isFailure){
         return alert(response.error)
       };
     }else{
-      const response = await httpAxiosPatchClient.patch(`subjects/${current.id}`, current);
+      const response = await httpPatchClient.patch(`subjects/${current.id}`, current);
 
       if(response.isFailure){
         return alert(response.error)
       };
     };
 
-
     navigate('/subjects');
 
     window.location.reload();
   };
 
-  return { baseSubject, data, current, setCurrent, handleChange, getItem, toggleActive, handleSubmit };
-}
+  return { 
+    baseSubject, 
+    isFetching,
+    subjects, 
+    current, 
+    setCurrent, 
+    handleChange, 
+    getItem, 
+    toggleActive, 
+    handleSubmit 
+  };
+};
 
 export default CreateAndUpdateSubject;

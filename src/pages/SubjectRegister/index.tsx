@@ -6,11 +6,28 @@ import FormContainer from "../../components/Form/Contianer";
 import InputComponent from "../../components/Inputs/Input";
 import ToggleInput from "../../components/Inputs/ToggleInput";
 import { Header, Container, RegisterLabel, IsActiveContainer, IsActiveLabel } from "./styles";
+import { axiosInstance } from '../../application/Infra/axios/axios-instance';
+import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
+import { HTTPAxiosPatchClient } from '../../application/Infra/axios/http-axios-patch-client';
+import { HTTPAxiosPostClient } from '../../application/Infra/axios/http-axios-post-client';
+
+const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
+const httpAxiosPostClient = new HTTPAxiosPostClient(axiosInstance);
+const httpAxiosPatchClient = new HTTPAxiosPatchClient(axiosInstance);
 
 
 function SubjectsRegisterPage() {
 
-  const { baseSubject, data, current, setCurrent, handleChange, toggleActive, getItem, handleSubmit } = CreateAndUpdateSubject();
+  const { 
+    baseSubject,
+    subjects, 
+    current, 
+    setCurrent, 
+    handleChange, 
+    toggleActive,
+    getItem, 
+    handleSubmit 
+  } = CreateAndUpdateSubject(httpAxiosGetClient, httpAxiosPostClient, httpAxiosPatchClient);
 
   return (
     <FormContainer title="Cadastro de Tópicos">
@@ -19,14 +36,16 @@ function SubjectsRegisterPage() {
           <Header>
             <AutoComplete 
               name="subjects" 
-              data={data || []} 
+              data={subjects || []} 
               fieldToDisplay='name'
               getItem={getItem}
             />
           </Header>
         )
       }
-      <Container style={{justifyContent: `${current.name ? 'space-between' : 'flex-end'}`, padding: '0 15px'}}>
+      <Container 
+        style={{justifyContent: `${current.name ? 'space-between' : 'flex-end'}`, padding: '0 15px'}}
+      >
         {
           current.name && (
             <RegisterLabel>
@@ -36,7 +55,11 @@ function SubjectsRegisterPage() {
         }
           <IsActiveContainer>
             <IsActiveLabel> Ativo?</IsActiveLabel>
-            <ToggleInput id="toggle" initialValue={current?.is_active} getValue={toggleActive}/>
+            <ToggleInput 
+              id="toggle" 
+              initialValue={current?.is_active} 
+              getValue={toggleActive}
+            />
           </IsActiveContainer>
       </Container>
 
@@ -70,7 +93,7 @@ function SubjectsRegisterPage() {
         }
       </Container>
     </FormContainer>
-  )
-}
+  );
+};
 
 export default SubjectsRegisterPage;

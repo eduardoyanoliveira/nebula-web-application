@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react"
+import { cleanup, render, screen } from "@testing-library/react"
 import FormContainer from "."
 import ThemeProvider from "../../../styles/themeProvider";
 
@@ -21,5 +21,6 @@ describe('Form Container tests', () => {
         expect(formTitle).toBeInTheDocument();
         expect(children).toBeInTheDocument();
         
-    })
-})
+        cleanup();
+    });
+});

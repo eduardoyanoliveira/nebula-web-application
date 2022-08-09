@@ -16,17 +16,17 @@ function AppTemplate() {
         };
     },[navigate]);
  
-    const route = <Router isLogged={getTokenFromCache.execute().isSuccess}/>
+    const route = <Router isLogged={getTokenFromCache.execute().isSuccess}/>;
 
     return (
 
         <>
             {
                 getTokenFromCache.execute().isSuccess ? (
-                    <BackgroundContainer>
-                        <App>
-                            <MenuNav/>
-                            <AppCenterContainer >
+                    <BackgroundContainer date-testid='app-background-container'>
+                        <App date-testid='app-container'>
+                            <MenuNav date-testid='app-menu'/>
+                            <AppCenterContainer date-testid='app-center-container'>
                                 <AppHeader/>
                                 
                                 { route }

@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const Header = styled.div`
+export const Header = styled.header`
     display: flex;
     width: 100%;
 `;

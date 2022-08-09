@@ -1,6 +1,6 @@
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-import SubjectsListAndFilter from '../../application/features/Subjects/components/subjects-list-and-filter';
+import FilterSubjects from '../../application/features/Subjects/components/filter-subjects';
 import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
 import { ButtonColors } from '../../components/Buttons/Button/ButtonColors';
@@ -17,12 +17,11 @@ function SubjectsPage() {
 
     const navigate = useNavigate();
 
-    const { search, setSearch, isFetching, error, filteredSubjects } = SubjectsListAndFilter(httpAxiosGetClient);
+    const { search, setSearch, isFetching, error, filteredSubjects } = FilterSubjects(httpAxiosGetClient);
     
     function handlePlusClick(){
         navigate('/subjects/register');
     };
-
 
     return (
         <FormContainer title='Tópicos'>
