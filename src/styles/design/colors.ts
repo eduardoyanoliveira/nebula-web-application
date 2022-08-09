@@ -17,6 +17,7 @@ export const lightColors : ThemeColors = {
     backgroundAltTwo: '#F9F9F9',
     typography500: '#5A596B',
     typography200: '#B9B9C1',
+    baseShadow: '3px 2px 5px #DBDBDB',
     appShadow: '4px 0px 4px #DBDBDB,-4px -4px 4px #DBDBDB,0px 4px 4px #DBDBDB',
 };
 
@@ -28,5 +29,6 @@ export const darkColors : ThemeColors = {
     backgroundAltTwo: '#28272D',
     typography500: '#7C7C7D',
     typography200: 'rgb(72, 72, 72)',
+    baseShadow: '3px 2px 5px #000',
     appShadow: '4px 0px 4px #000,-4px -4px 4px #000,0px 4px 4px #000',
 };

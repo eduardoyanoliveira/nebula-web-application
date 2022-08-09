@@ -3,23 +3,24 @@ import { AuthProvider } from "../../application/features/Authentication/contexts
 import Global from "../../styles/global";
 import ThemeProvider from '../../styles/themeProvider'
 import AppTemplate from "../AppTemplate";
-
+import { QueryClientProvider } from '@tanstack/react-query';
+import { queryClient } from "../../application/Infra/services/queryClient";
 
 function Setup() {
 
   return (
-
     <BrowserRouter>
-      <ThemeProvider>
-        <AuthProvider>
-          <Global/>
-          
-          <AppTemplate/>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider>
+          <AuthProvider>
+            <Global/>
+            
+            <AppTemplate/>
 
-        </AuthProvider>
-      </ThemeProvider>
+          </AuthProvider>
+        </ThemeProvider>
+      </QueryClientProvider>
     </BrowserRouter>
-
   );
 };
 

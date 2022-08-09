@@ -12,6 +12,7 @@ export interface ThemeColors {
     backgroundAltTwo: string,
     typography200: string,
     typography500: string,
+    baseShadow: string,
     appShadow: string,
 }
 

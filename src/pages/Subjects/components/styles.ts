@@ -7,10 +7,10 @@ interface IElementProps {
 };
 
 export const SubjectsListContainer = styled.ul`
-    margin-top: 45px;
+    margin: 45px 0;
     width: 100%;
     overflow-y: auto;
-    height: 480px;
+
 
     
     ${({theme}) => css`
@@ -57,7 +57,7 @@ export const SubjectRow = styled.li<IElementProps>`
 
     &:hover{
         ${({theme, isActive}) => css`
-            box-shadow: ${isActive ? theme.colors.appShadow : ''};
+            box-shadow: ${isActive ? theme.colors.baseShadow : ''};
         `};
     };
 

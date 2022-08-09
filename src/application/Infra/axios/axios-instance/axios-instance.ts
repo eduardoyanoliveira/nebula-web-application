@@ -25,7 +25,7 @@ export class SetUpAxiosInstance{
 
         const instance = axios.create({
             baseURL: this.baseURL,
-            timeout: 2000,
+            timeout: 4000,
             headers:{
                 Authorization: `Bearer ${token}`
             }
