@@ -1,20 +1,20 @@
 import { cleanup, render, screen } from "@testing-library/react"
-import FormContainer from "."
+import Form from "."
 import ThemeProvider from "../../../styles/themeProvider";
 
-describe('Form Container tests', () => {
+describe('Form tests', () => {
 
     it('Should has a container div and title h1 with text "test', () => {
         render(
             <ThemeProvider>
-                <FormContainer title="Test">
+                <Form title="Test">
                     <h2>Hello world</h2>
-                </FormContainer>
+                </Form>
             </ThemeProvider>
         );
 
-        const formContainer = screen.getByTestId('form-container');
-        const formTitle = screen.getByTestId('form-container-title');
+        const formContainer = screen.getByTestId('form');
+        const formTitle = screen.getByTestId('form-title');
         const children = screen.getByRole('heading', { name: 'Hello world'});
 
         expect(formContainer).toBeInTheDocument();

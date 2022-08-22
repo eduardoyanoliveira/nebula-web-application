@@ -2,14 +2,16 @@ import CreateAndUpdateSubject from "../../application/features/Subjects/componen
 import AutoComplete from "../../components/AutoComplete";
 import Button from "../../components/Buttons/Button";
 import { ButtonColors } from "../../components/Buttons/Button/ButtonColors";
-import FormContainer from "../../components/Form/Contianer";
+import Form from "../../components/FormComponents/Form";
 import InputComponent from "../../components/Inputs/Input";
-import ToggleInput from "../../components/Inputs/ToggleInput";
-import { Header, Container, RegisterLabel, IsActiveContainer, IsActiveLabel } from "./styles";
 import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
 import { HTTPAxiosPatchClient } from '../../application/Infra/axios/http-axios-patch-client';
 import { HTTPAxiosPostClient } from '../../application/Infra/axios/http-axios-post-client';
+import FormHeader from "../../components/FormComponents/FormHeader";
+import FormContainer from "../../components/FormComponents/FormContainer";
+import FormDateLabel from "../../components/FormComponents/FormDateLabel";
+import FormToggle from "../../components/FormComponents/FormToggle";
 
 const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
 const httpAxiosPostClient = new HTTPAxiosPostClient(axiosInstance);
@@ -30,40 +32,40 @@ function SubjectsRegisterPage() {
   } = CreateAndUpdateSubject(httpAxiosGetClient, httpAxiosPostClient, httpAxiosPatchClient);
 
   return (
-    <FormContainer title="Cadastro de Tópicos">
+    <Form title="Cadastro de Tópicos">
       {
         !current.name && (
-          <Header>
+          <FormHeader>
             <AutoComplete 
               name="subjects" 
               data={subjects || []} 
               fieldToDisplay='name'
               getItem={getItem}
             />
-          </Header>
+          </FormHeader>
         )
       }
-      <Container 
-        style={{justifyContent: `${current.name ? 'space-between' : 'flex-end'}`, padding: '0 15px'}}
-      >
-        {
-          current.name && (
-            <RegisterLabel>
-              Data de Cadastro: {new Date((current.created_at as Date)).toLocaleString('pt-BR')}
-            </RegisterLabel>
-          )
-        }
-          <IsActiveContainer>
-            <IsActiveLabel> Ativo?</IsActiveLabel>
-            <ToggleInput 
-              id="toggle" 
-              initialValue={current?.is_active} 
-              getValue={toggleActive}
-            />
-          </IsActiveContainer>
-      </Container>
+      <FormContainer 
+          justifyContent={current.name ? 'space-between' : 'flex-end'}
+          padding={'0 15px'}
+        >
+          {
+            current.name && (
+              <FormDateLabel
+                dateLabel='Data de Cadastro'
+                date= {new Date((current.created_at as Date)).toLocaleString('pt-BR')}
+              />
+            )
+          }
+          <FormToggle 
+            id='toggle' 
+            toggleLabel='Ativo?' 
+            initialValue={current?.is_active} 
+            getValue={toggleActive}
+          />
+      </FormContainer>
 
-      <Container>
+      <FormContainer>
         <InputComponent 
           type={"text"} 
           name="name" 
@@ -72,8 +74,8 @@ function SubjectsRegisterPage() {
           value={current?.name || ''}
           onChange={handleChange}
         />
-      </Container>
-      <Container>
+      </FormContainer>
+      <FormContainer>
         {
           current.name && (
             <>
@@ -91,8 +93,8 @@ function SubjectsRegisterPage() {
             </>
           )
         }
-      </Container>
-    </FormContainer>
+      </FormContainer>
+    </Form>
   );
 };
 

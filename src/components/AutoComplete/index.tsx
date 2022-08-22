@@ -57,7 +57,7 @@ function AutoComplete<T>({ name, maxWidth, margin, data, fieldToDisplay, getItem
                                         key={(item as any).id} 
                                         onClick={() => handleClick(item)}
                                     >
-                                        {(item as any).name}
+                                        {(item as any)[fieldToDisplay]}
                                     </Item>
                                 )
                             })

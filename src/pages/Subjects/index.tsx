@@ -5,7 +5,7 @@ import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
 import { ButtonColors } from '../../components/Buttons/Button/ButtonColors';
 import IconButton from '../../components/Buttons/IconButton';
-import FormContainer from '../../components/Form/Contianer';
+import FormContainer from '../../components/FormComponents/Form';
 import SearchInputComponent from '../../components/Inputs/SearchInput';
 import SubjectsList from './components/SubjectsList';
 import { Header } from './styles';

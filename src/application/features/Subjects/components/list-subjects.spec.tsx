@@ -3,31 +3,10 @@ import { renderHook, waitFor } from "@testing-library/react";
 import { JSXElementConstructor, ReactElement } from "react";
 import { ISubject } from "../../../Domain/Entities/ISubject";
 import { InMemoryHTTPGetClient } from "../../../tests/HttpRequestClients/in-memory-http-get-client";
+import { subjectsMockData } from "../../../tests/mock/data/subject-mock-data";
 import ListSubjects from "./list-subjects";
 
-const mockData : ISubject[] = [
-    {
-        id: 'sf1as5fd1asgha-fafa',
-        name: 'sales',
-        is_active: true,
-        created_at: new Date(),
-        updated_at: new Date()
-    },
-    {
-        id: 'sf1as5fd1asgha-fhdfkhartsgxfa',
-        name: 'stock',
-        is_active: false,
-        created_at: new Date(),
-        updated_at: new Date()
-    },
-    {
-        id: 'sf1as5fd1-asghankjghoww',
-        name: 'crm',
-        is_active: true,
-        created_at: new Date(),
-        updated_at: new Date()
-    },
-];
+const mockData : ISubject[] = subjectsMockData;
 
 interface WrapperProps {
     children: ReactElement<any, string | JSXElementConstructor<any>> | undefined

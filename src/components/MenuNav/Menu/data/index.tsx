@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { AiOutlineFileSearch } from 'react-icons/ai';
-
+import { FaRegUser } from 'react-icons/fa';
 export interface SubItem {
     title: string,
     path: string,
@@ -21,6 +21,11 @@ export const menuData: MenuItem[] = [
         title: 'Tópicos',
         path: '/subjects',
         icon: <AiOutlineFileSearch/>,
+    },
+    {
+        title: 'Usuários',
+        path: '/users/register',
+        icon: <FaRegUser/>,
     }
 ];
 
