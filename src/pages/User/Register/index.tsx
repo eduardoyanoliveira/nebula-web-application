@@ -1,81 +1,53 @@
-import React, { FormEvent, useState } from 'react'
 import Form from '../../../components/FormComponents/Form';
 import AutoComplete from '../../../components/AutoComplete';
-import ListUsers from '../../../application/features/Users/components/list-users';
 import { HTTPAxiosGetClient } from '../../../application/Infra/axios/http-axios-get-client';
 import { axiosInstance } from '../../../application/Infra/axios/axios-instance';
-import { IUser } from '../../../application/Domain/Entities/IUser';
 import InputComponent from '../../../components/Inputs/Input';
 import Button from '../../../components/Buttons/Button';
 import { ButtonColors } from '../../../components/Buttons/Button/ButtonColors';
-import { useNavigate } from 'react-router-dom';
 import { HTTPAxiosPostClient } from '../../../application/Infra/axios/http-axios-post-client';
 import { HTTPAxiosPatchClient } from '../../../application/Infra/axios/http-axios-patch-client';
 import FormHeader from '../../../components/FormComponents/FormHeader';
 import FormContainer from '../../../components/FormComponents/FormContainer';
 import FormToggle from '../../../components/FormComponents/FormToggle';
 import FormDateLabel from '../../../components/FormComponents/FormDateLabel';
+import CreateAndUpdateUser from '../../../application/features/Users/components/create-and-update-user';
+import FileInput from '../../../components/Inputs/FileInput';
+import { ChangeEvent, useState } from 'react';
 
 const httpGetClient = new HTTPAxiosGetClient(axiosInstance);
 const httpPostClient = new HTTPAxiosPostClient(axiosInstance);
 const httpPatchClient = new HTTPAxiosPatchClient(axiosInstance);
 
-const baseUser = {
-    id: '',
-    username: '',
-    email: '',
-    password: '',
-    photo: '',
-    role: 'USER',
-    is_active: true,
-}
-
 function UserRegisterPage() {
 
-    const navigate = useNavigate();
+    const {
+        baseUser, 
+        isFetching,
+        users, 
+        current, 
+        setCurrent, 
+        handleChange, 
+        getItem, 
+        toggleActive, 
+        handleSubmit 
+    } = CreateAndUpdateUser(httpGetClient, httpPostClient, httpPatchClient);
 
-    const { isFetching, error, users } = ListUsers(httpGetClient);
+    const [file, setFile] = useState<File | null>(null);
+    const [url, setUrl] = useState('');
 
-    const [current, setCurrent] = useState<IUser>(baseUser);
+    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        if(!e.target.files) return;
 
-    const toggleActive = (value: boolean) => {
-        setCurrent((prev) => prev = { ...prev, is_active: value });
+        const image = e.target.files[0];
+
+        if(!image) return;
+
+        if(image.type === 'image/jpeg' || image.type === 'image/png'){
+            setFile(image);
+            setUrl(URL.createObjectURL(image));
+        };
     };
-
-    const getItem = (value: IUser) => {
-        setCurrent((prev) => prev = value);
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {  
-        setCurrent({
-        ...current,
-        [e.target.name]: e.target.value
-        });
-    };
-
-    
-  const handleSubmit = async (e : FormEvent) => {
-
-    e.preventDefault();
-
-    if(!current.id){
-      const response = await httpPostClient.post('subjects', current);
-
-      if(response.isFailure){
-        return alert(response.error)
-      };
-    }else{
-      const response = await httpPatchClient.patch(`subjects/${current.id}`, current);
-
-      if(response.isFailure){
-        return alert(response.error)
-      };
-    };
-
-    navigate('/subjects');
-
-    window.location.reload();
-  };
 
     return (
         <Form title='Cadastro de Usuário' hasImages={true}>
@@ -108,6 +80,14 @@ function UserRegisterPage() {
             </FormContainer>
 
             <FormContainer>
+                <FileInput
+                    alt={current?.username}
+                    url={url || current?.id ? `http://localhost:3333/files/${current?.photo}` : ''}
+                    handleChange={handleFileChange}
+                />
+            </FormContainer>
+
+            <FormContainer>
                 <InputComponent 
                 type={"text"} 
                 name="username" 
@@ -129,6 +109,21 @@ function UserRegisterPage() {
                 />
             </FormContainer>
 
+            {
+                !current?.id  && (
+                    <FormContainer>
+                        <InputComponent 
+                        type={"password"} 
+                        name="password" 
+                        label="Senha" 
+                        placeholder="Senha" 
+                        value={current?.password || ''}
+                        onChange={handleChange}
+                        />
+                    </FormContainer>
+                )
+            }
+           
 
             <FormContainer>
                 {
