@@ -44,7 +44,7 @@ export const AppCenterContainer = styled.div`
     width: 100%;
     border-radius: 10px 10px 0 0;
     overflow-y: auto;
-    padding: 0 0 30px 0;
+    /* padding: 0 0 30px 0; */
 
     ${({theme}) => css`
         scrollbar-color: ${theme.colors.typography200} ${theme.colors.backgroundAltTwo};

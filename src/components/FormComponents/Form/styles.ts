@@ -6,10 +6,10 @@ export const Container = styled.form`
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 140px);
     width: 100%;
     padding: 0 30px;
-
+    margin-bottom: 30px;
 
     @media(min-width:${ScreenSizes.sm}){
         padding: 0 50px;
@@ -19,7 +19,7 @@ export const Container = styled.form`
     @media(min-width:${ScreenSizes.md}){
         padding: 0 80px;
         border-radius: 0 0 10px 10px;
-        height: calc(98vh - 80px);
+        height: calc(98vh - 140px);
     }; 
 
     

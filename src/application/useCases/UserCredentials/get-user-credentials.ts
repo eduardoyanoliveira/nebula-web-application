@@ -17,6 +17,6 @@ export class GetUserCredentials implements IGetUserCredentials{
             return Result.fail<IUserCredentialsProps>(response.error);
         };
     
-        return  Result.ok<IUserCredentialsProps>(response.getValue() as IUserCredentialsProps);
+        return  Result.ok<IUserCredentialsProps>(JSON.parse(String(response.getValue())) as IUserCredentialsProps);
     };
 };

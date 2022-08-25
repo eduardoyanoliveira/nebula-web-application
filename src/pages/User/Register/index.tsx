@@ -15,7 +15,7 @@ import CreateAndUpdateUser from '../../../application/features/Users/components/
 import FileInput from '../../../components/Inputs/FileInput';
 
 const httpGetClient = new HTTPAxiosGetClient(axiosInstance);
-const httpPostClient = new HTTPAxiosPostClient(axiosInstance);
+const httpMultipartPostClient = new HTTPAxiosPostClient(axiosInstanceMultipart);
 const httpPatchClient = new HTTPAxiosPatchClient(axiosInstance);
 const httpMultipartPatchClient = new HTTPAxiosPatchClient(axiosInstanceMultipart);
 
@@ -34,7 +34,7 @@ function UserRegisterPage() {
         getItem, 
         toggleActive, 
         handleSubmit 
-    } = CreateAndUpdateUser(httpGetClient, httpPostClient, httpPatchClient, httpMultipartPatchClient);
+    } = CreateAndUpdateUser(httpGetClient, httpMultipartPostClient, httpPatchClient, httpMultipartPatchClient);
 
 
     const fileUrl = current.photo ? `http://localhost:3333/files/${current?.photo}` : '';

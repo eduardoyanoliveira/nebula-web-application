@@ -16,6 +16,7 @@ export const LabelContainer = styled.label`
 
     display: flex;
     justify-content: center;
+    position: relative;
     align-items: center;
     cursor: pointer;
 `;

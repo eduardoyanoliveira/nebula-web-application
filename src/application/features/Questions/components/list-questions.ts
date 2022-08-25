@@ -8,7 +8,7 @@ import { IQuestion } from "../../../Domain/Entities/IQuestion";
  * @returns a list of questions : IQuestio[]
  */
 const ListQuestios = (httpGetClient: IHTTPGetClient, urlParams?: string) => {
-    const params = urlParams ? `/${urlParams}` : '';
+    const params = urlParams ? `/?${urlParams}` : '';
     const url = 'questions' + params ;
 
     const { data: questions, isFetching, error } = useQuery<IQuestion[]>([url], async () => {

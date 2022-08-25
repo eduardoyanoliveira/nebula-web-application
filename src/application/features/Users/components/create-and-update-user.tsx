@@ -25,7 +25,7 @@ const baseUser = {
 
 function CreateAndUpdateUser(
   httpGetClient: IHTTPGetClient, 
-  httpPostClient: IHTTPPostClient, 
+  httpMultipartPostClient: IHTTPPostClient, 
   httpPatchClient: IHTTPPatchClient,
   httpMultipartPatchClient: IHTTPPatchClient
 ) {
@@ -83,11 +83,13 @@ function CreateAndUpdateUser(
     e.preventDefault();
 
     if(!current.id){
-      const response = await httpPostClient.post('users', current);
+
+      const response = await httpMultipartPostClient.post('users', current);
 
       if(response.isFailure){
         return alert(response.error)
       };
+
     }else{
 
       const { id, photo, file, ...jsonFileds } = current;
