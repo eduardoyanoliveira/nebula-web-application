@@ -43,6 +43,32 @@ export const App = styled.div`
 export const AppCenterContainer = styled.div`
     width: 100%;
     border-radius: 10px 10px 0 0;
+    overflow-y: auto;
+    padding: 0 0 30px 0;
+
+    ${({theme}) => css`
+        scrollbar-color: ${theme.colors.typography200} ${theme.colors.backgroundAltTwo};
+        scrollbar-width: thin;
+    `}
+
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+
+        ${({theme}) => css`
+            background: ${theme.colors.typography200};
+        `}
+        -webkit-border-radius: 2px;
+        border-radius: 2px;
+    }
+    
+    /* Handle on hover */
+        &::-webkit-scrollbar-thumb:hover {
+        background: 0;
+    }
 
 `;
 

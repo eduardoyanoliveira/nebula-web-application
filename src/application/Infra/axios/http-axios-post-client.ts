@@ -9,7 +9,7 @@ export class HTTPAxiosPostClient implements IHTTPPostClient{
     ){};
 
     async post(url: string,  body: object): Promise<Result<AxiosResponse>>{
-        
+
         return await this.AxiosInstance.post(url, body)
         .then((response) => {
             return Result.ok<AxiosResponse>(response);

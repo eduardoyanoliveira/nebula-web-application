@@ -53,7 +53,10 @@ function SubjectsRegisterPage() {
             current.name && (
               <FormDateLabel
                 dateLabel='Data de Cadastro'
-                date= {new Date((current.created_at as Date)).toLocaleString('pt-BR')}
+                date= {current.created_at 
+                  ? new Date((current.created_at as Date)).toLocaleString('pt-BR')
+                  : new Date().toLocaleString('pt-BR')
+                }
               />
             )
           }

@@ -11,7 +11,7 @@ export class SetUpAxiosInstance{
         private GetToken: IGetToken
     ){};
 
-    create(){
+    create(multipart?: boolean){
 
         let token;
 
@@ -23,12 +23,23 @@ export class SetUpAxiosInstance{
             token = tokenResponse.getValue();
         };
 
+        let headers = {};
+
+        if(multipart){
+            headers = {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'multipart/form-data',
+            };
+        }else{
+            headers = {
+                Authorization: `Bearer ${token}`
+            };
+        };
+
         const instance = axios.create({
             baseURL: this.baseURL,
             timeout: 4000,
-            headers:{
-                Authorization: `Bearer ${token}`
-            }
+            headers
         });
     
         instance.interceptors.response.use( response => {

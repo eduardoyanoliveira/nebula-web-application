@@ -1,5 +1,5 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import { IUser } from '../../../Domain/Entities/IUser';
 import { IHTTPGetClient } from '../../../Domain/HTTPRequestsClient/IHTTPGetClient';
 import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchClient';
@@ -7,7 +7,8 @@ import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostCli
 import ListUsers from './list-users';
 
 interface IEditableUser extends IUser{
-  password?: string
+  password?: string,
+  file: string | File
 };
 
 const baseUser = {
@@ -16,16 +17,21 @@ const baseUser = {
   email: '',
   password: '',
   photo: '',
+  file: '',
   role: 'USER',
   is_active: true,
 };
 
 
-function CreateAndUpdateUser(httpGetClient: IHTTPGetClient, httpPostClient: IHTTPPostClient, httpPatchClient: IHTTPPatchClient) {
+function CreateAndUpdateUser(
+  httpGetClient: IHTTPGetClient, 
+  httpPostClient: IHTTPPostClient, 
+  httpPatchClient: IHTTPPatchClient,
+  httpMultipartPatchClient: IHTTPPatchClient
+) {
 
-  const navigate = useNavigate();
 
-  const { users, isFetching } = ListUsers(httpGetClient);
+  const { users, error, isFetching } = ListUsers(httpGetClient);
 
 
   const [current, setCurrent] = useState<IEditableUser>(baseUser);
@@ -45,6 +51,21 @@ function CreateAndUpdateUser(httpGetClient: IHTTPGetClient, httpPostClient: IHTT
     setCurrent((prev) => prev = value);
   };
 
+  const [url, setUrl] = useState('');
+
+  const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
+    if(!e.target.files) return;
+
+    const image = e.target.files[0];
+
+    if(!image) return;
+
+    if(image.type === 'image/jpeg' || image.type === 'image/png'){
+      setCurrent((prev) => prev = { ...prev, file: image });
+      setUrl(URL.createObjectURL(image));
+    };
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {  
     setCurrent({
       ...current,
@@ -55,6 +76,7 @@ function CreateAndUpdateUser(httpGetClient: IHTTPGetClient, httpPostClient: IHTT
   const toggleActive = (value: boolean) => {
     setCurrent((prev) => prev = { ...prev, is_active: value });
   };
+
 
   const handleSubmit = async (e : FormEvent) => {
 
@@ -67,24 +89,36 @@ function CreateAndUpdateUser(httpGetClient: IHTTPGetClient, httpPostClient: IHTT
         return alert(response.error)
       };
     }else{
-      const response = await httpPatchClient.patch(`users/${current.id}`, current);
 
-      if(response.isFailure){
-        return alert(response.error)
+      const { id, photo, file, ...jsonFileds } = current;
+
+      const jsonResponse = await httpPatchClient.patch(`users/${current.id}`, jsonFileds);
+
+      if(jsonResponse.isFailure){
+        return alert(jsonResponse.error);
       };
-    };
 
-    navigate('/');
+      const fileResponse = await httpMultipartPatchClient.patch(`users/${current.id}`, { photo, file });
+
+      if(fileResponse.isFailure){
+        return alert(fileResponse.error);
+      };
+
+      
+    };
 
     window.location.reload();
   };
 
   return { 
     baseUser, 
+    error,
     isFetching,
     users, 
+    url,
     current, 
     setCurrent, 
+    handleFile,
     handleChange, 
     getItem, 
     toggleActive, 

@@ -10,7 +10,6 @@ interface FileInputProps {
 
 function FileInput({ alt, url, handleChange } : FileInputProps) {
 
-
     return (
         <LabelContainer>
             <IconContainer>

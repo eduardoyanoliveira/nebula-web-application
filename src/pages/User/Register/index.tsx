@@ -1,7 +1,7 @@
 import Form from '../../../components/FormComponents/Form';
 import AutoComplete from '../../../components/AutoComplete';
 import { HTTPAxiosGetClient } from '../../../application/Infra/axios/http-axios-get-client';
-import { axiosInstance } from '../../../application/Infra/axios/axios-instance';
+import { axiosInstance, axiosInstanceMultipart } from '../../../application/Infra/axios/axios-instance';
 import InputComponent from '../../../components/Inputs/Input';
 import Button from '../../../components/Buttons/Button';
 import { ButtonColors } from '../../../components/Buttons/Button/ButtonColors';
@@ -13,41 +13,31 @@ import FormToggle from '../../../components/FormComponents/FormToggle';
 import FormDateLabel from '../../../components/FormComponents/FormDateLabel';
 import CreateAndUpdateUser from '../../../application/features/Users/components/create-and-update-user';
 import FileInput from '../../../components/Inputs/FileInput';
-import { ChangeEvent, useState } from 'react';
 
 const httpGetClient = new HTTPAxiosGetClient(axiosInstance);
 const httpPostClient = new HTTPAxiosPostClient(axiosInstance);
 const httpPatchClient = new HTTPAxiosPatchClient(axiosInstance);
+const httpMultipartPatchClient = new HTTPAxiosPatchClient(axiosInstanceMultipart);
 
 function UserRegisterPage() {
 
     const {
         baseUser, 
+        error,
         isFetching,
         users, 
+        url,
         current, 
         setCurrent, 
+        handleFile,
         handleChange, 
         getItem, 
         toggleActive, 
         handleSubmit 
-    } = CreateAndUpdateUser(httpGetClient, httpPostClient, httpPatchClient);
+    } = CreateAndUpdateUser(httpGetClient, httpPostClient, httpPatchClient, httpMultipartPatchClient);
 
-    const [file, setFile] = useState<File | null>(null);
-    const [url, setUrl] = useState('');
 
-    const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if(!e.target.files) return;
-
-        const image = e.target.files[0];
-
-        if(!image) return;
-
-        if(image.type === 'image/jpeg' || image.type === 'image/png'){
-            setFile(image);
-            setUrl(URL.createObjectURL(image));
-        };
-    };
+    const fileUrl = current.photo ? `http://localhost:3333/files/${current?.photo}` : '';
 
     return (
         <Form title='Cadastro de Usuário' hasImages={true}>
@@ -67,7 +57,10 @@ function UserRegisterPage() {
                     current.username && (
                         <FormDateLabel
                             dateLabel='Data de Cadastro'
-                            date= {new Date((current.created_at as Date)).toLocaleString('pt-BR')}
+                            date= {current.created_at 
+                                ? new Date((current.created_at as Date)).toLocaleString('pt-BR')
+                                : new Date().toLocaleString('pt-BR')
+                            }
                         />
                     )
                 }
@@ -82,8 +75,8 @@ function UserRegisterPage() {
             <FormContainer>
                 <FileInput
                     alt={current?.username}
-                    url={url || current?.id ? `http://localhost:3333/files/${current?.photo}` : ''}
-                    handleChange={handleFileChange}
+                    url={url || fileUrl}
+                    handleChange={handleFile}
                 />
             </FormContainer>
 
