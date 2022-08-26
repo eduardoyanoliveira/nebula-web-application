@@ -1,26 +1,15 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import React, { FormEvent, useState } from 'react'
 import { IQuestion } from '../../../Domain/Entities/IQuestion';
 import { ISubject } from '../../../Domain/Entities/ISubject';
-import { IUser } from '../../../Domain/Entities/IUser';
 import { IHTTPGetClient } from '../../../Domain/HTTPRequestsClient/IHTTPGetClient';
 import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchClient';
 import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostClient';
 import { GetItemfromLocalStorage } from '../../../useCases/Cache/get-item-from-local-storage';
 import { GetUserCredentials } from '../../../useCases/UserCredentials/get-user-credentials';
+import handleSubmit from '../../hooks/handleSubmit';
+import useGetByUrlId from '../../hooks/useGetByUrlId';
+import useGenerateBaseQuestion from '../data';
 import ListQuestions from './list-questions';
-
-
-
-const baseQuestion :  IQuestion = {
-    id: '',
-    title: '',
-    text: '',
-    is_public: true,
-    is_closed: false,
-    subject_id: null,
-    author: null
-};
 
 const userCredentials = new GetUserCredentials(new GetItemfromLocalStorage());
 
@@ -30,42 +19,20 @@ if(credentialsResponse.isFailure){
     alert(credentialsResponse.error);
 };
 
+
 function CreateAndUpdateQuestion(
     httpGetClient: IHTTPGetClient,
     httpPostClient: IHTTPPostClient,
     httpPatchClient: IHTTPPatchClient
 ) {
 
-    const { questions, isFetching } = ListQuestions(httpGetClient , `author=$id$${credentialsResponse.getValue().user_id}`);
+    const { questions, isFetching } = ListQuestions(httpGetClient , `author=$id$${credentialsResponse.getValue().id}`);
+
+    const baseQuestion = useGenerateBaseQuestion();
 
     const [current, setCurrent] = useState<IQuestion>(baseQuestion);
 
-    useEffect(() => {
-        const setUser = async () => {
-            const userResponse = await httpGetClient.get(`users/${credentialsResponse.getValue().user_id}`);
-
-            if(userResponse.isFailure){
-                return alert(userResponse.error);
-            };
-    
-            setCurrent((prev) => prev = { ...prev, author: (userResponse.getValue().data as IUser) });
-        };
-        
-        setUser();
-    },[httpGetClient]);
-
-    console.log(current)
-
-    const isMounted = useRef(true);
-
-    const params = useParams();
-
-
-    useEffect(() => {
-        if(isMounted.current){
-        setCurrent((prev) => prev = questions?.find(item => item.id === params.id) as IQuestion || prev);
-        };
-    },[params.id, questions]);
+   useGetByUrlId({ setItem: setCurrent, data: questions });
 
     const getItem = (value: IQuestion) => {
         setCurrent((prev) => prev = value);
@@ -77,8 +44,8 @@ function CreateAndUpdateQuestion(
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {  
         setCurrent({
-        ...current,
-        [e.target.name]: e.target.value
+            ...current,
+            [e.target.name]: e.target.value
         });
     };
 
@@ -86,23 +53,20 @@ function CreateAndUpdateQuestion(
         setCurrent((prev) => prev = { ...prev, is_public: value });
     };
 
-    const handleSubmit = async (e : FormEvent) => {
+    const resetForm = () => {
+        setCurrent(baseQuestion);
+    };
+
+    const thisHandleSubmit = async (e : FormEvent) => {
 
         e.preventDefault();
 
-        if(!current.id){
-        const response = await httpPostClient.post('questions', current);
-
-        if(response.isFailure){
-            return alert(response.error)
-        };
-        }else{
-        const response = await httpPatchClient.patch(`questions/${current.id}`, current);
-
-        if(response.isFailure){
-            return alert(response.error)
-        };
-        };
+        await handleSubmit({
+            url: 'questions',
+            item: current,
+            httpPatchClient,
+            httpPostClient
+        });
 
         window.location.reload();
     };
@@ -112,12 +76,12 @@ function CreateAndUpdateQuestion(
         isFetching,
         questions, 
         current, 
-        setCurrent, 
+        resetForm, 
         handleChange, 
         getItem, 
         getSubject,
         togglePublic, 
-        handleSubmit 
+        handleSubmit: thisHandleSubmit
     };
 };
 

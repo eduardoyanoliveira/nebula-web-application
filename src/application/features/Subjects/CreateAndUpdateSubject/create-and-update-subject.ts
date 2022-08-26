@@ -1,17 +1,13 @@
-import React, { FormEvent, useEffect, useRef, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { FormEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { ISubject } from '../../../Domain/Entities/ISubject';
 import { IHTTPGetClient } from '../../../Domain/HTTPRequestsClient/IHTTPGetClient';
 import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchClient';
 import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostClient';
-import ListSubjects from './list-subjects';
-
-
-const baseSubject : ISubject = {
-  id: '',
-  name: '',
-  is_active: true,
-};
+import handleSubmit from '../../hooks/handleSubmit';
+import useGetByUrlId from '../../hooks/useGetByUrlId';
+import { baseSubject } from '../data';
+import ListSubjects from '../components/list-subjects';
 
 
 function CreateAndUpdateSubject(httpGetClient: IHTTPGetClient, httpPostClient: IHTTPPostClient, httpPatchClient: IHTTPPatchClient) {
@@ -20,19 +16,9 @@ function CreateAndUpdateSubject(httpGetClient: IHTTPGetClient, httpPostClient: I
 
   const { subjects, isFetching } = ListSubjects(httpGetClient);
 
-
   const [current, setCurrent] = useState<ISubject>(baseSubject);
 
-  const isMounted = useRef(true);
-
-  const params = useParams();
-
-
-  useEffect(() => {
-    if(isMounted.current){
-      setCurrent((prev) => prev = subjects?.find(item => item.id === params.id) as ISubject || prev);
-    };
-  },[params.id, subjects]);
+  useGetByUrlId<ISubject>({ setItem: setCurrent, data: subjects });
 
   const getItem = (value: ISubject) => {
     setCurrent((prev) => prev = value);
@@ -49,23 +35,15 @@ function CreateAndUpdateSubject(httpGetClient: IHTTPGetClient, httpPostClient: I
     setCurrent((prev) => prev = { ...prev, is_active: value });
   };
 
-  const handleSubmit = async (e : FormEvent) => {
+  const resetForm = () => {
+    setCurrent(baseSubject);
+  };
+
+  const thisHandleSubmit = async (e : FormEvent) => {
 
     e.preventDefault();
 
-    if(!current.id){
-      const response = await httpPostClient.post('subjects', current);
-
-      if(response.isFailure){
-        return alert(response.error)
-      };
-    }else{
-      const response = await httpPatchClient.patch(`subjects/${current.id}`, current);
-
-      if(response.isFailure){
-        return alert(response.error)
-      };
-    };
+    await handleSubmit<ISubject>({ url: 'subjects', item: current, httpPatchClient, httpPostClient });
 
     navigate('/subjects');
 
@@ -73,15 +51,14 @@ function CreateAndUpdateSubject(httpGetClient: IHTTPGetClient, httpPostClient: I
   };
 
   return { 
-    baseSubject, 
     isFetching,
     subjects, 
     current, 
-    setCurrent, 
+    resetForm, 
     handleChange, 
     getItem, 
     toggleActive, 
-    handleSubmit 
+    handleSubmit : thisHandleSubmit
   };
 };
 

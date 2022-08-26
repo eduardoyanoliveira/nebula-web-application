@@ -1,13 +1,12 @@
 import { createContext, ReactNode, useState } from 'react';
-import { IUserCredentialsProps } from '../../../../Domain/UserCredentials/IGetUserCredentials';
+import { IUser } from '../../../../Domain/Entities/IUser';
 import { ISignIn } from '../../../../Domain/UserCredentials/ISignIn';
 import { ISignOut } from '../../../../Domain/UserCredentials/ISignOut';
 import { getUserCredentials, signIn, signOut } from '../../../../useCases/UserCredentials';
 
-interface IUserProps extends Omit<IUserCredentialsProps, 'token'> {}
 
 type AuthContextData = {
-    user: IUserCredentialsProps | undefined;
+    user: IUser | undefined;
     signIn: ISignIn;
     signOut: ISignOut;
 };
@@ -23,7 +22,7 @@ export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children } : AuthProviderProps){
 
-    const [user,] = useState<IUserCredentialsProps | undefined >(() => {
+    const [user,] = useState<IUser | undefined >(() => {
 
         const response = getUserCredentials.execute();
 
@@ -31,7 +30,7 @@ export function AuthProvider({ children } : AuthProviderProps){
             return;
         };
 
-        return response.getValue() as IUserProps;
+        return response.getValue() as IUser;
     });
 
     return(

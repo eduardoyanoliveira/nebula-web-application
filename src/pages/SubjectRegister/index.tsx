@@ -1,4 +1,4 @@
-import CreateAndUpdateSubject from "../../application/features/Subjects/components/create-and-update-subject";
+import CreateAndUpdateSubject from "../../application/features/Subjects/CreateAndUpdateSubject/create-and-update-subject";
 import AutoComplete from "../../components/AutoComplete";
 import Button from "../../components/Buttons/Button";
 import { ButtonColors } from "../../components/Buttons/Button/ButtonColors";
@@ -21,10 +21,9 @@ const httpAxiosPatchClient = new HTTPAxiosPatchClient(axiosInstance);
 function SubjectsRegisterPage() {
 
   const { 
-    baseSubject,
     subjects, 
     current, 
-    setCurrent, 
+    resetForm, 
     handleChange, 
     toggleActive,
     getItem, 
@@ -91,7 +90,7 @@ function SubjectsRegisterPage() {
               <Button 
                 text="Cancelar" 
                 backgroundColor={ButtonColors.primary} 
-                onClick={() => setCurrent(baseSubject)}
+                onClick={resetForm}
               />
             </>
           )

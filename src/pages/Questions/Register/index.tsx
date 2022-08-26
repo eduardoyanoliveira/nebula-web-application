@@ -23,10 +23,9 @@ const httpAxiosPatchClient = new HTTPAxiosPatchClient(axiosInstance);
 function QuestionRegisterPage() {
 
   const { 
-    baseQuestion,
     questions, 
     current, 
-    setCurrent, 
+    resetForm, 
     handleChange, 
     togglePublic,
     getItem, 
@@ -117,7 +116,7 @@ function QuestionRegisterPage() {
               <Button 
                 text="Cancelar" 
                 backgroundColor={ButtonColors.primary} 
-                onClick={() => setCurrent(baseQuestion)}
+                onClick={resetForm}
               />
             </>
           )

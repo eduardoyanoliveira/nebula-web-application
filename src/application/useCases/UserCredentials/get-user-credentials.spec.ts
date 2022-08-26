@@ -1,4 +1,5 @@
-import { IUserCredentialsProps } from "../../Domain/UserCredentials/IGetUserCredentials";
+// import { IUserCredentialsProps } from "../../Domain/UserCredentials/IGetUserCredentials";
+import { IUser } from "../../Domain/Entities/IUser";
 import { InMemorySaveItemOnLocalStorage, InMemoryGetItemFromLocalStorage } from "../../tests/Cache/in-memory-local-storage";
 import { InMemoryPostAuthentication } from "../../tests/HttpRequestClients/in-memory-post-authentication";
 import { RemoteAuthentication } from "../Authentication/remote-authentication";
@@ -14,7 +15,7 @@ describe('Get user credentials', () => {
     const signIn = new SignIn(remoteAuthentication, saveItemInCache);
 
 
-    const getItemFromCache = new InMemoryGetItemFromLocalStorage<IUserCredentialsProps>();
+    const getItemFromCache = new InMemoryGetItemFromLocalStorage<IUser>();
     const getUserCredentials = new GetUserCredentials(getItemFromCache);
 
     httpPostClient.users.push({
