@@ -17,6 +17,8 @@ async function handleSubmit<T extends { id?: string }>(
     } : IHandleSubmitProps<T>
 ){
 
+    console.log(item)
+
     if(!item.id){
         const response = await httpPostClient.post(url, item);
 
