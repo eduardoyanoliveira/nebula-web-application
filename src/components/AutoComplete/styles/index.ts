@@ -11,15 +11,34 @@ interface IAutoCompleteContainerProps{
     borderRadius?: string, 
 }; 
 
-export const Container = styled.div<ContainerProps>`
-    position: relative;
+interface LabelProps {
+    htmlFor: string
+};
+
+export const MainContainer = styled.div<ContainerProps>`
+    display: flex;
+    flex-direction: column;
     width: 100%;
 
-    ${({ maxWidth, margin }) => css`
-        max-width: ${maxWidth};
+    ${({margin, maxWidth}) => css`
         margin: ${margin};
+        max-width: ${maxWidth};
     `};
+`;
 
+export const Label = styled.label<LabelProps>`
+    margin-bottom: 5px;
+    margin-left: 15px;
+    ${({theme}) => css`
+        color: ${theme.colors.typography500};
+        ${theme.typographies.subtitleOne};
+    `}
+
+`;
+
+export const Container = styled.div`
+    position: relative;
+    width: 100%;
 `;
 
 export const AutoCompleteContainer = styled.div`
