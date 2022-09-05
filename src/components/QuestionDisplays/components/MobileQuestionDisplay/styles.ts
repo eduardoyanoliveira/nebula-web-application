@@ -4,10 +4,10 @@ import { ScreenSizes } from "../../../../application/utils/screen/sizes";
 export const Container = styled.div`
 
     width: 100%;
-    height: 150px;
+    min-height: 150px;
+    height: auto;
     padding: 10px 20px;
     margin-bottom: 20px;
-    position: relative;
 
     ${({theme}) => css`
         background-color: ${theme.colors.background};
@@ -36,7 +36,6 @@ export const TopContainer = styled.div`
 export const UserContainer = styled.div`
     display: flex;
     justify-content: flex-start;
-    margin: 5px 0px;
 `;
 
 export const Username = styled.label`
@@ -74,15 +73,6 @@ export const Subject = styled.h4`
         ${theme.typographies.titleTwo};
     `}
 
-    position: absolute;
-    right: 0;
-    left: 0;
-    top: 0;
-    bottom: 15px;
-
-    width: fit-content;
-    height: fit-content;
-
     margin: auto auto;
 
     text-overflow: ellipsis;
@@ -102,5 +92,5 @@ export const QuestionTitle = styled.p`
     overflow: hidden;
     white-space: nowrap;
     text-align: center;
-    margin: 35px 0 0 0;
+    margin: 20px 0 0 0;
 `;

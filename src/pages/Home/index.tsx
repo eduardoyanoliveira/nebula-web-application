@@ -2,28 +2,39 @@ import React from 'react'
 import ListQuestios from '../../application/features/Questions/components/list-questions';
 import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
-import Form from '../../components/FormComponents/Form';
 import QuestionDisplay from '../../components/QuestionDisplays';
+import { Container, Title, QuestionsContainer } from './styles';
 
 
 const httpGetClient = new HTTPAxiosGetClient(axiosInstance);
 
 function HomePage() {
 
-  const { questions, error, isFetching } = ListQuestios(httpGetClient);
-
-  console.log(questions)
+  const { questions, error, isFetching } = ListQuestios(httpGetClient, 'is_closed=false');
 
   return (
-    <Form title={'Perguntas em Aberto'}>
+    <Container 
+      data-testid="form" 
+    >
+      <Title data-testid="form-title">
+        Perguntas em Aberto:
+      </Title>
       {
-        questions?.map((question) => {
-          return (
-           <QuestionDisplay question={question} key={question.id} />
-          )
-        })
+        questions && (
+          <QuestionsContainer screenOverflow={questions.length > 4}>
+            {
+              questions.map((question) => {
+                return (
+                <QuestionDisplay question={question} key={question.id} />
+                )
+              })
+            }
+          </QuestionsContainer>
+        )
       }
-    </Form>
+      
+    </Container>
+
   )
 }
 

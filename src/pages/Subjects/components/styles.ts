@@ -7,9 +7,10 @@ interface IElementProps {
 };
 
 export const SubjectsListContainer = styled.ul`
-    margin: 45px 0;
+    margin: 45px 0 0 0;
     width: 100%;
     overflow-y: auto;
+    height: 550px;
 
 
     

@@ -4,6 +4,7 @@ import { IUser } from '../../../Domain/Entities/IUser';
 import { IHTTPGetClient } from '../../../Domain/HTTPRequestsClient/IHTTPGetClient';
 import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchClient';
 import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostClient';
+import useGetByUrlId from '../../hooks/useGetByUrlId';
 import ListUsers from './list-users';
 
 interface IEditableUser extends IUser{
@@ -39,7 +40,6 @@ function CreateAndUpdateUser(
   const isMounted = useRef(true);
 
   const params = useParams();
-
 
   useEffect(() => {
     if(isMounted.current){

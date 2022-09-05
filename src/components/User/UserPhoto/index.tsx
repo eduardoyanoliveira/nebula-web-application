@@ -9,7 +9,7 @@ interface IUserPhotoProps {
 
 function UserPhoto({ photoUrl, alt, size } : IUserPhotoProps) {
 
-    const url = photoUrl ? `http://localhost:3333/files/${photoUrl}` : './generic_user_photo.webp';
+    const url = photoUrl ? `http://localhost:3333/files/${photoUrl}` : '../generic_user_photo.webp';
 
     return (
         <Photo src={url} alt={alt} size={size} />

@@ -5,17 +5,18 @@ import DesktopQuestionDisplay from './components/DesktopQuestionDisplay';
 import MobileQuestionDisplay from './components/MobileQuestionDisplay';
 
 interface IQuestionDisplayProps {
-    question : IQuestion
+    question : IQuestion,
+    fullDisplay?: boolean
 };
 
-function QuestionDisplay({ question } : IQuestionDisplayProps) {
+function QuestionDisplay({ question, fullDisplay } : IQuestionDisplayProps) {
     const isDesktop = useMediaQuery(`(min-width: 650px)`);
     return (
        <>
         {
             isDesktop 
             ? 
-                <DesktopQuestionDisplay question={question} />
+                <DesktopQuestionDisplay fullDisplay={fullDisplay} question={question} />
             :
                 <MobileQuestionDisplay question={question} />
         }

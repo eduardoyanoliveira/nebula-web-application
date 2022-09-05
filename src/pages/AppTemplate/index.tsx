@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { getTokenFromCache } from "../../application/useCases/Token";
 import MenuNav from "../../components/MenuNav";
 import { Router } from "../../router";
-import { AppHeader, App, AppCenterContainer, BackgroundContainer } from "./styles";
+import { AppHeader, App, AppCenterContainer, BackgroundContainer, Content } from "./styles";
 
 
 function AppTemplate() {
@@ -26,10 +26,13 @@ function AppTemplate() {
                     <BackgroundContainer date-testid='app-background-container'>
                         <App date-testid='app-container'>
                             <MenuNav date-testid='app-menu'/>
+
                             <AppCenterContainer date-testid='app-center-container'>
                                 <AppHeader/>
                                 
-                                { route }
+                                <Content>
+                                    { route }
+                                </Content>
                             </AppCenterContainer>
                         </App>
                     </BackgroundContainer>

@@ -8,7 +8,7 @@ import {
     QuestionContainer,
     Subject, 
     QuestionTitle,
-    RegisterDate 
+    RegisterDate, 
 } from './styles';
 
 interface IDesktopQuestionDisplayProps {
@@ -34,10 +34,10 @@ function MobileQuestionDisplay({ question } : IDesktopQuestionDisplayProps ) {
             
             <QuestionContainer>
                 <Subject>
-                {question.subject?.name}
+                    {question.subject?.name}
                 </Subject>
                 <QuestionTitle>
-                {question.title}
+                    {question.title}
                 </QuestionTitle>
             </QuestionContainer>
         </Container>

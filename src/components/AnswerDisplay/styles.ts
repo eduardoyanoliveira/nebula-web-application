@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { ScreenSizes } from "../../../../application/utils/screen/sizes";
+import { ScreenSizes } from "../../application/utils/screen/sizes";
 
 interface IContainerProps {
     clickable?: boolean
@@ -28,7 +28,6 @@ export const Container = styled.div<IContainerProps>`
         `};
     };
 
-    cursor: pointer;
 `;
 
 export const HeaderContainer = styled.div`
@@ -94,12 +93,11 @@ export const RegisterDate = styled.label`
     text-align: end;
 `;
 
-export const QuestionText = styled.p`
+export const Text = styled.p`
  ${({theme}) => css`
         color: ${theme.colors.typography500};
         ${theme.typographies.subtitleOne};
     `}
 
     padding: 0 90px;
-    margin: 35px 0 0 0;
 `;
