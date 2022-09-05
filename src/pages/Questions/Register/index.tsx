@@ -11,7 +11,7 @@ import FormHeader from "../../../components/FormComponents/FormHeader";
 import FormContainer from "../../../components/FormComponents/FormContainer";
 import FormDateLabel from "../../../components/FormComponents/FormDateLabel";
 import FormToggle from "../../../components/FormComponents/FormToggle";
-import CreateAndUpdateQuestion from "../../../application/features/Questions/components/create-and-update-question";
+import CreateAndUpdateQuestion from "../../../application/features/Questions/CreateQuestion/create-and-update-question";
 import TextBox from "../../../components/Inputs/TextBox";
 import ListSubjects from "../../../application/features/Subjects/components/list-subjects";
 
@@ -80,7 +80,8 @@ function QuestionRegisterPage() {
                 data={subjects || []} 
                 fieldToDisplay='name'
                 getItem={getSubject}
-                displaySearchIcon={false}
+                placeholder={'Tópico'}
+                displayIcon={false}
             />
         </FormContainer>
 

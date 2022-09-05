@@ -2,7 +2,13 @@ import { IQuestion } from "../../Domain/Entities/IQuestion";
 import { IUser } from "../../Domain/Entities/IUser";
 import { getUserCredentials } from "../../useCases/UserCredentials";
 
-export const baseQuestion :  IQuestion = {
+
+export interface IPostQuestionProps extends Omit<IQuestion, 'subject'>{
+    subject_id: string | null | undefined,
+};
+
+
+export const baseQuestion :  IPostQuestionProps = {
     id: '',
     title: '',
     text: '',
@@ -12,7 +18,7 @@ export const baseQuestion :  IQuestion = {
     author: null
 };
 
-function useGenerateBaseQuestion () : IQuestion {
+function useGenerateBaseQuestion () : IPostQuestionProps {
 
     const credentialsResponse = getUserCredentials.execute();
     let data = baseQuestion;

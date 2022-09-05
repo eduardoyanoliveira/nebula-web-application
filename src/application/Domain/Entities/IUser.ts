@@ -3,7 +3,7 @@ export interface IUser {
     username: string,
     email: string,
     role: string,
-    photo?: string | File,
+    photo?: string,
     is_active: boolean,
     created_at?: Date,
     updated_at?: Date

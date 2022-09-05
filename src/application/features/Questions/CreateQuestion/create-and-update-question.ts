@@ -1,5 +1,4 @@
 import React, { FormEvent, useState } from 'react'
-import { IQuestion } from '../../../Domain/Entities/IQuestion';
 import { ISubject } from '../../../Domain/Entities/ISubject';
 import { IHTTPGetClient } from '../../../Domain/HTTPRequestsClient/IHTTPGetClient';
 import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchClient';
@@ -9,7 +8,9 @@ import { GetUserCredentials } from '../../../useCases/UserCredentials/get-user-c
 import handleSubmit from '../../hooks/handleSubmit';
 import useGetByUrlId from '../../hooks/useGetByUrlId';
 import useGenerateBaseQuestion from '../data';
-import ListQuestions from './list-questions';
+import ListQuestions from '../components/list-questions';
+import { IQuestion } from '../../../Domain/Entities/IQuestion';
+
 
 const userCredentials = new GetUserCredentials(new GetItemfromLocalStorage());
 
@@ -32,14 +33,29 @@ function CreateAndUpdateQuestion(
 
     const [current, setCurrent] = useState<IQuestion>(baseQuestion);
 
-   useGetByUrlId({ setItem: setCurrent, data: questions });
+    const data = questions?.map((question) => {
+        const { id, title, text, subject, author, created_at, updated_at, is_public, is_closed } = question;
+        return {
+            id,
+            title,
+            text,
+            subject_id: subject?.id,
+            author,
+            created_at,
+            updated_at,
+            is_public,
+            is_closed
+        };
+    });
+
+   useGetByUrlId<IQuestion>({ setItem: setCurrent, data: data });
 
     const getItem = (value: IQuestion) => {
         setCurrent((prev) => prev = value);
     };
 
     const getSubject = ( value: ISubject ) => {
-        setCurrent((prev) => prev = { ...prev, subject_id: value.id as string });
+        setCurrent((prev) => prev = { ...prev, subject: value as ISubject });
     };
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {  
@@ -55,6 +71,7 @@ function CreateAndUpdateQuestion(
 
     const resetForm = () => {
         setCurrent(baseQuestion);
+        window.location.reload();
     };
 
     const thisHandleSubmit = async (e : FormEvent) => {

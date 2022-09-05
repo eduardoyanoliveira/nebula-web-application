@@ -1,4 +1,4 @@
-import { AutoCompleteComponent } from './components';
+import { AutoCompleteComponent } from './features';
 import { 
     MainContainer, 
     Container, 
@@ -20,7 +20,8 @@ interface IAutoCompleteProps<T>{
     margin?: string,
     data: T[],
     fieldToDisplay: string,
-    displaySearchIcon?: boolean,
+    displayIcon?: boolean,
+    placeholder?: string,
     getItem(item: T): void,
 };
 
@@ -28,11 +29,13 @@ interface IAutoCompleteProps<T>{
 function AutoComplete<T>({ 
     name,
     label,
-    initialValue= '',
+    initialValue = '',
     maxWidth, 
     margin, 
     data, 
     fieldToDisplay, 
+    displayIcon = true,
+    placeholder,
     getItem,
 }: IAutoCompleteProps<T>) {
 
@@ -45,6 +48,7 @@ function AutoComplete<T>({
         currentData,
     } = AutoCompleteComponent({data, fieldToDisplay, getItem});
 
+    const autoCompleteBorder = displayIcon ? '5px 0 0 5px' : '5px 5x 0 5px';
     
     return (
         <MainContainer data-testid={'main-container-test-id'} margin={margin} maxWidth={maxWidth}>
@@ -61,20 +65,24 @@ function AutoComplete<T>({
                         value={!inputValue && initialValue && !open ? initialValue : inputValue} 
                         onChange={handleChange}
                         onKeyDown={handleKeyDown}
-                        borderRadius={(open && inputValue) ? '5px 0 0 0' : '5px 0 0 5px'}
+                        borderRadius={(open && inputValue) ? '5px 0 0 0' : autoCompleteBorder}
                         data-testid='auto-complete-input'
-                        placeholder='Pesquise'
+                        placeholder={placeholder || 'Pesquise'}
+                        displayIcon={displayIcon}
                         
                     />
-                    <IconContainer 
-                    data-testid='auto-complete-icon-container'
-                    borderRadius={(open && inputValue) ? '0 5px 0 0' : '0 5px 5px 0'}
-                    >
-                        <Icon  data-testid='auto-complete-icon'>
-                            <FaSearch/>
-                        </Icon>
-                    </IconContainer>
-
+                    {
+                        displayIcon && (
+                            <IconContainer 
+                            data-testid='auto-complete-icon-container'
+                            borderRadius={(open && inputValue) ? '0 5px 0 0' : '0 5px 5px 0'}
+                            >
+                                <Icon  data-testid='auto-complete-icon'>
+                                    <FaSearch/>
+                                </Icon>
+                            </IconContainer>
+                        )
+                    }
                 </AutoCompleteContainer>
                 {
                     (open && inputValue) && (

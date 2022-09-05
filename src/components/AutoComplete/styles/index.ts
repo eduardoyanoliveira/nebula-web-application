@@ -9,6 +9,7 @@ interface ContainerProps {
 
 interface IAutoCompleteContainerProps{
     borderRadius?: string, 
+    displayIcon?: boolean
 }; 
 
 interface LabelProps {
@@ -46,10 +47,10 @@ export const AutoCompleteContainer = styled.div`
 `;
 
 export const AutoCompleteInput = styled(Input)<IAutoCompleteContainerProps>`
-    width: 80%;
 
-    ${({ borderRadius }) => css`
+    ${({ borderRadius, displayIcon }) => css`
         border-radius: ${borderRadius};
+        width: ${displayIcon ? '80%' : '100%'};
     `};
 `;
 

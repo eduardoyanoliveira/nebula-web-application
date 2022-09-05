@@ -6,6 +6,7 @@ import SubjectsPage from "./pages/Subjects";
 import TestPage from "./pages/Test";
 import UserRegisterPage from "./pages/User/Register";
 import QuestionRegisterPage from "./pages/Questions/Register";
+import HomePage from "./pages/Home";
 
 interface IRouterProps {
     isLogged: boolean
@@ -19,14 +20,17 @@ export function Router({ isLogged } : IRouterProps){
             {
                 isLogged ? (
                     <Routes>
+                        <Route path="/" element={<HomePage/>}></Route>
                         <Route path="/test" element={<TestPage/>}></Route>
-                        <Route path="/users/register" element={<UserRegisterPage/>}></Route>
-                        <Route path="/" element={<ErrorPage/>}></Route>
+
                         <Route path="/subjects" element={<SubjectsPage/>}></Route>
                         <Route path="/subjects/register" element={<SubjectsRegisterPage/>}></Route>
                         <Route path="/subjects/register/:id" element={<SubjectsRegisterPage/>}></Route>
 
                         <Route path="/questions/register" element={<QuestionRegisterPage/>}></Route>
+
+                        <Route path="/users/register" element={<UserRegisterPage/>}></Route>
+                        
                         <Route path="*" element={<ErrorPage/>}></Route>
                     </Routes> 
                    

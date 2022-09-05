@@ -6,7 +6,6 @@ export interface IQuestion {
     title: string,
     text: string,
     subject?: ISubject | null,
-    subject_id?: string| null,
     author: IUser | null,
     is_public: boolean,
     is_closed: boolean,
