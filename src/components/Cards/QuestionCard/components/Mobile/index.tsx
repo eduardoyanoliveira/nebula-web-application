@@ -1,23 +1,30 @@
-import { IQuestion } from '../../../../application/Domain/Entities/IQuestion';
-import UserPhoto from '../../../User/UserPhoto';
+import { IQuestion } from '../../../../../application/Domain/Entities/IQuestion';
+import UserPhoto from '../../../../User/UserPhoto';
+
 import { 
-    Container, 
-    TopContainer,
-    UserContainer, 
-    Username, 
-    QuestionContainer,
-    Subject, 
-    QuestionTitle,
-    RegisterDate, 
+    MobileContainer
 } from './styles';
 
-interface IDesktopQuestionDisplayProps {
+import { 
+    TopContainer,
+    MiddleContainer,
+    UserContainer,
+    Username,
+    Title,
+    Text,
+    Subject,
+    RegisterDate,
+} from '../../../common-styles';
+
+
+interface IMobileQuestionCardProps {
     question: IQuestion
 };
 
-function MobileQuestionDisplay({ question } : IDesktopQuestionDisplayProps ) {
+function MobileQuestionCard({ question } : IMobileQuestionCardProps ) {
+
     return (
-        <Container key={question.id}>
+        <MobileContainer>
             <TopContainer>
                 <UserContainer>
                     <UserPhoto 
@@ -32,15 +39,18 @@ function MobileQuestionDisplay({ question } : IDesktopQuestionDisplayProps ) {
                 </RegisterDate>
             </TopContainer>
             
-            <QuestionContainer>
+            <MiddleContainer>
                 <Subject>
                     {question.subject?.name}
                 </Subject>
-                <QuestionTitle>
+                <Title>
                     {question.title}
-                </QuestionTitle>
-            </QuestionContainer>
-        </Container>
+                </Title>
+            </MiddleContainer>
+            <Text>
+                {question.text}
+            </Text>
+        </MobileContainer>
     );
 };
-export default MobileQuestionDisplay;
+export default MobileQuestionCard;

@@ -9,13 +9,14 @@ import { axiosInstance } from '../../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../../application/Infra/axios/http-axios-get-client';
 import { HTTPAxiosPatchClient } from '../../../application/Infra/axios/http-axios-patch-client';
 import { HTTPAxiosPostClient } from '../../../application/Infra/axios/http-axios-post-client';
-import AnswerDisplay from '../../../components/AnswerDisplay';
 import Button from '../../../components/Buttons/Button';
 import { ButtonColors } from '../../../components/Buttons/Button/ButtonColors';
+import AnswerCard from '../../../components/Cards/AnswerCard';
+import QuestionCard from '../../../components/Cards/QuestionCard';
 import Form from '../../../components/FormComponents/Form';
 import FormContainer from '../../../components/FormComponents/FormContainer';
 import TextBox from '../../../components/Inputs/TextBox';
-import QuestionDisplay from '../../../components/QuestionDisplays'
+
 
 const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
 
@@ -34,7 +35,7 @@ function AnswersPage() {
     const params = useParams();
 
     const { questions, isFetching } = ListQuestios(httpAxiosGetClient, 'id=' + params.id);
-    const { answers } = ListAnswers(httpAxiosGetClient);
+    const { answers } = ListAnswers(httpAxiosGetClient, 'question_id=' + params.id);
 
     useEffect(() => {
         setCurrent( (prev) => prev = {
@@ -61,11 +62,11 @@ function AnswersPage() {
 
     return (
         <Form title='Respostas'>
-            <QuestionDisplay question={questions?.[0] as IQuestion || baseQuestion} fullDisplay={true}/>
+            <QuestionCard question={questions?.[0] as IQuestion || baseQuestion}/>
             {
                 answers?.map((answer) => {
                     return (
-                        <AnswerDisplay answer={answer} key={answer.id}/>
+                        <AnswerCard answer={answer} key={answer.id}/>
                     )
                 })
             }
@@ -80,3 +81,4 @@ function AnswersPage() {
 };
 
 export default AnswersPage;
+

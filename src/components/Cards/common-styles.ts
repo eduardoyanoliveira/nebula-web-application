@@ -8,15 +8,17 @@ interface IContainerProps {
 export const Container = styled.div<IContainerProps>`
 
     width: 100%;
-    min-height: 80px;
+    min-height: 150px; // Changes to  min-height: 80px; when desktop
+    height: auto;
     padding: 10px 20px;
     margin-bottom: 20px;
+    border-radius: 10px;
+
 
     ${({theme}) => css`
         background-color: ${theme.colors.background};
     `};
 
-    border-radius: 10px;
 
     @media(min-width:${ScreenSizes.lg}){
         padding: 10px 10px;
@@ -25,20 +27,27 @@ export const Container = styled.div<IContainerProps>`
     &:hover{
         ${({theme, clickable}) => css`
             ${clickable ? `box-shadow: ${theme.colors.baseShadow}` : ''};
+            ${clickable ? `cursor: pointer` : ''};
         `};
     };
 
 `;
 
-export const HeaderContainer = styled.div`
+export const TopContainer = styled.div`
     display: flex;
     justify-content: space-between;
+`;
+
+export const MiddleContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* margin-left: 35px; */
 `;
 
 export const UserContainer = styled.div`
     display: flex;
     justify-content: flex-start;
-    width: 20%;
     margin: 5px 0px;
 `;
 
@@ -56,11 +65,17 @@ export const Username = styled.label`
     white-space: nowrap;
 `;
 
-export const MiddleContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+
+export const RegisterDate = styled.label`
+    ${({theme}) => css`
+        color: ${theme.colors.typography500};
+        ${theme.typographies.subtitleTwo};
+    `}
+    font-size: 12px;
+    text-align: end;
+    margin: 5px 0px;
 `;
+
 
 export const Subject = styled.h4`
     ${({theme}) => css`
@@ -69,9 +84,17 @@ export const Subject = styled.h4`
     `}
 
     text-align: center;
+    margin: 0 auto;
+
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+
+    max-width: 160px;
 `;
 
-export const QuestionTitle = styled.p`
+
+export const Title = styled.p`
     ${({theme}) => css`
         color: ${theme.colors.typography500};
         ${theme.typographies.subtitleOne};
@@ -81,17 +104,9 @@ export const QuestionTitle = styled.p`
     overflow: hidden;
     white-space: nowrap;
     text-align: center;
+    margin: 20px 0 0 0;
 `;
 
-export const RegisterDate = styled.label`
-    ${({theme}) => css`
-        color: ${theme.colors.typography500};
-        ${theme.typographies.subtitleTwo};
-    `}
-    font-size: 12px;
-    width: 25%;
-    text-align: end;
-`;
 
 export const Text = styled.p`
  ${({theme}) => css`
@@ -99,5 +114,6 @@ export const Text = styled.p`
         ${theme.typographies.subtitleOne};
     `}
 
-    padding: 0 90px;
+    padding: 0 40px;
+    margin: 35px 0 0 0;
 `;
