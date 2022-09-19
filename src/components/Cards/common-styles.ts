@@ -117,3 +117,12 @@ export const Text = styled.p`
     padding: 0 40px;
     margin: 35px 0 0 0;
 `;
+
+// Answer
+
+export const IconsContainer = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+`;

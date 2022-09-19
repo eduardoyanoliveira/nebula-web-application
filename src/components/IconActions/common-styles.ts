@@ -21,7 +21,11 @@ export const Container = styled.div<IContainerProps>`
 
 `;
 
-export const IconContainer = styled.span`
+interface IIconContainerProps {
+    selected?: boolean
+};
+
+export const IconContainer = styled.span<IIconContainerProps>`
 
     font-size: 25px;
 
@@ -35,9 +39,13 @@ export const IconContainer = styled.span`
 
     transition: all ease-in-out .2s;
 
+    ${({theme, selected}) => css`
+        color: ${selected  && theme.colors.primary};
+    `};
+
     &:hover {
         ${({theme}) => css`
-            color: ${theme.colors.primary}
+            color: ${theme.colors.primary};
         `};
         transform: scale(1.1);
     }

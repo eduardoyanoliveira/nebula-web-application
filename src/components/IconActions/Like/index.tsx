@@ -1,9 +1,14 @@
 import { BiLike } from 'react-icons/bi';
 import { Container, IconContainer, CountCircle } from '../common-styles';
 
-function Like() {
+interface ILikeProps {
+    onClick?(): void,
+    margin?: string
+};
+
+function Like({ margin, onClick } : ILikeProps) {
     return (
-        <Container>
+        <Container margin={margin} onClick={onClick} >
             <IconContainer>
                 <BiLike style={{transform: 'rotateY(180deg)'}} />
             </IconContainer>

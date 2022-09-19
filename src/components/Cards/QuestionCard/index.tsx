@@ -1,25 +1,87 @@
 import { IQuestion } from '../../../application/Domain/Entities/IQuestion';
 import { useMediaQuery } from '../../../application/hooks/useMediaQuery';
-import DesktopQuestionCard from './components/Desktop';
-import MobileQuestionCard from './components/Mobile';
 
-interface IQuestionCardProps {
+import { useNavigate } from 'react-router-dom';
+import UserPhoto from '../../User/UserPhoto';
+
+import { 
+    QuestionContainer,
+    QuestionSubject,
+    QuestionText
+} from './styles';
+
+import { 
+    TopContainer,
+    UserContainer,
+    Username,
+    Title,
+    MiddleContainer,
+    RegisterDate,
+} from '../common-styles';
+
+interface IQuestionItemCardProps {
     question : IQuestion,
+    fullDisplay?: boolean
 };
 
-function QuestionCard({ question } : IQuestionCardProps) {
+function QuestionItemCard({ question, fullDisplay } : IQuestionItemCardProps) {
+
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate('/answers/' + question.id)
+    }
+
     const isDesktop = useMediaQuery(`(min-width: 650px)`);
+
     return (
-       <>
-        {
-            isDesktop 
-            ? 
-                <DesktopQuestionCard question={question} />
-            :
-                <MobileQuestionCard question={question} />
-        }
-       </>
+        <QuestionContainer isDesktop={isDesktop} clickable={!fullDisplay} onClick={handleClick}>
+            <TopContainer>
+                <UserContainer>
+                    <UserPhoto 
+                        photoUrl={question.author?.photo as string} 
+                        alt={question.author?.username as string}
+                    />
+                    <Username> {question.author?.username as string} </Username>
+                </UserContainer>
+                {
+                    isDesktop && (
+                    <MiddleContainer>
+                        <QuestionSubject isDesktop={isDesktop}>
+                            {question.subject?.name}
+                        </QuestionSubject>
+                        <Title>
+                        {question.title}
+                        </Title>
+                    </MiddleContainer>
+                    )
+                }
+                
+                <RegisterDate>
+                    {new Date(question.created_at as Date).toLocaleString()}
+                </RegisterDate>
+            </TopContainer>
+            {
+                !isDesktop && (
+                    <MiddleContainer>
+                        <QuestionSubject isDesktop={isDesktop}>
+                            {question.subject?.name}
+                        </QuestionSubject>
+                        <Title>
+                        {question.title}
+                        </Title>
+                    </MiddleContainer>
+                )
+            }
+            {
+                fullDisplay && (
+                    <QuestionText isDesktop={isDesktop}>
+                        {question.text}
+                    </QuestionText>
+                )
+            }
+        </QuestionContainer>
     );
 };
 
-export default QuestionCard;
+export default QuestionItemCard;

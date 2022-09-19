@@ -2,7 +2,7 @@ import React from 'react'
 import ListQuestios from '../../application/features/Questions/components/list-questions';
 import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
-import QuestionItemCard from '../../components/Cards/QuestionItemCard';
+import QuestionCard from '../../components/Cards/QuestionCard';
 import { Container, Title, QuestionsContainer } from './styles';
 
 
@@ -25,7 +25,7 @@ function HomePage() {
             {
               questions.map((question) => {
                 return (
-                  <QuestionItemCard question={question} key={question.id} />
+                  <QuestionCard question={question} key={question.id} />
                 )
               })
             }
