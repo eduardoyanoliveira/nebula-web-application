@@ -4,10 +4,10 @@ import { ISubject } from '../../../Domain/Entities/ISubject';
 import { IHTTPGetClient } from '../../../Domain/HTTPRequestsClient/IHTTPGetClient';
 import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchClient';
 import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostClient';
-import handleSubmit from '../../../hooks/handleSubmit';
-import useGetByUrlId from '../../../hooks/useGetByUrlId';
+import handleSubmit from '../../../commonHooks/handleSubmit';
+import useGetByUrlId from '../../../commonHooks/useGetByUrlId';
 import { baseSubject } from '../data';
-import useGet from '../../../hooks/useGet';
+import useGet from '../../../commonHooks/useGet';
 
 
 function CreateAndUpdateSubject(httpGetClient: IHTTPGetClient, httpPostClient: IHTTPPostClient, httpPatchClient: IHTTPPatchClient) {

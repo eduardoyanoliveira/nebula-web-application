@@ -13,7 +13,7 @@ import FormDateLabel from "../../../components/FormComponents/FormDateLabel";
 import FormToggle from "../../../components/FormComponents/FormToggle";
 import CreateAndUpdateQuestion from "../../../application/features/Questions/CreateQuestion/create-and-update-question";
 import TextBox from "../../../components/Inputs/TextBox";
-import useGet from "../../../application/hooks/useGet";
+import useGet from "../../../application/commonHooks/useGet";
 import { ISubject } from "../../../application/Domain/Entities/ISubject";
 
 const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);

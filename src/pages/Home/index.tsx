@@ -1,6 +1,6 @@
 import React from 'react'
 import { IQuestion } from '../../application/Domain/Entities/IQuestion';
-import useGet from '../../application/hooks/useGet';
+import useGet from '../../application/commonHooks/useGet';
 import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
 import QuestionCard from '../../components/Cards/QuestionCard';

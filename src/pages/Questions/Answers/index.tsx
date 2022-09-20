@@ -2,7 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { IQuestion } from '../../../application/Domain/Entities/IQuestion';
 import GetBestAnswer from '../../../application/features/Answers/hooks/get-best-answer';
-import handleSubmit from '../../../application/hooks/handleSubmit';
+import handleSubmit from '../../../application/commonHooks/handleSubmit';
 import { baseQuestion } from '../../../application/features/Questions/data';
 import { httpAxiosGetClient, httpAxiosPatchClient, httpAxiosPostClient } from '../../../application/Infra/axios';
 import Button from '../../../components/Buttons/Button';
@@ -12,7 +12,7 @@ import QuestionCard from '../../../components/Cards/QuestionCard';
 import FormContainer from '../../../components/FormComponents/FormContainer';
 import TextBox from '../../../components/Inputs/TextBox';
 import { MainContainer, Container, Title } from './styles';
-import useGet from '../../../application/hooks/useGet';
+import useGet from '../../../application/commonHooks/useGet';
 import { IAnswer } from '../../../application/Domain/Entities/IAnswer';
 
 

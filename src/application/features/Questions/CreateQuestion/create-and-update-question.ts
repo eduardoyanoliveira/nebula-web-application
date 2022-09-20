@@ -3,11 +3,11 @@ import { ISubject } from '../../../Domain/Entities/ISubject';
 import { IHTTPGetClient } from '../../../Domain/HTTPRequestsClient/IHTTPGetClient';
 import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchClient';
 import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostClient';
-import handleSubmit from '../../../hooks/handleSubmit';
-import useGetByUrlId from '../../../hooks/useGetByUrlId';
+import handleSubmit from '../../../commonHooks/handleSubmit';
+import useGetByUrlId from '../../../commonHooks/useGetByUrlId';
 import useGenerateBaseQuestion from '../data';
 import { IQuestion } from '../../../Domain/Entities/IQuestion';
-import useGet from '../../../hooks/useGet';
+import useGet from '../../../commonHooks/useGet';
 import { getUserCredentials } from '../../../useCases/UserCredentials';
 
 

@@ -2,7 +2,7 @@ import { Container, MenuBarsContainer } from "./styles";
 import { FaBars } from "react-icons/fa";
 import Menu from "./Menu";
 import { useState } from "react";
-import { useMediaQuery } from "../../application/hooks/useMediaQuery";
+import { useMediaQuery } from "../../application/commonHooks/useMediaQuery";
 import { ScreenSizes } from "../../application/utils/screen/sizes";
 
 
