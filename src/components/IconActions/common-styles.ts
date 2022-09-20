@@ -44,13 +44,16 @@ export const IconContainer = styled.span<IIconContainerProps>`
     `};
 
     &:hover {
-        ${({theme}) => css`
-            color: ${theme.colors.primary};
+        ${({theme, selected}) => css`
+            ${!selected && (
+                `
+                color: ${theme.colors.primary};
+                transform: scale(1.1);
+                cursor: pointer;
+                `
+            )};
         `};
-        transform: scale(1.1);
-    }
-
-    cursor: pointer;
+    };
 `;
 
 export const CountCircle = styled.div`

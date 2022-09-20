@@ -1,9 +1,9 @@
 import React, { FormEvent, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { IQuestion } from '../../../application/Domain/Entities/IQuestion';
-import GetBestAnswer from '../../../application/features/Answers/components/get-best-answer';
-import ListAnswers from '../../../application/features/Answers/components/list-answers';
-import handleSubmit from '../../../application/features/hooks/handleSubmit';
+import GetBestAnswer from '../../../application/features/Answers/hooks/get-best-answer';
+import ListAnswers from '../../../application/features/Answers/hooks/list-answers';
+import handleSubmit from '../../../application/hooks/handleSubmit';
 import ListQuestios from '../../../application/features/Questions/components/list-questions';
 import { baseQuestion } from '../../../application/features/Questions/data';
 import { httpAxiosGetClient, httpAxiosPatchClient, httpAxiosPostClient } from '../../../application/Infra/axios';
@@ -61,8 +61,6 @@ function AnswersPage() {
         });
         window.location.reload();
     };
-
-    console.log('Render')
 
     return (
         <MainContainer>

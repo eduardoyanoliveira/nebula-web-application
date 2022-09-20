@@ -5,8 +5,8 @@ import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchC
 import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostClient';
 import { GetItemfromLocalStorage } from '../../../useCases/Cache/get-item-from-local-storage';
 import { GetUserCredentials } from '../../../useCases/UserCredentials/get-user-credentials';
-import handleSubmit from '../../hooks/handleSubmit';
-import useGetByUrlId from '../../hooks/useGetByUrlId';
+import handleSubmit from '../../../hooks/handleSubmit';
+import useGetByUrlId from '../../../hooks/useGetByUrlId';
 import useGenerateBaseQuestion from '../data';
 import ListQuestions from '../components/list-questions';
 import { IQuestion } from '../../../Domain/Entities/IQuestion';

@@ -1,5 +1,5 @@
-import { IHTTPPatchClient } from "../../Domain/HTTPRequestsClient/IHTTPPatchClient";
-import { IHTTPPostClient } from "../../Domain/HTTPRequestsClient/IHTTPPostClient";
+import { IHTTPPatchClient } from "../Domain/HTTPRequestsClient/IHTTPPatchClient";
+import { IHTTPPostClient } from "../Domain/HTTPRequestsClient/IHTTPPostClient";
 
 interface IHandleSubmitProps<T>{
     url: string,

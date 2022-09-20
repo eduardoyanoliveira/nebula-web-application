@@ -4,8 +4,8 @@ import { ISubject } from '../../../Domain/Entities/ISubject';
 import { IHTTPGetClient } from '../../../Domain/HTTPRequestsClient/IHTTPGetClient';
 import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchClient';
 import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostClient';
-import handleSubmit from '../../hooks/handleSubmit';
-import useGetByUrlId from '../../hooks/useGetByUrlId';
+import handleSubmit from '../../../hooks/handleSubmit';
+import useGetByUrlId from '../../../hooks/useGetByUrlId';
 import { baseSubject } from '../data';
 import ListSubjects from '../components/list-subjects';
 
