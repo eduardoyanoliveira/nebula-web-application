@@ -1,6 +1,6 @@
 import { IAnswer } from '../../../application/Domain/Entities/IAnswer';
 import { IBestAnswer } from '../../../application/Domain/Entities/IBestAnswer';
-import { useMediaQuery } from '../../../application/commonHooks/useMediaQuery';
+import { useMediaQuery } from '../../../application/CommonHooks/useMediaQuery';
 
 
 import TextBox from '../../Inputs/TextBox';

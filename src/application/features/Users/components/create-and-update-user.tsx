@@ -4,8 +4,8 @@ import { IUser } from '../../../Domain/Entities/IUser';
 import { IHTTPGetClient } from '../../../Domain/HTTPRequestsClient/IHTTPGetClient';
 import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchClient';
 import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostClient';
-import useGet from '../../../commonHooks/useGet';
-import useGetByUrlId from '../../../commonHooks/useGetByUrlId';
+import useGet from '../../../CommonHooks/useGet';
+import useGetByUrlId from '../../../CommonHooks/useGetByUrlId';
 
 interface IEditableUser extends IUser{
   password?: string,

@@ -1,5 +1,5 @@
 import { IQuestion } from '../../../application/Domain/Entities/IQuestion';
-import { useMediaQuery } from '../../../application/commonHooks/useMediaQuery';
+import { useMediaQuery } from '../../../application/CommonHooks/useMediaQuery';
 
 import { useNavigate } from 'react-router-dom';
 import UserPhoto from '../../User/UserPhoto';

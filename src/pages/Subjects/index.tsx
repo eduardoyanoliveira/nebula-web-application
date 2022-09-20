@@ -1,7 +1,7 @@
 import { FaPlus } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { ISubject } from '../../application/Domain/Entities/ISubject';
-import useFilter from '../../application/commonHooks/useFilter';
+import useFilter from '../../application/CommonHooks/useFilter';
 import { httpAxiosGetClient } from '../../application/Infra/axios';
 import { ButtonColors } from '../../components/Buttons/Button/ButtonColors';
 import IconButton from '../../components/Buttons/IconButton';
