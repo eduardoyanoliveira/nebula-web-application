@@ -8,8 +8,8 @@ import { GetUserCredentials } from '../../../useCases/UserCredentials/get-user-c
 import handleSubmit from '../../../hooks/handleSubmit';
 import useGetByUrlId from '../../../hooks/useGetByUrlId';
 import useGenerateBaseQuestion from '../data';
-import ListQuestions from '../components/list-questions';
 import { IQuestion } from '../../../Domain/Entities/IQuestion';
+import useGet from '../../../hooks/useGet';
 
 
 const userCredentials = new GetUserCredentials(new GetItemfromLocalStorage());
@@ -27,7 +27,14 @@ function CreateAndUpdateQuestion(
     httpPatchClient: IHTTPPatchClient
 ) {
 
-    const { questions, isFetching } = ListQuestions(httpGetClient , `author=$id$${credentialsResponse.getValue().id}`);
+    const { data: questions, isFetching, error } = useGet<IQuestion[]>(
+        httpGetClient, 
+        'questions',
+        `author=$id$${credentialsResponse.getValue().id}`,
+        {
+          staleTime: 1000 * 60 // 1 minute
+        }
+    );
 
     const baseQuestion = useGenerateBaseQuestion();
 

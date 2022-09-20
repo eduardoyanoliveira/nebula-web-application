@@ -7,14 +7,14 @@ import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostCli
 import handleSubmit from '../../../hooks/handleSubmit';
 import useGetByUrlId from '../../../hooks/useGetByUrlId';
 import { baseSubject } from '../data';
-import ListSubjects from '../components/list-subjects';
+import useGet from '../../../hooks/useGet';
 
 
 function CreateAndUpdateSubject(httpGetClient: IHTTPGetClient, httpPostClient: IHTTPPostClient, httpPatchClient: IHTTPPatchClient) {
 
   const navigate = useNavigate();
 
-  const { subjects, isFetching } = ListSubjects(httpGetClient);
+  const { data: subjects, isFetching } = useGet<ISubject[]>(httpGetClient, 'subjects');
 
   const [current, setCurrent] = useState<ISubject>(baseSubject);
 

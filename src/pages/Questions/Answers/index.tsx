@@ -2,9 +2,7 @@ import React, { FormEvent, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { IQuestion } from '../../../application/Domain/Entities/IQuestion';
 import GetBestAnswer from '../../../application/features/Answers/hooks/get-best-answer';
-import ListAnswers from '../../../application/features/Answers/hooks/list-answers';
 import handleSubmit from '../../../application/hooks/handleSubmit';
-import ListQuestios from '../../../application/features/Questions/components/list-questions';
 import { baseQuestion } from '../../../application/features/Questions/data';
 import { httpAxiosGetClient, httpAxiosPatchClient, httpAxiosPostClient } from '../../../application/Infra/axios';
 import Button from '../../../components/Buttons/Button';
@@ -14,6 +12,8 @@ import QuestionCard from '../../../components/Cards/QuestionCard';
 import FormContainer from '../../../components/FormComponents/FormContainer';
 import TextBox from '../../../components/Inputs/TextBox';
 import { MainContainer, Container, Title } from './styles';
+import useGet from '../../../application/hooks/useGet';
+import { IAnswer } from '../../../application/Domain/Entities/IAnswer';
 
 
 const baseAnswer = {
@@ -27,9 +27,21 @@ function AnswersPage() {
 
     const params = useParams();
 
-    const { questions, isFetching } = ListQuestios(httpAxiosGetClient, 'id=' + params.id);
+    const { data: questions, isFetching } = useGet<IQuestion[]>(
+        httpAxiosGetClient, 
+        'questions' , 
+        'id=' + params.id,
+        { staleTime: 1000 * 60  }
+    );
+
     const { bestAnswer } = GetBestAnswer(httpAxiosGetClient, params.id as string);
-    const { answers } = ListAnswers(httpAxiosGetClient, `question_id=${params.id}`);
+
+    const { data: answers } = useGet<IAnswer[]>(
+        httpAxiosGetClient, 
+        'answers', 
+        `question_id=${params.id}`,
+        { staleTime: 1000 * 60  }
+    );
 
     useEffect(() => {
 

@@ -13,7 +13,8 @@ import FormDateLabel from "../../../components/FormComponents/FormDateLabel";
 import FormToggle from "../../../components/FormComponents/FormToggle";
 import CreateAndUpdateQuestion from "../../../application/features/Questions/CreateQuestion/create-and-update-question";
 import TextBox from "../../../components/Inputs/TextBox";
-import ListSubjects from "../../../application/features/Subjects/components/list-subjects";
+import useGet from "../../../application/hooks/useGet";
+import { ISubject } from "../../../application/Domain/Entities/ISubject";
 
 const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
 const httpAxiosPostClient = new HTTPAxiosPostClient(axiosInstance);
@@ -33,7 +34,7 @@ function QuestionRegisterPage() {
     handleSubmit 
   } = CreateAndUpdateQuestion(httpAxiosGetClient, httpAxiosPostClient, httpAxiosPatchClient);
 
-  const { subjects } = ListSubjects(httpAxiosGetClient, true);
+  const { data: subjects } = useGet<ISubject[]>(httpAxiosGetClient, 'subjects', 'is_active=true');
 
   return (
     <Form title="Cadastro de Pergunta">

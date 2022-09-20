@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { IQuestion } from "../../../Domain/Entities/IQuestion";
 import { IHTTPGetClient } from "../../../Domain/HTTPRequestsClient/IHTTPGetClient";
-import ListQuestions from "./list-questions";
+import useGet from "../../../hooks/useGet";
 
 /**
  * @param httpGetClient The http get client to make get request to the api
@@ -11,7 +12,14 @@ const FilterQuestions = (httpGetClient: IHTTPGetClient, urlParams?: string) => {
   
   const [search, setSearch] = useState<string>('');
     
-  const { questions, isFetching, error } = ListQuestions(httpGetClient, urlParams);
+  const { data: questions, isFetching, error } = useGet<IQuestion[]>(
+    httpGetClient, 
+    'questions',
+    urlParams,
+    {
+      staleTime: 1000 * 60 // 1 minute
+    }
+  );
 
   const filteredQuestions = search.length > 0
     ? questions?.filter(subject => subject.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()))

@@ -1,5 +1,6 @@
 import React from 'react'
-import ListQuestios from '../../application/features/Questions/components/list-questions';
+import { IQuestion } from '../../application/Domain/Entities/IQuestion';
+import useGet from '../../application/hooks/useGet';
 import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
 import QuestionCard from '../../components/Cards/QuestionCard';
@@ -10,7 +11,14 @@ const httpGetClient = new HTTPAxiosGetClient(axiosInstance);
 
 function HomePage() {
 
-  const { questions, error, isFetching } = ListQuestios(httpGetClient, 'is_closed=false');
+  const { data: questions, error, isFetching } = useGet<IQuestion[]>(
+    httpGetClient, 
+    'questions', 
+    'is_closed=false',
+    {
+      staleTime: 60 * 1000
+    }
+  );
 
   return (
     <Container 
