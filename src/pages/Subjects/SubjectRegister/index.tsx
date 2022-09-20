@@ -1,34 +1,32 @@
-import CreateAndUpdateSubject from "../../../application/features/Subjects/CreateAndUpdateSubject/create-and-update-subject";
 import AutoComplete from "../../../components/AutoComplete";
 import Button from "../../../components/Buttons/Button";
 import { ButtonColors } from "../../../components/Buttons/Button/ButtonColors";
 import Form from "../../../components/FormComponents/Form";
 import InputComponent from "../../../components/Inputs/Input";
-import { axiosInstance } from '../../../application/Infra/axios/axios-instance';
-import { HTTPAxiosGetClient } from '../../../application/Infra/axios/http-axios-get-client';
-import { HTTPAxiosPatchClient } from '../../../application/Infra/axios/http-axios-patch-client';
-import { HTTPAxiosPostClient } from '../../../application/Infra/axios/http-axios-post-client';
 import FormHeader from "../../../components/FormComponents/FormHeader";
 import FormContainer from "../../../components/FormComponents/FormContainer";
 import FormDateLabel from "../../../components/FormComponents/FormDateLabel";
 import FormToggle from "../../../components/FormComponents/FormToggle";
-
-const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
-const httpAxiosPostClient = new HTTPAxiosPostClient(axiosInstance);
-const httpAxiosPatchClient = new HTTPAxiosPatchClient(axiosInstance);
+import { useSubjectForm } from "../../../application/features/Subjects/useSubjectForm";
+import { httpAxiosGetClient, httpAxiosPatchClient, httpAxiosPostClient } from "../../../application/Infra/axios";
+import { ISubject } from "../../../application/Domain/Entities/ISubject";
+import { baseSubject } from "../../../application/features/Subjects/data";
+import { getSubjectByUrlId } from "../../../application/features/Subjects/getSubjectByUrlId";
+import { submitSubject } from "../../../application/features/Subjects/submitSubject";
+import useGet from "../../../application/CommonHooks/useGet";
 
 
 function SubjectsRegisterPage() {
 
-  const { 
-    subjects, 
-    current, 
-    resetForm, 
-    handleChange, 
-    toggleActive,
-    getItem, 
-    handleSubmit 
-  } = CreateAndUpdateSubject(httpAxiosGetClient, httpAxiosPostClient, httpAxiosPatchClient);
+  const { data: subjects, isFetching } = useGet<ISubject[]>(httpAxiosGetClient, 'subjects');
+
+  const  { subject } = getSubjectByUrlId(subjects as ISubject[]); 
+
+  const {  
+    current,
+    setCurrent,
+    handleChange,  
+  } = useSubjectForm(subject as ISubject);
 
   return (
     <Form title="Cadastro de Tópicos">
@@ -39,7 +37,7 @@ function SubjectsRegisterPage() {
               name="subjects" 
               data={subjects || []} 
               fieldToDisplay='name'
-              getItem={getItem}
+              getItem={(value : ISubject) => setCurrent((prev: ISubject) => prev = value)}
             />
           </FormHeader>
         )
@@ -63,7 +61,7 @@ function SubjectsRegisterPage() {
             id='toggle' 
             toggleLabel='Ativo?' 
             initialValue={current?.is_active} 
-            getValue={toggleActive}
+            getValue={(value: boolean) => setCurrent((prev) => prev = { ...prev, is_active: value })}
           />
       </FormContainer>
 
@@ -84,13 +82,17 @@ function SubjectsRegisterPage() {
               <Button 
                 text="Gravar" 
                 backgroundColor={ButtonColors.secondary} 
-                onClick={handleSubmit}
+                onClick={(e) => submitSubject(e, { 
+                  subject: current, 
+                  httpPatchClient : httpAxiosPatchClient, 
+                  httpPostClient : httpAxiosPostClient
+                })}
                 margin='0 20px 0 0'
               />
               <Button 
                 text="Cancelar" 
                 backgroundColor={ButtonColors.primary} 
-                onClick={resetForm}
+                onClick={() => setCurrent(baseSubject)}
               />
             </>
           )

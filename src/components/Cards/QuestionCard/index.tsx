@@ -58,7 +58,7 @@ function QuestionItemCard({ question, fullDisplay } : IQuestionItemCardProps) {
                 }
                 
                 <RegisterDate>
-                    {new Date(question.created_at as Date).toLocaleString()}
+                    {new Date(question.created_at as Date).toLocaleString('pt-BR')}
                 </RegisterDate>
             </TopContainer>
             {

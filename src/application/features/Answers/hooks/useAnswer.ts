@@ -22,7 +22,6 @@ export const useAnswer =  ({ answer } : IEditAnswerProps) => {
 
         await httpPatchClient.patch('answers/' + answer.id, { text } );
         setEditing((prev : boolean) => prev = !prev );
-        window.location.reload();
     }, []);
 
     return {

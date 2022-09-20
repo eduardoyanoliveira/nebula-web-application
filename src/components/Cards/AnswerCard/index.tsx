@@ -61,7 +61,7 @@ function AnswerCard({ answer, bestAnswer } : IAnswerCardProps) {
                     <Username> {answer.author?.username as string} </Username>
                 </UserContainer>
                 <RegisterDate>
-                    {new Date(answer.created_at as Date).toLocaleString()}
+                    {new Date(answer.created_at as Date).toLocaleString('pt-BR')}
                 </RegisterDate>
             </TopContainer>
         
@@ -76,7 +76,7 @@ function AnswerCard({ answer, bestAnswer } : IAnswerCardProps) {
                 ) : 
                 (
                     <AnswerText isDesktop={isDesktop}>
-                        {answer.text}
+                        {answerText}
                     </AnswerText>
                 )
             }
