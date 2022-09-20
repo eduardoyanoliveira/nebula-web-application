@@ -1,7 +1,7 @@
 import { IQuestion } from "./IQuestion";
 import { IUser } from "./IUser";
 
-export interface IAnswer {
+export interface IAnswer  {
     id?: string,
     text: string,
     author: IUser | null,

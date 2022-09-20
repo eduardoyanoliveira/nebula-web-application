@@ -3,23 +3,16 @@ import { ISubject } from '../../../Domain/Entities/ISubject';
 import { IHTTPGetClient } from '../../../Domain/HTTPRequestsClient/IHTTPGetClient';
 import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchClient';
 import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostClient';
-import { GetItemfromLocalStorage } from '../../../useCases/Cache/get-item-from-local-storage';
-import { GetUserCredentials } from '../../../useCases/UserCredentials/get-user-credentials';
 import handleSubmit from '../../../hooks/handleSubmit';
 import useGetByUrlId from '../../../hooks/useGetByUrlId';
 import useGenerateBaseQuestion from '../data';
 import { IQuestion } from '../../../Domain/Entities/IQuestion';
 import useGet from '../../../hooks/useGet';
+import { getUserCredentials } from '../../../useCases/UserCredentials';
 
 
-const userCredentials = new GetUserCredentials(new GetItemfromLocalStorage());
 
-const credentialsResponse = userCredentials.execute();
-
-if(credentialsResponse.isFailure){
-    alert(credentialsResponse.error);
-};
-
+const credentialsResponse = getUserCredentials.execute();
 
 function CreateAndUpdateQuestion(
     httpGetClient: IHTTPGetClient,

@@ -4,8 +4,8 @@ import { IUser } from '../../../Domain/Entities/IUser';
 import { IHTTPGetClient } from '../../../Domain/HTTPRequestsClient/IHTTPGetClient';
 import { IHTTPPatchClient } from '../../../Domain/HTTPRequestsClient/IHTTPPatchClient';
 import { IHTTPPostClient } from '../../../Domain/HTTPRequestsClient/IHTTPPostClient';
+import useGet from '../../../hooks/useGet';
 import useGetByUrlId from '../../../hooks/useGetByUrlId';
-import ListUsers from './list-users';
 
 interface IEditableUser extends IUser{
   password?: string,
@@ -32,7 +32,14 @@ function CreateAndUpdateUser(
 ) {
 
 
-  const { users, error, isFetching } = ListUsers(httpGetClient);
+  const { data: users, error, isFetching } = useGet<IUser[]>(
+    httpGetClient,
+    'users',
+    '',
+    {
+      staleTime: 1000 * 60 // 1 minute
+    }
+  );
 
 
   const [current, setCurrent] = useState<IEditableUser>(baseUser);
