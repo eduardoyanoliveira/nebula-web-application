@@ -11,16 +11,16 @@ import { useSubjectForm } from "../../../application/features/Subjects/useSubjec
 import { httpAxiosGetClient, httpAxiosPatchClient, httpAxiosPostClient } from "../../../application/Infra/axios";
 import { ISubject } from "../../../application/Domain/Entities/ISubject";
 import { baseSubject } from "../../../application/features/Subjects/data";
-import { getSubjectByUrlId } from "../../../application/features/Subjects/getSubjectByUrlId";
 import useGet from "../../../application/CommonHooks/useGet";
 import { handleSubmit } from "../../../application/CommonHooks/Submit";
+import { getByUrlId } from "../../../application/CommonHooks/GetByUrlId/getByUrlId";
 
 
 function SubjectsRegisterPage() {
 
   const { data: subjects, isFetching } = useGet<ISubject[]>(httpAxiosGetClient, 'subjects');
 
-  const  { subject } = getSubjectByUrlId(subjects as ISubject[]); 
+  const  { subject } = getByUrlId(subjects as ISubject[]); 
 
   const {  
     current,
