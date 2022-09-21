@@ -78,7 +78,7 @@ describe('Auto-complete ui component', () => {
     it('should have "300px" of maxWidth in the main-container', async () => {
         setUp();
 
-        const mainContainer = screen.getByTestId('auto-complete-main-container');
+        const mainContainer = screen.getByTestId('main-container-test-id');
 
         expect(mainContainer).toHaveStyle({
             maxWidth: '300px'
@@ -90,7 +90,7 @@ describe('Auto-complete ui component', () => {
     it('should have "20px" of margin in the main-container', async () => {
         setUp();
 
-        const mainContainer = screen.getByTestId('auto-complete-main-container');
+        const mainContainer = screen.getByTestId('main-container-test-id');
 
         expect(mainContainer).toHaveStyle({
             margin: '20px'
