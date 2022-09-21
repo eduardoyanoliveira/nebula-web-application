@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
-import { IAnswer } from "../../../Domain/Entities/IAnswer";
-import { axiosInstance } from "../../../Infra/axios/axios-instance";
-import { HTTPAxiosPatchClient } from "../../../Infra/axios/http-axios-patch-client";
+import { IAnswer } from "../../Domain/Entities/IAnswer";
+import { axiosInstance } from "../../Infra/axios/axios-instance";
+import { HTTPAxiosPatchClient } from "../../Infra/axios/http-axios-patch-client";
 
 interface IEditAnswerProps {
     answer: IAnswer,

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { IQuestion } from '../../../application/Domain/Entities/IQuestion';
-import GetBestAnswer from '../../../application/features/Answers/hooks/get-best-answer';
 import { handleSubmit } from '../../../application/CommonHooks/Submit';
 import  { baseQuestionProps } from '../../../application/features/Questions/data';
 import { httpAxiosGetClient, httpAxiosPatchClient, httpAxiosPostClient } from '../../../application/Infra/axios';
@@ -14,6 +13,7 @@ import TextBox from '../../../components/Inputs/TextBox';
 import { MainContainer, Container, Title } from './styles';
 import useGet from '../../../application/CommonHooks/useGet';
 import { IAnswer } from '../../../application/Domain/Entities/IAnswer';
+import { IBestAnswer } from '../../../application/Domain/Entities/IBestAnswer';
 
 
 const baseAnswer = {
@@ -27,30 +27,24 @@ function AnswersPage() {
 
     const params = useParams();
 
-    const { data: questions, isFetching } = useGet<IQuestion[]>(
-        httpAxiosGetClient, 
-        'questions' , 
-        'id=' + params.id,
-        { staleTime: 1000 * 60  }
-    );
+    const { data: question, isFetching } = useGet<IQuestion>( httpAxiosGetClient, 'questions/' +  params.id );
 
-    const { bestAnswer } = GetBestAnswer(httpAxiosGetClient, params.id as string);
+    const { data: bestAnswer } = useGet<IBestAnswer>(httpAxiosGetClient, 'best_answers/find_by_question/' + params.id);
 
     const { data: answers } = useGet<IAnswer[]>(
         httpAxiosGetClient, 
         'answers', 
-        `question_id=${params.id}`,
-        { staleTime: 1000 * 60  }
+        `question_id=${params.id}`
     );
 
     useEffect(() => {
 
         setCurrent( (prev) => prev = {
             ...prev,
-            question_id: questions?.[0].id as string
+            question_id: question?.id as string
         });
 
-    }, [questions]);
+    }, [question]);
     
 
     const [current, setCurrent] = useState(baseAnswer);
@@ -64,7 +58,7 @@ function AnswersPage() {
 
     return (
         <MainContainer>
-            <QuestionCard fullDisplay question={questions?.[0] as IQuestion || baseQuestionProps}/>
+            <QuestionCard fullDisplay question={question as IQuestion || baseQuestionProps}/>
             <Container>
                 <Title>Respostas:</Title>
                 {

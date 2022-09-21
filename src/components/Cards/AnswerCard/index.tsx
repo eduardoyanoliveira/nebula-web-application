@@ -27,7 +27,7 @@ import {
 } from '../common-styles';
 
 import { getUserCredentials } from '../../../application/useCases/UserCredentials';
-import { useAnswer } from '../../../application/features/Answers/hooks/useAnswer';
+import { useAnswer } from '../../../application/features/Answers/useAnswer';
 
 
 

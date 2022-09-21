@@ -120,26 +120,26 @@ function UserRegisterPage() {
 
             <FormContainer>
                 {
-                current.username && (
-                    <>
-                        <Button 
-                            text="Gravar" 
-                            backgroundColor={ButtonColors.secondary} 
-                            onClick={(e) => handleUserSubmit(e, {
-                                item: current,
-                                httpMultipartPostClient: httpAxiosMultipartPostClient,
-                                httpMultipartPatchClient: httpAxiosMultipartPatchClient,
-                                httpPatchClient: httpAxiosPatchClient
-                            })}
-                            margin='0 20px 0 0'
-                        />
-                        <Button 
-                            text="Cancelar" 
-                            backgroundColor={ButtonColors.primary} 
-                            onClick={resetForm}
-                        />
-                    </>
-                )
+                    current.username && (
+                        <>
+                            <Button 
+                                text="Gravar" 
+                                backgroundColor={ButtonColors.secondary} 
+                                onClick={(e) => handleUserSubmit(e, {
+                                    item: current,
+                                    httpMultipartPostClient: httpAxiosMultipartPostClient,
+                                    httpMultipartPatchClient: httpAxiosMultipartPatchClient,
+                                    httpPatchClient: httpAxiosPatchClient
+                                })}
+                                margin='0 20px 0 0'
+                            />
+                            <Button 
+                                text="Cancelar" 
+                                backgroundColor={ButtonColors.primary} 
+                                onClick={resetForm}
+                            />
+                        </>
+                    )
                 }
             </FormContainer>
         </Form>
