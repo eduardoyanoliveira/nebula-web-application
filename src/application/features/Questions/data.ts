@@ -8,7 +8,7 @@ export interface IPostQuestionProps extends Omit<IQuestion, 'subject'>{
 };
 
 
-export const baseQuestion :  IPostQuestionProps = {
+export const baseQuestionProps :  IPostQuestionProps = {
     id: '',
     title: '',
     text: '',
@@ -18,14 +18,14 @@ export const baseQuestion :  IPostQuestionProps = {
     author: null
 };
 
-function useGenerateBaseQuestion () : IPostQuestionProps {
+function generateBaseQuestion () : IPostQuestionProps {
 
     const credentialsResponse = getUserCredentials.execute();
-    let data = baseQuestion;
+    let data = baseQuestionProps;
 
     const author : IUser = credentialsResponse.getValue();
     data =  {
-        ...baseQuestion,
+        ...baseQuestionProps,
         author
     }
   
@@ -33,4 +33,6 @@ function useGenerateBaseQuestion () : IPostQuestionProps {
 
 };
 
-export default useGenerateBaseQuestion;
+const baseQuestion = generateBaseQuestion();
+
+export default baseQuestion;

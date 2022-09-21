@@ -3,36 +3,39 @@ import Button from "../../../components/Buttons/Button";
 import { ButtonColors } from "../../../components/Buttons/Button/ButtonColors";
 import Form from "../../../components/FormComponents/Form";
 import InputComponent from "../../../components/Inputs/Input";
-import { axiosInstance } from '../../../application/Infra/axios/axios-instance';
-import { HTTPAxiosGetClient } from '../../../application/Infra/axios/http-axios-get-client';
-import { HTTPAxiosPatchClient } from '../../../application/Infra/axios/http-axios-patch-client';
-import { HTTPAxiosPostClient } from '../../../application/Infra/axios/http-axios-post-client';
 import FormHeader from "../../../components/FormComponents/FormHeader";
 import FormContainer from "../../../components/FormComponents/FormContainer";
 import FormDateLabel from "../../../components/FormComponents/FormDateLabel";
 import FormToggle from "../../../components/FormComponents/FormToggle";
-import CreateAndUpdateQuestion from "../../../application/features/Questions/CreateQuestion/create-and-update-question";
 import TextBox from "../../../components/Inputs/TextBox";
 import useGet from "../../../application/CommonHooks/useGet";
 import { ISubject } from "../../../application/Domain/Entities/ISubject";
+import { handleSubmit } from "../../../application/CommonHooks/Submit";
+import baseQuestion from "../../../application/features/Questions/data";
+import useQuestionForm from "../../../application/features/Questions/useQuestionForm";
+import { httpAxiosGetClient, httpAxiosPatchClient, httpAxiosPostClient } from "../../../application/Infra/axios";
+import { IQuestion } from "../../../application/Domain/Entities/IQuestion";
+import { getUserCredentials } from "../../../application/useCases/UserCredentials";
 
-const httpAxiosGetClient = new HTTPAxiosGetClient(axiosInstance);
-const httpAxiosPostClient = new HTTPAxiosPostClient(axiosInstance);
-const httpAxiosPatchClient = new HTTPAxiosPatchClient(axiosInstance);
 
+const credentialsResponse = getUserCredentials.execute();
 
 function QuestionRegisterPage() {
 
-  const { 
-    questions, 
+  const { data: questions, isFetching, error } = useGet<IQuestion[]>(
+    httpAxiosGetClient, 
+    'questions',
+    `author=$id$${credentialsResponse.getValue().id}`,
+    {
+      staleTime: 1000 * 60 // 1 minute
+    }
+  );
+
+  const {
     current, 
-    resetForm, 
+    setCurrent,
     handleChange, 
-    togglePublic,
-    getItem, 
-    getSubject,
-    handleSubmit 
-  } = CreateAndUpdateQuestion(httpAxiosGetClient, httpAxiosPostClient, httpAxiosPatchClient);
+  } = useQuestionForm();
 
   const { data: subjects } = useGet<ISubject[]>(httpAxiosGetClient, 'subjects', 'is_active=true');
 
@@ -45,7 +48,7 @@ function QuestionRegisterPage() {
               name="questions" 
               data={questions || []} 
               fieldToDisplay='title'
-              getItem={getItem}
+              getItem={(value: IQuestion) => setCurrent((prev) => prev = value)}
             />
           </FormHeader>
         )
@@ -69,7 +72,7 @@ function QuestionRegisterPage() {
             id='toggle' 
             toggleLabel='Pública?' 
             initialValue={current?.is_public} 
-            getValue={togglePublic}
+            getValue={(value: boolean) => setCurrent((prev) => prev = { ...prev, is_public: value })}
           />
       </FormContainer>
 
@@ -80,7 +83,7 @@ function QuestionRegisterPage() {
                 initialValue={current?.subject?.name}
                 data={subjects || []} 
                 fieldToDisplay='name'
-                getItem={getSubject}
+                getItem={(value: ISubject) => setCurrent((prev) => prev = { ...prev, subject: value as ISubject })}
                 placeholder={'Tópico'}
                 displayIcon={false}
             />
@@ -113,13 +116,18 @@ function QuestionRegisterPage() {
               <Button 
                 text="Gravar" 
                 backgroundColor={ButtonColors.secondary} 
-                onClick={handleSubmit}
+                onClick={(e) => handleSubmit(e, { 
+                  url: 'questions',
+                  item: current, 
+                  httpPatchClient : httpAxiosPatchClient, 
+                  httpPostClient : httpAxiosPostClient
+                })}
                 margin='0 20px 0 0'
               />
               <Button 
                 text="Cancelar" 
                 backgroundColor={ButtonColors.primary} 
-                onClick={resetForm}
+                onClick={() => setCurrent(baseQuestion)}
               />
             </>
           )

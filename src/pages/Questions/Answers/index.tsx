@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { IQuestion } from '../../../application/Domain/Entities/IQuestion';
 import GetBestAnswer from '../../../application/features/Answers/hooks/get-best-answer';
 import handleSubmit from '../../../application/CommonHooks/handleSubmit';
-import { baseQuestion } from '../../../application/features/Questions/data';
+import  { baseQuestionProps } from '../../../application/features/Questions/data';
 import { httpAxiosGetClient, httpAxiosPatchClient, httpAxiosPostClient } from '../../../application/Infra/axios';
 import Button from '../../../components/Buttons/Button';
 import { ButtonColors } from '../../../components/Buttons/Button/ButtonColors';
@@ -76,7 +76,7 @@ function AnswersPage() {
 
     return (
         <MainContainer>
-            <QuestionCard fullDisplay question={questions?.[0] as IQuestion || baseQuestion}/>
+            <QuestionCard fullDisplay question={questions?.[0] as IQuestion || baseQuestionProps}/>
             <Container>
                 <Title>Respostas:</Title>
                 {
