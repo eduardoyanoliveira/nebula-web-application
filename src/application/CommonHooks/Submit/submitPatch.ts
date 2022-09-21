@@ -1,4 +1,4 @@
-import { IHTTPPatchClient } from "../Domain/HTTPRequestsClient/IHTTPPatchClient";
+import { IHTTPPatchClient } from "../../Domain/HTTPRequestsClient/IHTTPPatchClient";
 
 interface ISubmitPatchProps<T>{
     url: string,

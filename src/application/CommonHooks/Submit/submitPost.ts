@@ -1,4 +1,4 @@
-import { IHTTPPostClient } from "../Domain/HTTPRequestsClient/IHTTPPostClient";
+import { IHTTPPostClient } from "../../Domain/HTTPRequestsClient/IHTTPPostClient";
 
 interface ISubmitPostProps<T>{
     url: string,

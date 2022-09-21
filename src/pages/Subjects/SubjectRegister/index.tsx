@@ -12,8 +12,8 @@ import { httpAxiosGetClient, httpAxiosPatchClient, httpAxiosPostClient } from ".
 import { ISubject } from "../../../application/Domain/Entities/ISubject";
 import { baseSubject } from "../../../application/features/Subjects/data";
 import { getSubjectByUrlId } from "../../../application/features/Subjects/getSubjectByUrlId";
-import { submitSubject } from "../../../application/features/Subjects/submitSubject";
 import useGet from "../../../application/CommonHooks/useGet";
+import { handleSubmit } from "../../../application/CommonHooks/Submit";
 
 
 function SubjectsRegisterPage() {
@@ -82,8 +82,9 @@ function SubjectsRegisterPage() {
               <Button 
                 text="Gravar" 
                 backgroundColor={ButtonColors.secondary} 
-                onClick={(e) => submitSubject(e, { 
-                  subject: current, 
+                onClick={(e) => handleSubmit(e, { 
+                  url: 'subjects',
+                  item: current, 
                   httpPatchClient : httpAxiosPatchClient, 
                   httpPostClient : httpAxiosPostClient
                 })}
