@@ -1,6 +1,10 @@
 import { Result } from "../../Core/Result";
 import { IHTTPPatchClient } from "../../Domain/HTTPRequestsClient/IHTTPPatchClient";
 
+interface IItemProps {
+    id?: string
+    [index: string]: any
+};
 
 interface Response {
     data: any
@@ -8,20 +12,26 @@ interface Response {
 
 export class InMemoryHTTPPatchClient implements IHTTPPatchClient{
 
-    public data : object[] = [];
+    public data : IItemProps[] = [];
 
     public url: string = '';
 
-    async patch(url: string, body: object): Promise<Result<Response>> {
+    async patch(url: string, body: IItemProps): Promise<Result<Response>> {
         
         if(url !== this.url){
             return Result.fail<Response>('Wrong url pattern');
         };
 
-        this.data.push({...body});
+        const index = this.data.findIndex(i => i.id === body.id);
+
+        if(index < 0){
+            return Result.fail('Id is not valid');
+        };
+
+        this.data[index] = body;
 
         const respose : Response = {
-            data:{ ...body }
+            data: this.data[index]
         };
 
         return Result.ok<Response>(respose);
