@@ -1,5 +1,6 @@
 import { FormEvent } from "react";
-import handleSubmit from "../../CommonHooks/handleSubmit";
+import submitPatch from "../../CommonHooks/submitPatch";
+import submitPost from "../../CommonHooks/submitPost";
 import { ISubject } from "../../Domain/Entities/ISubject";
 import { IHTTPPatchClient } from '../../Domain/HTTPRequestsClient/IHTTPPatchClient';
 import { IHTTPPostClient } from '../../Domain/HTTPRequestsClient/IHTTPPostClient';
@@ -14,7 +15,11 @@ const submitSubject = async (e : FormEvent, { subject, httpPatchClient, httpPost
 
     e.preventDefault();
 
-    await handleSubmit<ISubject>({ url: 'subjects', item: subject, httpPatchClient, httpPostClient });
+    if(subject.id){
+        await submitPatch({ url: 'subjects', item: subject, httpPatchClient });
+    }else{
+        await submitPost({ url: 'subjects', item: subject, httpPostClient });
+    };
 
     window.location.reload();
 };
