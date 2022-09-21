@@ -3,10 +3,10 @@ import { ButtonColors } from "../Button/ButtonColors";
 import { Button } from "../Button/styles";
 
 interface IButtonComponentProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-    icon: ReactElement,
-    margin?: string,
-    maxWidth?: string,
-    backgroundColor: ButtonColors
+  icon: ReactElement,
+  margin?: string,
+  maxWidth?: string,
+  backgroundColor: ButtonColors
 };
   
 /**
@@ -20,7 +20,7 @@ interface IButtonComponentProps extends ButtonHTMLAttributes<HTMLButtonElement> 
 const IconButton: React.FC<IButtonComponentProps> = ({ icon, ...prev }) => {
   return (
     <Button {...prev}>
-        {icon}
+      {icon}
     </Button>
   );
 };

@@ -8,7 +8,7 @@ interface FormHeaderProps {
 const  FormHeader : React.FC<FormHeaderProps> = ({ children }) => {
   return (
     <Header>
-        {children}
+      {children}
     </Header>
   );
 };

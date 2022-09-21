@@ -13,7 +13,7 @@ export const Container = styled.div<ContainerProps>`
     `};
 `;
 
-export const Label = styled.label`
+export const Label = styled.p`
     ${({theme}) => css`
         color: ${theme.colors.typography500};
         ${theme.typographies.titleTwo}

@@ -1,4 +1,4 @@
-import { cleanup, renderHook, waitFor } from "@testing-library/react";
+import { act, cleanup, renderHook, waitFor } from "@testing-library/react";
 import useFilter from ".";
 
 describe('useFilter tests', () => {
@@ -28,9 +28,11 @@ describe('useFilter tests', () => {
 
     it('should be able to filter the array by the given field and value and return a array with the length of four', async () => {
         const { result } = renderHook(() => useFilter(mockData, 'name'));
-
-        result.current.setSearch('t');
-
+        
+        act(() => {
+            result.current.setSearch('t');
+        });
+        
         await waitFor(() => expect(result.current.filteredData.length).toBe(4));
 
         cleanup();
@@ -39,9 +41,11 @@ describe('useFilter tests', () => {
     it('should be able to filter the array by the given field and value and return a array with the length of three', async () => {
         const { result } = renderHook(() => useFilter(mockData, 'name'));
 
-        result.current.setSearch('0');
+        act(() => {
+            result.current.setSearch('o');
+        });
 
-        await waitFor(() => expect(result.current.filteredData.length).toBe(4));
+        await waitFor(() => expect(result.current.filteredData.length).toBe(3));
 
         cleanup();
     });
@@ -49,7 +53,9 @@ describe('useFilter tests', () => {
     it('should be able to filter the array by the given field and value and  return a array with the length of one', async () => {
         const { result } = renderHook(() => useFilter(mockData, 'name'));
 
-        result.current.setSearch('two');
+        act(() => {
+            result.current.setSearch('two');
+        });
 
         await waitFor(() => expect(result.current.filteredData.length).toBe(1));
 

@@ -30,19 +30,7 @@ describe('ToggleInput Tests', () => {
         cleanup();
     });
 
-    // it('should render the label with the background-color #5A596B', () => {
-
-    //     setUp();
-
-    //     const label = screen.getByTestId('toggle-label');
-        
-    //     expect(label).toHaveStyle({
-    //         backgroundColor: '#5A596B',
-    //     });
-
-    //     cleanup();
-    // });
-
+ 
     it('should change the label background-color and called the fn function once if the input is checked', () => {
 
         setUp();
