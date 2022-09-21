@@ -20,7 +20,7 @@ function SubjectsRegisterPage() {
 
   const { data: subjects, isFetching } = useGet<ISubject[]>(httpAxiosGetClient, 'subjects');
 
-  const  { subject } = getByUrlId(subjects as ISubject[]); 
+  const  { item: subject } = getByUrlId(subjects as ISubject[]); 
 
   const {  
     current,

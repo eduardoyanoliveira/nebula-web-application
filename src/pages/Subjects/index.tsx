@@ -9,6 +9,7 @@ import FormContainer from '../../components/FormComponents/Form';
 import SearchInputComponent from '../../components/Inputs/SearchInput';
 import SubjectsList from './components/SubjectsList';
 import { Header } from './styles';
+import useGet from '../../application/CommonHooks/useGet';
 
 
 
@@ -16,17 +17,13 @@ function SubjectsPage() {
 
     const navigate = useNavigate();
 
+    const { data, isFetching, error } = useGet<ISubject[]>(httpAxiosGetClient, 'subjects');
+
     const { 
         search, 
         setSearch, 
-        isFetching, 
-        error, 
         filteredData 
-    } = useFilter<ISubject>(
-        httpAxiosGetClient,
-        'name',
-        'subjects'
-    );
+    } = useFilter<ISubject>(data!, 'name');
     
     function handlePlusClick(){
         navigate('/subjects/register');

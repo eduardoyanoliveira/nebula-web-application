@@ -24,7 +24,7 @@ describe('submitPost tests', () => {
         );
 
         expect(response.isSuccess).toBeTruthy();
-        expect(inMemoryHTTPPostClient.data.find(item => item['id'] === 'test-id')).toBeTruthy();
+        expect(inMemoryHTTPPostClient.data.find(item => item.id === 'test-id')).toBeTruthy();
     });
 
 });
