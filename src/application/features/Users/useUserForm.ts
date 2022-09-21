@@ -13,8 +13,11 @@ function useUserForm() {
 
     const [current, setCurrent] = useState<IEditableUser>(baseUser);
 
-    const getItem = (value: IEditableUser) => {
-        setCurrent((prev) => prev = value);
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {  
+        setCurrent({
+            ...current,
+            [e.target.name]: e.target.value
+        });
     };
 
     const [url, setUrl] = useState('');
@@ -32,25 +35,25 @@ function useUserForm() {
         };
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {  
-        setCurrent({
-            ...current,
-            [e.target.name]: e.target.value
-        });
+    const getItem = (value: IEditableUser) => {
+        setCurrent((prev) => prev = value );
+        setUrl(value.photo ? `http://localhost:3333/files/${value.photo}` : '');
     };
 
-    const toggleActive = (value: boolean) => {
-        setCurrent((prev) => prev = { ...prev, is_active: value });
+    const resetForm = () => {
+        setCurrent(baseUser);
+        setUrl('');
     };
 
     return { 
-        url,
+
         current, 
         setCurrent, 
-        handleFile,
         handleChange, 
-        getItem, 
-        toggleActive, 
+        url,
+        handleFile,
+        getItem,
+        resetForm,
     };
 };
 

@@ -12,14 +12,11 @@ import Button from '../../../components/Buttons/Button';
 import { ButtonColors } from '../../../components/Buttons/Button/ButtonColors';
 
 import { IUser } from '../../../application/Domain/Entities/IUser';
-import { baseUser } from '../../../application/features/Users/data';
-
 import useUserForm from '../../../application/features/Users/useUserForm';
 import { handleUserSubmit } from '../../../application/features/Users/handleUserSubmit';
 import useGet from '../../../application/CommonHooks/useGet';
 
 import { httpAxiosGetClient, httpAxiosMultipartPatchClient, httpAxiosMultipartPostClient, httpAxiosPatchClient } from '../../../application/Infra/axios';
-
 
 function UserRegisterPage() {
 
@@ -33,16 +30,14 @@ function UserRegisterPage() {
     );
 
     const {
-        url,
         current, 
         setCurrent, 
-        handleFile,
         handleChange, 
-        getItem, 
-        toggleActive, 
+        url,
+        handleFile,
+        getItem,
+        resetForm
     } = useUserForm();
-
-    const fileUrl = current.photo ? `http://localhost:3333/files/${current?.photo}` : '';
 
     return (
         <Form title='Cadastro de Usuário' hasImages={true}>
@@ -73,14 +68,14 @@ function UserRegisterPage() {
                     id='toggle' 
                     toggleLabel='Ativo?' 
                     initialValue={current?.is_active} 
-                    getValue={toggleActive}
+                    getValue={(value: boolean) => setCurrent((prev) => prev = { ...prev, is_active: value })}
                 />
             </FormContainer>
 
             <FormContainer>
                 <FileInput
                     alt={current?.username}
-                    url={url || fileUrl}
+                    url={url}
                     handleChange={handleFile}
                 />
             </FormContainer>
@@ -127,22 +122,22 @@ function UserRegisterPage() {
                 {
                 current.username && (
                     <>
-                    <Button 
-                        text="Gravar" 
-                        backgroundColor={ButtonColors.secondary} 
-                        onClick={(e) => handleUserSubmit(e, {
-                            item: current,
-                            httpMultipartPostClient: httpAxiosMultipartPostClient,
-                            httpMultipartPatchClient: httpAxiosMultipartPatchClient,
-                            httpPatchClient: httpAxiosPatchClient
-                        })}
-                        margin='0 20px 0 0'
-                    />
-                    <Button 
-                        text="Cancelar" 
-                        backgroundColor={ButtonColors.primary} 
-                        onClick={() => setCurrent(baseUser)}
-                    />
+                        <Button 
+                            text="Gravar" 
+                            backgroundColor={ButtonColors.secondary} 
+                            onClick={(e) => handleUserSubmit(e, {
+                                item: current,
+                                httpMultipartPostClient: httpAxiosMultipartPostClient,
+                                httpMultipartPatchClient: httpAxiosMultipartPatchClient,
+                                httpPatchClient: httpAxiosPatchClient
+                            })}
+                            margin='0 20px 0 0'
+                        />
+                        <Button 
+                            text="Cancelar" 
+                            backgroundColor={ButtonColors.primary} 
+                            onClick={resetForm}
+                        />
                     </>
                 )
                 }

@@ -1,15 +1,9 @@
 import { FormEvent } from "react";
 import submitPatch from "../../CommonHooks/Submit/submitPatch";
 import submitPost from "../../CommonHooks/Submit/submitPost";
-import { IUser } from "../../Domain/Entities/IUser";
 import { IHTTPPatchClient } from "../../Domain/HTTPRequestsClient/IHTTPPatchClient";
 import { IHTTPPostClient } from "../../Domain/HTTPRequestsClient/IHTTPPostClient";
-
-
-interface IEditableUser extends IUser{
-    password?: string,
-    file: string | File
-};
+import { IEditableUser } from "./interface";
 
 interface IHanldeUserSubmitProps {
     item: IEditableUser,
