@@ -1,38 +1,31 @@
 import Form from '../../../components/FormComponents/Form';
+import AutoComplete from '../../../components/AutoComplete';
+import { HTTPAxiosGetClient } from '../../../application/Infra/axios/http-axios-get-client';
+import { axiosInstance, axiosInstanceMultipart } from '../../../application/Infra/axios/axios-instance';
+import InputComponent from '../../../components/Inputs/Input';
+import Button from '../../../components/Buttons/Button';
+import { ButtonColors } from '../../../components/Buttons/Button/ButtonColors';
+import { HTTPAxiosPostClient } from '../../../application/Infra/axios/http-axios-post-client';
+import { HTTPAxiosPatchClient } from '../../../application/Infra/axios/http-axios-patch-client';
 import FormHeader from '../../../components/FormComponents/FormHeader';
 import FormContainer from '../../../components/FormComponents/FormContainer';
 import FormToggle from '../../../components/FormComponents/FormToggle';
 import FormDateLabel from '../../../components/FormComponents/FormDateLabel';
+import CreateAndUpdateUser from '../../../application/features/Users/components/create-and-update-user';
 import FileInput from '../../../components/Inputs/FileInput';
 
-import AutoComplete from '../../../components/AutoComplete';
-import InputComponent from '../../../components/Inputs/Input';
-
-import Button from '../../../components/Buttons/Button';
-import { ButtonColors } from '../../../components/Buttons/Button/ButtonColors';
-
-import { IUser } from '../../../application/Domain/Entities/IUser';
-import { baseUser } from '../../../application/features/Users/data';
-
-import useUserForm from '../../../application/features/Users/useUserForm';
-import { handleUserSubmit } from '../../../application/features/Users/handleUserSubmit';
-import useGet from '../../../application/CommonHooks/useGet';
-
-import { httpAxiosGetClient, httpAxiosMultipartPatchClient, httpAxiosMultipartPostClient, httpAxiosPatchClient } from '../../../application/Infra/axios';
-
+const httpGetClient = new HTTPAxiosGetClient(axiosInstance);
+const httpMultipartPostClient = new HTTPAxiosPostClient(axiosInstanceMultipart);
+const httpPatchClient = new HTTPAxiosPatchClient(axiosInstance);
+const httpMultipartPatchClient = new HTTPAxiosPatchClient(axiosInstanceMultipart);
 
 function UserRegisterPage() {
 
-    const { data: users, error, isFetching } = useGet<IUser[]>(
-        httpAxiosGetClient,
-        'users',
-        '',
-        {
-            staleTime: 1000 * 60 // 1 minute
-        }
-    );
-
     const {
+        baseUser, 
+        error,
+        isFetching,
+        users, 
         url,
         current, 
         setCurrent, 
@@ -40,7 +33,9 @@ function UserRegisterPage() {
         handleChange, 
         getItem, 
         toggleActive, 
-    } = useUserForm();
+        handleSubmit 
+    } = CreateAndUpdateUser(httpGetClient, httpMultipartPostClient, httpPatchClient, httpMultipartPatchClient);
+
 
     const fileUrl = current.photo ? `http://localhost:3333/files/${current?.photo}` : '';
 
@@ -130,12 +125,7 @@ function UserRegisterPage() {
                     <Button 
                         text="Gravar" 
                         backgroundColor={ButtonColors.secondary} 
-                        onClick={(e) => handleUserSubmit(e, {
-                            item: current,
-                            httpMultipartPostClient: httpAxiosMultipartPostClient,
-                            httpMultipartPatchClient: httpAxiosMultipartPatchClient,
-                            httpPatchClient: httpAxiosPatchClient
-                        })}
+                        onClick={handleSubmit}
                         margin='0 20px 0 0'
                     />
                     <Button 

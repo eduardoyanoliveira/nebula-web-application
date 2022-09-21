@@ -1,8 +1,8 @@
-import React, { FormEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { IQuestion } from '../../../application/Domain/Entities/IQuestion';
 import GetBestAnswer from '../../../application/features/Answers/hooks/get-best-answer';
-import handleSubmit from '../../../application/CommonHooks/handleSubmit';
+import { handleSubmit } from '../../../application/CommonHooks/Submit';
 import  { baseQuestionProps } from '../../../application/features/Questions/data';
 import { httpAxiosGetClient, httpAxiosPatchClient, httpAxiosPostClient } from '../../../application/Infra/axios';
 import Button from '../../../components/Buttons/Button';
@@ -62,18 +62,6 @@ function AnswersPage() {
         });
     };
 
-    const submitAnswer = async (e: FormEvent) => {
-        e.preventDefault();
-
-        await handleSubmit({ 
-            url: 'answers', 
-            item: current, 
-            httpPostClient: httpAxiosPostClient, 
-            httpPatchClient: httpAxiosPatchClient 
-        });
-        window.location.reload();
-    };
-
     return (
         <MainContainer>
             <QuestionCard fullDisplay question={questions?.[0] as IQuestion || baseQuestionProps}/>
@@ -90,7 +78,16 @@ function AnswersPage() {
                     <TextBox name='text' onChange={handleAnswerChange}/>
                 </FormContainer>
                 <FormContainer>
-                    <Button text='Responder' backgroundColor={ButtonColors.primaryGradient} onClick={submitAnswer}/>
+                    <Button 
+                        text='Responder' 
+                        backgroundColor={ButtonColors.primaryGradient} 
+                        onClick={(e) => handleSubmit(e, { 
+                            url: 'answers', 
+                            item: current, 
+                            httpPostClient: httpAxiosPostClient, 
+                            httpPatchClient: httpAxiosPatchClient 
+                        })}
+                    />
                 </FormContainer>
             </Container>
         </MainContainer>
