@@ -3,7 +3,7 @@ import { BsSuitHeartFill } from 'react-icons/bs';
 import Icon from "../../IconActions/Icon";
 import { IBestAnswer } from "../../../application/Domain/Entities/IBestAnswer";
 import { IAnswer } from "../../../application/Domain/Entities/IAnswer";
-import { httpAxiosPostClient } from "../../../application/Infra/axios";
+import { httpAxiosDeleteClient, httpAxiosPatchClient, httpAxiosPostClient } from "../../../application/Infra/axios";
 
 
 const credentialsResponse = getUserCredentials.execute();
@@ -15,12 +15,19 @@ interface IBestAnswerProps {
 
 function BestAnswer({ bestAnswer, answer } : IBestAnswerProps) {
 
-    const selected = bestAnswer?.props.answer_id === answer.id;
+    const selected = bestAnswer?.answer_id === answer.id;
 
-    const handlePostClick = () => {
-        httpAxiosPostClient.post('best_answers', { question_id: answer.question.id, answer_id: answer.id });
-        window.location.reload();
+    const handlePostClick = async () => {
+        await httpAxiosPostClient.post('best_answers', { question_id: answer.question.id, answer_id: answer.id });
+        await httpAxiosPatchClient.patch('questions/' + answer.question.id, { is_closed: true });
+       
     };
+
+    const handleDeleteClick = async () => {
+        await httpAxiosDeleteClient.delete('best_answers/', answer.question.id);
+        await httpAxiosPatchClient.patch('questions/' + answer.question.id, { is_closed: false });
+
+    }
 
     if(selected) {
 
@@ -29,6 +36,7 @@ function BestAnswer({ bestAnswer, answer } : IBestAnswerProps) {
                 margin=' 0 10px 0 0' 
                 selected
                 icon={<BsSuitHeartFill/>}
+                onClick={handleDeleteClick}
             />
         );
     };

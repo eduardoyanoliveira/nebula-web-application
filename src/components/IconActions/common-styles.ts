@@ -49,11 +49,11 @@ export const IconContainer = styled.span<IIconContainerProps>`
                 `
                 color: ${theme.colors.primary};
                 transform: scale(1.1);
-                cursor: pointer;
                 `
             )};
         `};
     };
+    cursor: pointer;
 `;
 
 export const CountCircle = styled.div`

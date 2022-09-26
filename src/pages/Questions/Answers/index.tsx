@@ -13,7 +13,6 @@ import TextBox from '../../../components/Inputs/TextBox';
 import { MainContainer, Container, Title } from './styles';
 import useGet from '../../../application/CommonHooks/useGet';
 import { IAnswer } from '../../../application/Domain/Entities/IAnswer';
-import { IBestAnswer } from '../../../application/Domain/Entities/IBestAnswer';
 
 
 const baseAnswer = {
@@ -28,8 +27,6 @@ function AnswersPage() {
     const params = useParams();
 
     const { data: question, isFetching } = useGet<IQuestion>( httpAxiosGetClient, 'questions/' +  params.id );
-
-    const { data: bestAnswer } = useGet<IBestAnswer>(httpAxiosGetClient, 'best_answers/find_by_question/' + params.id);
 
     const { data: answers } = useGet<IAnswer[]>(
         httpAxiosGetClient, 
@@ -64,7 +61,7 @@ function AnswersPage() {
                 {
                     answers?.map((answer) => {
                         return (
-                            <AnswerCard answer={answer} bestAnswer={bestAnswer} key={answer.id}/>
+                            <AnswerCard answer={answer} bestAnswer={question?.bestAnswers?.[0]} key={answer.id}/>
                         )
                     })
                 }
