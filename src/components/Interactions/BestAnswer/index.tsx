@@ -5,6 +5,7 @@ import { IBestAnswer } from "../../../application/Domain/Entities/IBestAnswer";
 import { IAnswer } from "../../../application/Domain/Entities/IAnswer";
 import { httpAxiosDeleteClient, httpAxiosPatchClient, httpAxiosPostClient } from "../../../application/Infra/axios";
 
+import { useState } from 'react';
 
 const credentialsResponse = getUserCredentials.execute();
 
@@ -15,15 +16,17 @@ interface IBestAnswerProps {
 
 function BestAnswer({ bestAnswer, answer } : IBestAnswerProps) {
 
-    const selected = bestAnswer?.answer_id === answer.id;
+    const [selected, setSelected] = useState<boolean>(bestAnswer?.answer_id === answer.id);
 
     const handlePostClick = async () => {
+        setSelected(true);
         await httpAxiosPostClient.post('best_answers', { question_id: answer.question.id, answer_id: answer.id });
         await httpAxiosPatchClient.patch('questions/' + answer.question.id, { is_closed: true });
        
     };
 
     const handleDeleteClick = async () => {
+        setSelected(false);
         await httpAxiosDeleteClient.delete('best_answers/', answer.question.id);
         await httpAxiosPatchClient.patch('questions/' + answer.question.id, { is_closed: false });
 
@@ -43,7 +46,7 @@ function BestAnswer({ bestAnswer, answer } : IBestAnswerProps) {
 
     const display = credentialsResponse.getValue().id === answer.question.author?.id 
         && answer.question.author?.id !== answer.author?.id
-        && !bestAnswer;
+        && (!selected || !bestAnswer);
 
     return (
         display ? (
