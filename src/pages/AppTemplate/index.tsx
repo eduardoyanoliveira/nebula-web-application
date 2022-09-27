@@ -12,6 +12,7 @@ function AppTemplate() {
 
     useEffect(() => {
         if(getTokenFromCache.execute().isFailure){
+            console.log()
             navigate('/');
         };
     },[navigate]);

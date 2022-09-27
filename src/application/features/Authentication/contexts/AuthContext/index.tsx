@@ -16,8 +16,6 @@ type AuthProviderProps ={
 };
 
 
-
-
 export const AuthContext = createContext({} as AuthContextData);
 
 export function AuthProvider({ children } : AuthProviderProps){

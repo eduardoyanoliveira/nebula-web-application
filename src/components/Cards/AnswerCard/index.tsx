@@ -1,13 +1,11 @@
 import { IAnswer } from '../../../application/Domain/Entities/IAnswer';
-import { IBestAnswer } from '../../../application/Domain/Entities/IBestAnswer';
 import { useMediaQuery } from '../../../application/CommonHooks/useMediaQuery';
-
 
 import TextBox from '../../Inputs/TextBox';
 import UserPhoto from '../../User/UserPhoto';
 import Like from '../../IconActions/Like';
 import Icon from '../../IconActions/Icon';
-import BestAnswer from '../../Interactions/BestAnswer';
+import FavouriteAnswer from '../../Interactions/BestAnswer';
 
 import { MdOutlineModeEditOutline } from 'react-icons/md';
 import { BsCheck2Circle } from 'react-icons/bs';
@@ -34,11 +32,10 @@ import { useAnswer } from '../../../application/features/Answers/useAnswer';
 const credentialsResponse = getUserCredentials.execute();
 
 interface IAnswerCardProps {
-    answer : IAnswer,
-    bestAnswer: IBestAnswer | undefined,
+    answer : IAnswer
 };
 
-function AnswerCard({ answer, bestAnswer } : IAnswerCardProps) {
+function AnswerCard({ answer } : IAnswerCardProps) {
 
     const { 
         answerText, 
@@ -82,27 +79,27 @@ function AnswerCard({ answer, bestAnswer } : IAnswerCardProps) {
             }
         
                 <IconsContainer> 
-                        <BestAnswer bestAnswer={bestAnswer}  answer={answer} />
-                        <Like/>
-                        {
-                            (credentialsResponse.getValue().id === answer.author?.id && !editing) && (
-                                <Icon 
-                                    margin=' 0 0 0 10px' 
-                                    onClick={() => setEditing((prev : boolean) => prev = ! prev )}
-                                    icon={<MdOutlineModeEditOutline/>}
-                                />
-                            )
-                       }
-                        {
-                            editing && (
-                                <Icon 
-                                    margin=' 0 0 0 10px' 
-                                     onClick={() => submitEdit(answer, answerText)}
-                                     icon={<BsCheck2Circle/>}
-                                />
-                            )
-                        }
-                    </IconsContainer>
+                    <FavouriteAnswer answer={answer}/>
+                    <Like/>
+                    {
+                        (credentialsResponse.getValue().id === answer.author?.id && !editing) && (
+                            <Icon 
+                                margin=' 0 0 0 10px' 
+                                onClick={() => setEditing((prev : boolean) => prev = ! prev )}
+                                icon={<MdOutlineModeEditOutline/>}
+                            />
+                        )
+                    }
+                    {
+                        editing && (
+                            <Icon 
+                                margin=' 0 0 0 10px' 
+                                    onClick={() => submitEdit(answer, answerText)}
+                                    icon={<BsCheck2Circle/>}
+                            />
+                        )
+                    }
+                </IconsContainer>
         </AnswerContainer>
     )
     

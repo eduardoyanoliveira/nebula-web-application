@@ -1,6 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import { IQuestion } from "../../Domain/Entities/IQuestion";
 import { IUser } from "../../Domain/Entities/IUser";
 import { getUserCredentials } from "../../useCases/UserCredentials";
+import { baseUser } from "../Users/data";
 
 
 export interface IPostQuestionProps extends Omit<IQuestion, 'subject'>{
@@ -23,7 +25,7 @@ function generateBaseQuestion () : IPostQuestionProps {
     const credentialsResponse = getUserCredentials.execute();
     let data = baseQuestionProps;
 
-    const author : IUser = credentialsResponse.getValue();
+    const author : IUser = credentialsResponse.isSuccess ? credentialsResponse.getValue() : baseUser;
     data =  {
         ...baseQuestionProps,
         author

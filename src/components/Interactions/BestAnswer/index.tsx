@@ -1,43 +1,49 @@
 import { getUserCredentials } from "../../../application/useCases/UserCredentials";
 import { BsSuitHeartFill } from 'react-icons/bs';
 import Icon from "../../IconActions/Icon";
-import { IBestAnswer } from "../../../application/Domain/Entities/IBestAnswer";
-import { IAnswer } from "../../../application/Domain/Entities/IAnswer";
 import { httpAxiosDeleteClient, httpAxiosPatchClient, httpAxiosPostClient } from "../../../application/Infra/axios";
+import { IAnswer } from "../../../application/Domain/Entities/IAnswer";
+import { useContext } from "react";
+import { BestAnswerContext, BestAnswerContextProps } from "../../../pages/Questions/Answers";
 
-import { useState } from 'react';
 
 const credentialsResponse = getUserCredentials.execute();
 
-interface IBestAnswerProps {
-    bestAnswer: IBestAnswer | undefined,
+interface IFavouriteProps {
     answer: IAnswer
 };
 
-function BestAnswer({ bestAnswer, answer } : IBestAnswerProps) {
+function FavouriteAnswer({ answer } : IFavouriteProps) {
 
-    const [selected, setSelected] = useState<boolean>(bestAnswer?.answer_id === answer.id);
+    const {
+        bestAnswer,
+        setBestAnswer
+    } = useContext<BestAnswerContextProps>(BestAnswerContext);
 
     const handlePostClick = async () => {
-        setSelected(true);
-        await httpAxiosPostClient.post('best_answers', { question_id: answer.question.id, answer_id: answer.id });
+        const newBestAnswer = {
+            answer_id: answer.id as string,
+            question_id: answer.question.id as string, 
+            created_at: new Date()
+        };
+
+        await httpAxiosPostClient.post('best_answers', newBestAnswer);
         await httpAxiosPatchClient.patch('questions/' + answer.question.id, { is_closed: true });
-       
+        setBestAnswer(newBestAnswer);
     };
 
     const handleDeleteClick = async () => {
-        setSelected(false);
         await httpAxiosDeleteClient.delete('best_answers/', answer.question.id);
         await httpAxiosPatchClient.patch('questions/' + answer.question.id, { is_closed: false });
+        setBestAnswer(undefined);
+    };
 
-    }
-
-    if(selected) {
+    if(bestAnswer?.answer_id === answer.id) {
 
         return (
             <Icon 
                 margin=' 0 10px 0 0' 
-                selected
+                selected={true}
                 icon={<BsSuitHeartFill/>}
                 onClick={handleDeleteClick}
             />
@@ -46,7 +52,7 @@ function BestAnswer({ bestAnswer, answer } : IBestAnswerProps) {
 
     const display = credentialsResponse.getValue().id === answer.question.author?.id 
         && answer.question.author?.id !== answer.author?.id
-        && (!selected || !bestAnswer);
+        && !bestAnswer;
 
     return (
         display ? (
@@ -59,4 +65,4 @@ function BestAnswer({ bestAnswer, answer } : IBestAnswerProps) {
     );
 };
 
-export default BestAnswer;
+export default FavouriteAnswer;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, createContext } from 'react'
 import { useParams } from 'react-router-dom';
 import { IQuestion } from '../../../application/Domain/Entities/IQuestion';
 import { handleSubmit } from '../../../application/CommonHooks/Submit';
@@ -13,7 +13,7 @@ import TextBox from '../../../components/Inputs/TextBox';
 import { MainContainer, Container, Title } from './styles';
 import useGet from '../../../application/CommonHooks/useGet';
 import { IAnswer } from '../../../application/Domain/Entities/IAnswer';
-
+import { IBestAnswer } from '../../../application/Domain/Entities/IBestAnswer';
 
 const baseAnswer = {
     id: '',
@@ -22,11 +22,19 @@ const baseAnswer = {
     author: null,
 };
 
+export interface BestAnswerContextProps {
+    bestAnswer: IBestAnswer | undefined,
+    setBestAnswer(bestAnswer: IBestAnswer | undefined): void
+};
+
+export const BestAnswerContext = createContext({} as BestAnswerContextProps);
+
 function AnswersPage() {
 
     const params = useParams();
 
     const { data: question, isFetching } = useGet<IQuestion>( httpAxiosGetClient, 'questions/' +  params.id );
+    const [bestAnswer, setBestAnswer] = useState<IBestAnswer | undefined>(question?.bestAnswers?.[0]);
 
     const { data: answers } = useGet<IAnswer[]>(
         httpAxiosGetClient, 
@@ -40,6 +48,8 @@ function AnswersPage() {
             ...prev,
             question_id: question?.id as string
         });
+
+        setBestAnswer(question?.bestAnswers?.[0]);
 
     }, [question]);
     
@@ -58,13 +68,23 @@ function AnswersPage() {
             <QuestionCard fullDisplay question={question as IQuestion || baseQuestionProps}/>
             <Container>
                 <Title>Respostas:</Title>
-                {
-                    answers?.map((answer) => {
-                        return (
-                            <AnswerCard answer={answer} bestAnswer={question?.bestAnswers?.[0]} key={answer.id}/>
-                        )
-                    })
-                }
+                <BestAnswerContext.Provider
+                    value={{
+                        bestAnswer, 
+                        setBestAnswer
+                    }}
+                >
+                    {
+                        answers?.map((answer) => {
+                            return (
+                                <AnswerCard 
+                                    answer={answer} 
+                                    key={answer.id}
+                                />
+                            )
+                        })
+                    }
+                </BestAnswerContext.Provider>
                 <FormContainer>
                     <TextBox name='text' onChange={handleAnswerChange}/>
                 </FormContainer>
