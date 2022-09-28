@@ -23,7 +23,6 @@ function HomePage() {
 
   const openQuestions = questions?.filter(question => question.is_closed === false);
 
-
   const { 
     search, 
     setSearch, 
