@@ -5,7 +5,8 @@ import { axiosInstance } from '../../application/Infra/axios/axios-instance';
 import { HTTPAxiosGetClient } from '../../application/Infra/axios/http-axios-get-client';
 import QuestionCard from '../../components/Cards/QuestionCard';
 import { Container, Title, QuestionsContainer } from './styles';
-
+import SearchInputComponent from '../../components/Inputs/SearchInput';
+import useFilter from '../../application/CommonHooks/useFilter';
 
 const httpGetClient = new HTTPAxiosGetClient(axiosInstance);
 
@@ -14,24 +15,36 @@ function HomePage() {
   const { data: questions, error, isFetching } = useGet<IQuestion[]>(
     httpGetClient, 
     'questions', 
-    'is_closed=false',
+    '',
     {
       staleTime: 60 * 1000
     }
   );
 
+  const openQuestions = questions?.filter(question => question.is_closed === false);
+
+
+  const { 
+    search, 
+    setSearch, 
+    filteredData 
+  } = useFilter<IQuestion>(questions!, 'title');
+
   return (
     <Container 
       data-testid="form" 
     >
-      <Title data-testid="form-title">
-        Perguntas em Aberto:
-      </Title>
+      <SearchInputComponent  
+        value={search || ''}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
+        margin='20px 0'
+      />
+
       {
-        questions && (
-          <QuestionsContainer screenOverflow={questions.length > 4}>
+        search && (
+          <QuestionsContainer screenOverflow={filteredData.length > 4}>
             {
-              questions.map((question) => {
+              filteredData.map((question) => {
                 return (
                   <QuestionCard question={question} key={question.id} />
                 )
@@ -40,7 +53,26 @@ function HomePage() {
           </QuestionsContainer>
         )
       }
-      
+
+      {
+        (!search && openQuestions) && (
+          <>
+            <Title data-testid="form-title">
+              Perguntas em Aberto:
+            </Title>
+
+            <QuestionsContainer>
+              {
+                openQuestions.map((question) => {
+                  return (
+                    <QuestionCard question={question} key={question.id} />
+                  )
+                })
+              }
+            </QuestionsContainer>
+          </>
+        )
+      }
     </Container>
 
   )

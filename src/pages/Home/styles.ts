@@ -48,37 +48,6 @@ export const Title = styled.h1`
 `;
 
 export const QuestionsContainer = styled.div<IQuestionContainerProps>`
-    height: 680px;
+    height: 100%;
     width: 100%;
-    width: ${({screenOverflow}) => screenOverflow ? '98%' : '100%'};
-    overflow-y: auto;
-
-
-    @media(min-width:${ScreenSizes.md}){
-        height: 600px;
-    }; 
-
-    ${({theme}) => css`
-        scrollbar-color: ${theme.colors.typography200} ${theme.colors.backgroundAltTwo};
-        scrollbar-width: thin;
-    `}
-
-    &::-webkit-scrollbar {
-        width: 4px;
-    }
-
-    /* Handle */
-    &::-webkit-scrollbar-thumb {
-
-        ${({theme}) => css`
-            background: ${theme.colors.typography200};
-        `}
-        -webkit-border-radius: 2px;
-        border-radius: 2px;
-    }
-    
-    /* Handle on hover */
-        &::-webkit-scrollbar-thumb:hover {
-        background: 0;
-    }
 `;
