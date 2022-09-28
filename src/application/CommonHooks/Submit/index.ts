@@ -8,7 +8,9 @@ interface IHandleSubmitProps<T> {
     url: string,
     item: T,
     httpPostClient: IHTTPPostClient,
-    httpPatchClient: IHTTPPatchClient
+    httpPatchClient: IHTTPPatchClient,
+    callbackFn?(): void,
+    reloadPage?: boolean;
 };
 
 async function handleSubmit<T extends { id?: string }>(e : FormEvent, { 
@@ -16,6 +18,8 @@ async function handleSubmit<T extends { id?: string }>(e : FormEvent, {
     item, 
     httpPatchClient, 
     httpPostClient,
+    callbackFn,
+    reloadPage = true
 } : IHandleSubmitProps<T> ){
 
     e.preventDefault();
@@ -26,7 +30,9 @@ async function handleSubmit<T extends { id?: string }>(e : FormEvent, {
         await submitPost({ url, item, httpPostClient });
     };
 
-    window.location.reload();
+    if(callbackFn) callbackFn();
+
+    if(reloadPage) window.location.reload();
 };
 
 export { handleSubmit };

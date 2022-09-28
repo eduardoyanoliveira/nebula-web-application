@@ -5,7 +5,7 @@ import TextBox from '../../Inputs/TextBox';
 import UserPhoto from '../../User/UserPhoto';
 import Like from '../../IconActions/Like';
 import Icon from '../../IconActions/Icon';
-import FavouriteAnswer from '../../Interactions/BestAnswer';
+import FavouriteAnswer from '../../Interactions/FavouriteAnswer';
 
 import { MdOutlineModeEditOutline } from 'react-icons/md';
 import { BsCheck2Circle } from 'react-icons/bs';
@@ -26,6 +26,9 @@ import {
 
 import { getUserCredentials } from '../../../application/useCases/UserCredentials';
 import { useAnswer } from '../../../application/features/Answers/useAnswer';
+import { httpAxiosPatchClient, httpAxiosPostClient } from '../../../application/Infra/axios';
+import { handleSubmit } from '../../../application/CommonHooks/Submit';
+import { FormEvent } from 'react';
 
 
 
@@ -35,14 +38,13 @@ interface IAnswerCardProps {
     answer : IAnswer
 };
 
-function AnswerCard({ answer } : IAnswerCardProps) {
+function AnswerCard( { answer } : IAnswerCardProps) {
 
     const { 
-        answerText, 
+        current, 
         editing,
         setEditing,
-        handleChange,
-        submitEdit
+        handleAnswerChange,
     } = useAnswer({ answer });
 
     const isDesktop = useMediaQuery(`(min-width: 650px)`);
@@ -67,13 +69,14 @@ function AnswerCard({ answer } : IAnswerCardProps) {
                     <TextBox 
                         maxWidth='80%' 
                         margin='0 auto' 
-                        value={answerText}
-                        onChange={handleChange}
+                        name='text'
+                        value={current.text}
+                        onChange={handleAnswerChange}
                     />
                 ) : 
                 (
                     <AnswerText isDesktop={isDesktop}>
-                        {answerText}
+                        {current.text}
                     </AnswerText>
                 )
             }
@@ -93,9 +96,16 @@ function AnswerCard({ answer } : IAnswerCardProps) {
                     {
                         editing && (
                             <Icon 
-                                margin=' 0 0 0 10px' 
-                                    onClick={() => submitEdit(answer, answerText)}
-                                    icon={<BsCheck2Circle/>}
+                                margin='0 0 0 10px' 
+                                onClick={(e: FormEvent) => handleSubmit(e, { 
+                                    url: 'answers',
+                                    item: current, 
+                                    httpPatchClient : httpAxiosPatchClient, 
+                                    httpPostClient : httpAxiosPostClient,
+                                    callbackFn: () => setEditing((prev : boolean) => prev = !prev ),
+                                    reloadPage: false
+                                })}
+                                icon={<BsCheck2Circle/>}
                             />
                         )
                     }

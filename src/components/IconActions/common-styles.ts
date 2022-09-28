@@ -37,7 +37,7 @@ export const IconContainer = styled.span<IIconContainerProps>`
     justify-content: space-between;
     align-items: center;
 
-    transition: all ease-in-out .2s;
+    transition: transform ease-in-out .2s;
 
     ${({theme, selected}) => css`
         color: ${selected  && theme.colors.primary};

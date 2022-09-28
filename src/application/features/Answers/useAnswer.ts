@@ -1,34 +1,58 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import useGet from "../../CommonHooks/useGet";
 import { IAnswer } from "../../Domain/Entities/IAnswer";
-import { axiosInstance } from "../../Infra/axios/axios-instance";
-import { HTTPAxiosPatchClient } from "../../Infra/axios/http-axios-patch-client";
+import { IQuestion } from "../../Domain/Entities/IQuestion";
+import { httpAxiosGetClient } from "../../Infra/axios";
+import { BestAnswerContext } from "../BestAnswer/BestAnswerContext";
+import { baseAnswer } from "./data";
 
-interface IEditAnswerProps {
-    answer: IAnswer,
+interface IUseAnswer {
+    answer?: IAnswer,
 };
 
-const httpPatchClient = new HTTPAxiosPatchClient(axiosInstance);
+export const useAnswer =  ({ answer } : IUseAnswer) => {
 
-export const useAnswer =  ({ answer } : IEditAnswerProps) => {
+    const params = useParams();
 
-    const [answerText, setAnswerText] = useState<string>(answer.text);
+    const { setBestAnswer } = useContext(BestAnswerContext);
+
+    const [current, setCurrent] = useState(answer || baseAnswer);
     const [ editing, setEditing ] = useState<boolean>(false);
 
-    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setAnswerText(e.target.value);
-    };
+    const { data: question, isFetching } = useGet<IQuestion>( httpAxiosGetClient, 'questions/' +  params.id );
 
-    const submitEdit = useCallback(async (answer: IAnswer, text: string) => {
+    const { data: answers } = useGet<IAnswer[]>(
+        httpAxiosGetClient, 
+        'answers', 
+        `question_id=${params.id}`
+    );
 
-        await httpPatchClient.patch('answers/' + answer.id, { text } );
-        setEditing((prev : boolean) => prev = !prev );
-    }, []);
+    useEffect(() => {
+
+        setCurrent( (prev) => prev = {
+            ...prev,
+            question_id: question?.id as string
+        });
+
+        setBestAnswer(question?.bestAnswers?.[0]);
+
+    }, [question, setBestAnswer]);
+    
+
+    const handleAnswerChange = useCallback((e : React.ChangeEvent<HTMLTextAreaElement>) => {
+        setCurrent((prev) => prev = {
+            ...prev,
+            [e.target.name]: e.target.value
+        });
+    },[]);
 
     return {
-        answerText,
+        current,
+        question,
+        answers,
         editing,
         setEditing,
-        handleChange,
-        submitEdit
+        handleAnswerChange,
     };
 };

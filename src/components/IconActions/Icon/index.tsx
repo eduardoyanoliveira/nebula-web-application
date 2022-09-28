@@ -1,11 +1,11 @@
 import { IconContainer } from '../common-styles';
 import { ThisIconContainer } from './styles';
-import { ReactNode } from 'react';
+import { FormEvent, ReactNode } from 'react';
 
 interface IIconProps {
     icon: ReactNode,
     selected?: boolean,
-    onClick?(): void,
+    onClick?(e?: FormEvent): void,
     margin?: string
 };
 
