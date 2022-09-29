@@ -5,6 +5,7 @@ import { ScreenSizes } from "../../application/utils/screen/sizes";
 export const Container = styled.nav`
 
     display: flex;
+    justify-content: space-between;
     align-items: center;
     position: relative;
     height: 80px;
@@ -33,6 +34,9 @@ export const Container = styled.nav`
 `;
 
 export const MenuBarsContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 30px;
     cursor: pointer;
 

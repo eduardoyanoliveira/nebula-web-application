@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getTokenFromCache } from "../../application/useCases/Token";
+import AppHeader from "../../components/AppHeader";
 import MenuNav from "../../components/MenuNav";
 import { Router } from "../../router";
-import { AppHeader, App, AppCenterContainer, BackgroundContainer, Content } from "./styles";
+import { App, AppCenterContainer, BackgroundContainer, Content } from "./styles";
 
 
 function AppTemplate() {
@@ -12,7 +13,7 @@ function AppTemplate() {
 
     useEffect(() => {
         if(getTokenFromCache.execute().isFailure){
-            console.log()
+            console.log('Error')
             navigate('/');
         };
     },[navigate]);

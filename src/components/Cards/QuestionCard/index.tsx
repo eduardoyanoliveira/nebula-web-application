@@ -30,7 +30,7 @@ function QuestionItemCard({ question, fullDisplay } : IQuestionItemCardProps) {
 
     const handleClick = () => {
         navigate('/answers/' + question.id)
-    }
+    };
 
     const isDesktop = useMediaQuery(`(min-width: 650px)`);
 
@@ -68,7 +68,7 @@ function QuestionItemCard({ question, fullDisplay } : IQuestionItemCardProps) {
                             {question.subject?.name}
                         </QuestionSubject>
                         <Title>
-                        {question.title}
+                            {question.title}
                         </Title>
                     </MiddleContainer>
                 )

@@ -1,7 +1,8 @@
 import styled, { css } from "styled-components";
 
 interface IToggleProps{
-    small?: boolean
+    small?: boolean,
+    margin?: string
 };
 
 export const CheckBoxInput = styled.input`
@@ -17,8 +18,9 @@ export const ToggleContainer = styled.div<IToggleProps>`
 
     border-radius: 30px;
 
-    ${({theme}) => css`
+    ${({theme, margin}) => css`
         background-color: ${theme.colors.typography200};
+        margin: ${margin};
     `}
 
 `;

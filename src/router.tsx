@@ -3,7 +3,6 @@ import ErrorPage from "./pages/Error";
 import LoginPage from "./pages/User/Login";
 import SubjectsRegisterPage from "./pages/Subjects/SubjectRegister";
 import SubjectsPage from "./pages/Subjects";
-import TestPage from "./pages/Test";
 import UserRegisterPage from "./pages/User/Register";
 import QuestionRegisterPage from "./pages/Questions/Register";
 import HomePage from "./pages/Home";
@@ -22,7 +21,6 @@ export function Router({ isLogged } : IRouterProps){
                 isLogged ? (
                     <Routes>
                         <Route path="/" element={<HomePage/>}></Route>
-                        <Route path="/test" element={<TestPage/>}></Route>
 
                         <Route path="/subjects" element={<SubjectsPage/>}></Route>
                         <Route path="/subjects/register" element={<SubjectsRegisterPage/>}></Route>

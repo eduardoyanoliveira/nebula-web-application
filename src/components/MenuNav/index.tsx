@@ -4,6 +4,7 @@ import Menu from "./Menu";
 import { useState } from "react";
 import { useMediaQuery } from "../../application/CommonHooks/useMediaQuery";
 import { ScreenSizes } from "../../application/utils/screen/sizes";
+import AppHeaderMenu from "../AppHeader/AppHeaderMenu";
 
 
 const MenuNav: React.FC = () => {
@@ -23,6 +24,9 @@ const MenuNav: React.FC = () => {
                 <MenuBarsContainer onClick={toggleMenu}>
                     <FaBars/>
                 </MenuBarsContainer>
+                {
+                    !isDesktop && (<AppHeaderMenu/>)
+                }
                 {
                     (open || isDesktop) && <Menu fn={toggleMenu}/>
                 }
