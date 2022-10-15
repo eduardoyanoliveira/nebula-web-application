@@ -5,12 +5,13 @@ import { CheckBoxInput, ToggleContainer, ToggleLabel } from "../styles";
 interface IToggleInputProps {
     small?: boolean,
     margin?: string,
+    initialValue?: boolean,
     onClick?(): void
 };
 
-const ToggleInputWithFunction: React.FC<IToggleInputProps> = ({ small, margin, onClick }) => {
+const ToggleInputWithFunction: React.FC<IToggleInputProps> = ({ small, margin, onClick, initialValue = false }) => {
 
-    const [toggle, setToggle] = useState<boolean>(false);
+    const [toggle, setToggle] = useState<boolean>(initialValue);
 
     const handleClick = useCallback(() => {
         setToggle((prev) => prev = !prev);

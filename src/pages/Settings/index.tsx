@@ -11,7 +11,7 @@ function SettingsPage() {
 
   const navigate = useNavigate();
 
-  const { toggleTheme } = useContext(ThemeContext);
+  const { toggleDark, isDarkTheme } = useContext(ThemeContext);
 
   return (
 
@@ -22,9 +22,18 @@ function SettingsPage() {
         <Label>Tema escuro?</Label>
         <ToggleInputWithFunction 
           margin='0 20px 0 0' 
-          onClick={toggleTheme}
+          onClick={toggleDark}
+          initialValue={isDarkTheme}
         />
       </Container>
+
+      {/* <Container>
+        <Label>Utilizar tema BlueSky?</Label>
+        <ToggleInputWithFunction 
+          margin='0 20px 0 0' 
+          onClick={toggleTheme}
+        />
+      </Container> */}
 
       {
         userCredentials.role === 'ADMIN' && (

@@ -8,21 +8,20 @@ import { SaveItemOnLocalStorage } from '../../application/useCases/Cache/save-it
 
 export const ThemeContext =  createContext({
   isDarkTheme: false,
-  toggleTheme: () => {},
+  toggleDark: () => {},
 });
 
 interface Props {
   children: ReactNode
-}
+};
 
 const getItemFromCache = new GetItemfromLocalStorage<boolean>();
 const saveItemFromCache = new SaveItemOnLocalStorage<boolean>();
-
 const  ThemeProvider: React.FC<Props> = ({children}) => {
 
   const [dark, setDark] = usePersistedState('is_dark', false, getItemFromCache, saveItemFromCache);
 
-  const toggleTheme = () => {
+  const toggleDark = () => {
     setDark(!dark);
   };
   
@@ -30,12 +29,12 @@ const  ThemeProvider: React.FC<Props> = ({children}) => {
     <ThemeContext.Provider
         value={{
           isDarkTheme: dark,
-          toggleTheme,
+          toggleDark
         }}
     >
-    <StyledThemeProvider theme={dark ? darkTheme : lightTheme}>
-      {children}
-    </StyledThemeProvider>
+      <StyledThemeProvider theme={dark ? darkTheme : lightTheme}>
+        {children}
+      </StyledThemeProvider>
     </ThemeContext.Provider>
   );
 }
