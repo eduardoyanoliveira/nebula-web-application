@@ -9,8 +9,8 @@ function useSubjectForm(subject : ISubject) {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {  
         setCurrent({
-        ...current,
-        [e.target.name]: e.target.value
+            ...current,
+            [e.target.name]: e.target.value
         });
     };
 

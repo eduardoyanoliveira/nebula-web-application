@@ -2,10 +2,12 @@ import { useContext } from 'react';
 import { ThemeContext } from '../../styles/themeProvider';
 import { MainContainer, Container, Label, Title, Toggle } from './styles';
 import { BsCheckLg } from 'react-icons/bs';
-import { userCredentials } from '../../application/useCases/UserCredentials';
 import { useNavigate } from 'react-router-dom';
 import  ButtonComponent from '../../components/Buttons/Button';
 import { ButtonColors } from '../../components/Buttons/Button/ButtonColors';
+import { getUserCredentials } from '../../application/useCases/UserCredentials';
+
+const credentialsResponse = getUserCredentials.execute();
 
 function SettingsPage() {
 
@@ -43,12 +45,22 @@ function SettingsPage() {
       </Container>
 
       {
-        userCredentials.role === 'ADMIN' && (
+        credentialsResponse.getValue().role === 'ADMIN' ? (
           <Container>
             <ButtonComponent 
               backgroundColor={ButtonColors.primaryGradient} 
               text={'Cadastrar usuário'}
               onClick={() => navigate('/users/register')}
+            />
+          </Container>
+        ) 
+        :
+        (
+          <Container>
+            <ButtonComponent 
+              backgroundColor={ButtonColors.primaryGradient} 
+              text={'Editar usuário'}
+              onClick={() => navigate(`/users/edit/`)}
             />
           </Container>
         )

@@ -1,17 +1,10 @@
 import React, { ChangeEvent, useState } from 'react'
-import { IUser } from '../../Domain/Entities/IUser';
-
-
 import { baseUser } from './data';
+import { IEditableUser } from './interface';
 
-interface IEditableUser extends IUser{
-  password?: string,
-  file: string | File
-};
+function useUserForm(user: IEditableUser) {
 
-function useUserForm() {
-
-    const [current, setCurrent] = useState<IEditableUser>(baseUser);
+    const [current, setCurrent] = useState<IEditableUser>(user || baseUser);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {  
         setCurrent({
@@ -20,7 +13,7 @@ function useUserForm() {
         });
     };
 
-    const [url, setUrl] = useState('');
+    const [url, setUrl] = useState(user ? `http://localhost:3333/files/${user.photo}`  : '');
 
     const handleFile = (e: ChangeEvent<HTMLInputElement>) => {
         if(!e.target.files) return;
@@ -46,7 +39,6 @@ function useUserForm() {
     };
 
     return { 
-
         current, 
         setCurrent, 
         handleChange, 

@@ -29,11 +29,6 @@ export const menuData: MenuItem[] = [
         icon: <AiOutlineQuestionCircle/>,
     },
     {
-        title: 'Usuários',
-        path: '/users/register',
-        icon: <FaRegUser/>,
-    },
-    {
         title: 'Configurações',
         path: '/settings',
         icon: <IoSettingsOutline/>,
