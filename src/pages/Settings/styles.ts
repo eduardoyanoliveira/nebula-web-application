@@ -1,6 +1,4 @@
 import styled, { css } from 'styled-components';
-import { Link } from 'react-router-dom';
-
 
 export const MainContainer = styled.div`
     width: 100%;
@@ -16,7 +14,7 @@ export const Title = styled.h1`
         color: ${theme.colors.typography500};
     `};
 
-    margin: 30px 0 0 0;
+    margin: 50px 0;
 `;
 
 export const Container = styled.div`
@@ -33,4 +31,27 @@ export const Label = styled.span`
     `};
 
     margin-right: 30px;
+`;
+
+interface IToggle {
+    isToggled: boolean
+};
+
+export const Toggle = styled.div<IToggle>`
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+
+    ${({theme, isToggled}) => css`
+        background-color: ${isToggled ? theme.colors.primary : theme.colors.typography200};
+        color: #FFF;
+    `};
+
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    
 `;

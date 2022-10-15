@@ -1,7 +1,7 @@
 import { useContext } from 'react';
-import ToggleInputWithFunction from '../../components/Inputs/ToggleInput/WithFunction'; 
 import { ThemeContext } from '../../styles/themeProvider';
-import { MainContainer, Container, Label, Title } from './styles';
+import { MainContainer, Container, Label, Title, Toggle } from './styles';
+import { BsCheckLg } from 'react-icons/bs';
 import { userCredentials } from '../../application/useCases/UserCredentials';
 import { useNavigate } from 'react-router-dom';
 import  ButtonComponent from '../../components/Buttons/Button';
@@ -11,29 +11,36 @@ function SettingsPage() {
 
   const navigate = useNavigate();
 
-  const { toggleDark, isDarkTheme } = useContext(ThemeContext);
+  const { toggleDark, toggleTheme, isDarkTheme, isNebulaTheme } = useContext(ThemeContext);
 
   return (
 
     <MainContainer>
-      <Title>Settings</Title>
+      <Title>Configurações:</Title>
 
       <Container>
         <Label>Tema escuro?</Label>
-        <ToggleInputWithFunction 
-          margin='0 20px 0 0' 
+        <Toggle 
+          isToggled={isDarkTheme}
           onClick={toggleDark}
-          initialValue={isDarkTheme}
-        />
+        > 
+          {
+            isDarkTheme && <BsCheckLg/>
+          }
+        </Toggle>
       </Container>
 
-      {/* <Container>
+      <Container>
         <Label>Utilizar tema BlueSky?</Label>
-        <ToggleInputWithFunction 
-          margin='0 20px 0 0' 
+        <Toggle 
+          isToggled={!isNebulaTheme}
           onClick={toggleTheme}
-        />
-      </Container> */}
+        > 
+          {
+            !isNebulaTheme && <BsCheckLg/>
+          }
+        </Toggle>
+      </Container>
 
       {
         userCredentials.role === 'ADMIN' && (
