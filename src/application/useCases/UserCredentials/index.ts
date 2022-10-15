@@ -18,7 +18,15 @@ const signIn = new SignIn(remoteAuthentication, saveItemOnCache);
 const getItemFromCache = new GetItemfromLocalStorage<IUser>();
 const getUserCredentials = new GetUserCredentials(getItemFromCache);
 
+const userCredentialsReponse = getUserCredentials.execute();
+
+if(userCredentialsReponse.isFailure){
+    console.log('Unable to get user credentials');
+};
+
+const userCredentials = userCredentialsReponse.getValue();
+
 const deleteItemFromCache = new DeleteItemFromLocalStorage();
 const signOut = new SignOut(deleteItemFromCache)
 
-export { getUserCredentials, signIn, signOut };
+export { getUserCredentials, signIn, signOut, userCredentials };

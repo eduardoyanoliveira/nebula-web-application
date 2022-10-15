@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import { AiOutlineFileSearch, AiOutlineQuestionCircle } from 'react-icons/ai';
+import { IoSettingsOutline } from 'react-icons/io5';
 import { FaRegUser } from 'react-icons/fa';
 export interface SubItem {
     title: string,
@@ -31,6 +32,11 @@ export const menuData: MenuItem[] = [
         title: 'Usuários',
         path: '/users/register',
         icon: <FaRegUser/>,
+    },
+    {
+        title: 'Configurações',
+        path: '/settings',
+        icon: <IoSettingsOutline/>,
     }
 ];
 

@@ -7,6 +7,7 @@ import UserRegisterPage from "./pages/User/Register";
 import QuestionRegisterPage from "./pages/Questions/Register";
 import HomePage from "./pages/Home";
 import AnswersPage from "./pages/Questions/Answers";
+import SettingsPage from "./pages/Settings";
 
 interface IRouterProps {
     isLogged: boolean
@@ -30,7 +31,8 @@ export function Router({ isLogged } : IRouterProps){
                         <Route path="/answers/:id" element={<AnswersPage/>}></Route>
 
                         <Route path="/users/register" element={<UserRegisterPage/>}></Route>
-                        
+
+                        <Route path="/settings" element={<SettingsPage/>}></Route>
                         <Route path="*" element={<ErrorPage/>}></Route>
                     </Routes> 
                    

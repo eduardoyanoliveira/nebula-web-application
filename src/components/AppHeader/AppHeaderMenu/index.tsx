@@ -2,10 +2,8 @@ import { useContext } from 'react'
 import { IoMdExit } from 'react-icons/io'
 import UserPhoto from '../../User/UserPhoto'
 import { HeaderMenu, Logout } from './styles'
-import ToggleInputWithFunction from '../../Inputs/ToggleInput/WithFunction';
 import { useNavigate } from 'react-router-dom';
 import { getUserCredentials } from '../../../application/useCases/UserCredentials';
-import { ThemeContext } from '../../../styles/themeProvider';
 import { AuthContext } from '../../../application/features/Authentication/contexts/AuthContext';
 
 function AppHeaderMenu() {
@@ -20,9 +18,6 @@ function AppHeaderMenu() {
 
     const user = credentialsResponse.getValue();
 
-
-    const { toggleTheme } = useContext(ThemeContext);
-
     const { signOut } = useContext(AuthContext);
 
     const handleLogout = () => {
@@ -32,10 +27,6 @@ function AppHeaderMenu() {
 
     return (
         <HeaderMenu>
-            <ToggleInputWithFunction 
-                margin='0 20px 0 0' 
-                onClick={toggleTheme}
-            />
             <UserPhoto 
                 photoUrl={user.photo as string} 
                 alt={user.username as string}
