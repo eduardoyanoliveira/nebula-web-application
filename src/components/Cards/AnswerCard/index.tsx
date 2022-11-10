@@ -10,6 +10,7 @@ import FavouriteAnswer from '../../Interactions/FavouriteAnswer';
 import { MdOutlineModeEditOutline } from 'react-icons/md';
 import { BsCheck2Circle } from 'react-icons/bs';
 
+import useGet from '../../../application/CommonHooks/useGet';
 
 import { 
     AnswerContainer,
@@ -26,9 +27,9 @@ import {
 
 import { getUserCredentials } from '../../../application/useCases/UserCredentials';
 import { useAnswer } from '../../../application/features/Answers/useAnswer';
-import { httpAxiosPatchClient, httpAxiosPostClient } from '../../../application/Infra/axios';
+import { httpAxiosDeleteClient, httpAxiosGetClient, httpAxiosPatchClient, httpAxiosPostClient } from '../../../application/Infra/axios';
 import { handleSubmit } from '../../../application/CommonHooks/Submit';
-import { FormEvent } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 
 
 
@@ -49,6 +50,49 @@ function AnswerCard( { answer } : IAnswerCardProps) {
 
     const isDesktop = useMediaQuery(`(min-width: 650px)`);
 
+    const { data: likeAmount } = useGet<number>(
+        httpAxiosGetClient, 
+        `likes/count_likes_by_answer/${answer.id}`, 
+        ''
+    );
+
+    const { data: likeAlreadyExists } = useGet<boolean>(
+        httpAxiosGetClient, 
+        `likes/find_like_by_author_and_answer/${answer.id}`, 
+        ''
+    );
+
+    const [likes, setLikes] = useState(0);
+    const [hasLiked, setHasLiked] = useState(likeAlreadyExists || false);
+
+    useEffect(() => {
+      setLikes((prev) => prev = likeAmount || 0);
+    },[likeAmount]);
+    
+    useEffect(() => {
+        setHasLiked((prev) => prev = likeAlreadyExists || false);
+    },[likeAlreadyExists]);
+
+    const giveLike = async () => {
+
+        setLikes((prev) => prev + 1);
+        setHasLiked((prev) => !prev);
+        await httpAxiosPostClient.post('likes', {
+            answerId: answer.id
+        });
+    };
+
+    const removeLike = async () => {
+
+        setLikes((prev) => prev - 1);
+        setHasLiked((prev) => !prev);
+        await httpAxiosDeleteClient.delete(`likes/`, answer.id as string);
+    }
+
+    const handleLikeClick = () => {
+        hasLiked ? removeLike() : giveLike();
+    };
+  
     return (
         <AnswerContainer isDesktop={isDesktop}>
             <TopContainer>
@@ -83,7 +127,7 @@ function AnswerCard( { answer } : IAnswerCardProps) {
         
                 <IconsContainer> 
                     <FavouriteAnswer answer={answer}/>
-                    <Like/>
+                    <Like likeAmount={likes} onClick={handleLikeClick} isActive={hasLiked}/>
                     {
                         (credentialsResponse.getValue().id === answer.author?.id && !editing) && (
                             <Icon 

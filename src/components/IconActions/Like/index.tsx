@@ -3,17 +3,19 @@ import { Container, IconContainer, CountCircle } from '../common-styles';
 
 interface ILikeProps {
     onClick?(): void,
-    margin?: string
+    margin?: string,
+    likeAmount: number,
+    isActive: boolean
 };
 
-function Like({ margin, onClick } : ILikeProps) {
+function Like({ margin, likeAmount, isActive, onClick } : ILikeProps) {
     return (
         <Container margin={margin} onClick={onClick} >
-            <IconContainer>
+            <IconContainer selected={isActive}>
                 <BiLike style={{transform: 'rotateY(180deg)'}} />
             </IconContainer>
             <CountCircle>
-                5
+                {likeAmount}
             </CountCircle>
         </Container>
     );

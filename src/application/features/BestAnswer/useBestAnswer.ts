@@ -25,13 +25,13 @@ function useBestAnswer({ answer, httpPostClient, httpPatchClient, httpDeleteClie
             created_at: new Date()
         };
 
-        await httpPostClient.post('best_answers', newBestAnswer);
+        await httpPostClient.post('bestAnswers', newBestAnswer);
         await httpPatchClient.patch('questions/' + answer.question.id, { is_closed: true });
         setBestAnswer(newBestAnswer);
     };
 
     const handleDeleteClick = async () => {
-        await httpDeleteClient.delete('best_answers/', answer.question.id);
+        await httpDeleteClient.delete('bestAnswers/', answer.question.id);
         await httpPatchClient.patch('questions/' + answer.question.id, { is_closed: false });
         setBestAnswer(undefined);
     };
