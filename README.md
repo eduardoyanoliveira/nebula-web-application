@@ -1,46 +1,11 @@
-# Getting Started with Create React App
+# Nebula
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+&nbsp; Nebula is a fullstack web application created to be used as the company's internal forum. A lot of companies unfortunatly share a big problem the misinformation. <br>
 
-## Available Scripts
+&nbsp;It is common to see employees that can not do their work because of the lack of information. Sometimes this misinformation occurs because the company does not have enough employees to propragate information in the company. In other cases there are enough employees with the necessary knowledge, but they are too busy doing their own work. Another reason for this problem is the lacking of trainament.
 
-In the project directory, you can run:
+&nbsp; Even tough there are several reasons that may lead to this situation.One simple solution would be a platform where the employees can ask questions and be replied for any other avalible employee in the company that is capable to do so. So that how nebula was born.
 
-### `npm start`
+![alt text](https://github.com/eduardoyanoliveira/buddy_advice_web/blob/master/project_images/tablet.png) ![alt text](https://github.com/eduardoyanoliveira/buddy_advice_web/blob/master/project_images/Home_mobile.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
