@@ -6,6 +6,6 @@
 
 &nbsp; Even tough there are several reasons that may lead to this situation.One simple solution would be a platform where the employees can ask questions and be replied for any other avalible employee in the company that is capable to do so. So that how nebula was born.
 
-![alt text](https://github.com/eduardoyanoliveira/buddy_advice_web/blob/master/project_images/tablet.png) ![alt text](https://github.com/eduardoyanoliveira/buddy_advice_web/blob/master/project_images/Home_mobile.png)
+![alt text](https://github.com/eduardoyanoliveira/nebula-api/blob/master/github_images/Nebul_%20Mosaic.png)
 
 
