@@ -46,7 +46,7 @@
   - Styled-Components
   - Axios
   - Jest
-  - HTML%
+  - HTML5
   - CSS3
   - React Query
   
